@@ -1,1 +1,2222 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HandiVie+ — Compagnon d'Autonomie, Accessibilité & Loisirs</title>
+  <meta name="theme-color" content="#1e3a8a" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Naskh+Arabic:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-page: #f4f6f9;
+      --bg-solid: #f4f6f9;
+      --surface: #ffffff;
+      --surface-2: #f8fafc;
+      --surface-3: #eef2f6;
+      --text: #111827;
+      --muted: #4b5563;
+      --primary: #1e3a8a;
+      --primary-dark: #172554;
+      --primary-soft: #e2e8f0;
+      --danger: #b91c1c;
+      --danger-dark: #991b1b;
+      --danger-soft: #fef2f2;
+      --border: #cbd5e1;
+      --border-strong: #94a3b8;
+      --radius-xl: 20px;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --font-size: 18px;
+      --line-height: 1.6;
+      --letter-spacing: 0px;
+      --word-spacing: 0px;
+      --font-main: 'Plus Jakarta Sans', 'Noto Naskh Arabic', system-ui, -apple-system, sans-serif;
+      --shadow-lg: 0 6px 18px rgba(15, 23, 42, 0.05);
+      --shadow-sm: 0 2px 6px rgba(15, 23, 42, 0.04);
+    }
+
+    body.mode-contrast {
+      --bg-page: #000000;
+      --bg-solid: #000000;
+      --surface: #0c0f14;
+      --surface-2: #141923;
+      --surface-3: #1e293b;
+      --text: #ffffff;
+      --muted: #e2e8f0;
+      --primary: #93c5fd;
+      --primary-dark: #60a5fa;
+      --primary-soft: #1e293b;
+      --danger: #f87171;
+      --danger-dark: #dc2626;
+      --danger-soft: #2a0c0c;
+      --border: #94a3b8;
+      --border-strong: #e2e8f0;
+      --shadow-lg: none;
+      --shadow-sm: none;
+    }
+
+    body.mode-dys {
+      --font-main: 'Atkinson Hyperlegible', 'Noto Naskh Arabic', system-ui, sans-serif;
+      --line-height: 1.88;
+      --letter-spacing: 0.035em;
+      --word-spacing: 0.16em;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg-page);
+      background-color: var(--bg-solid);
+      color: var(--text);
+      font-family: var(--font-main);
+      font-size: var(--font-size);
+      line-height: var(--line-height);
+      letter-spacing: var(--letter-spacing);
+      word-spacing: var(--word-spacing);
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+      color: inherit;
+    }
+
+    button, .ext-link {
+      cursor: pointer;
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      min-height: 48px;
+      padding: 11px 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      touch-action: manipulation;
+      transition: transform 0.12s ease, background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    button:active, .ext-link:active { transform: scale(0.98); }
+    button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, a:focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    .scan-active {
+      outline: 4px solid var(--primary) !important;
+      outline-offset: 2px !important;
+    }
+
+    .reading-ruler {
+      position: fixed;
+      left: 0; right: 0;
+      height: 54px;
+      background: rgba(30, 58, 138, 0.08);
+      border-top: 2px solid var(--primary);
+      border-bottom: 2px solid var(--primary);
+      pointer-events: none;
+      z-index: 900;
+      display: none;
+    }
+    body.ruler-on .reading-ruler { display: block; }
+
+    .screen-flash {
+      position: fixed;
+      inset: 0;
+      background: #ffffff;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 1300;
+      transition: opacity 0.15s ease;
+    }
+    .screen-flash.on { opacity: 0.9; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 450;
+      background: var(--surface);
+      border-bottom: 1.5px solid var(--border);
+      padding: 10px 14px;
+    }
+
+    .topbar-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .cluster {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .chip-btn {
+      background: var(--surface-2);
+      border: 1.5px solid var(--border);
+      min-height: 42px;
+      padding: 6px 11px;
+      font-size: 0.86em;
+      border-radius: 10px;
+    }
+    .chip-btn.on {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+    body.mode-contrast .chip-btn.on { color: #000000; }
+
+    .lang-picker {
+      background: var(--surface-2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 6px 11px;
+      min-height: 42px;
+      font-weight: 700;
+      font-size: 0.88em;
+      cursor: pointer;
+    }
+
+    .btn-pro-badge {
+      background: var(--surface-3);
+      color: var(--text);
+      border: 1.5px solid var(--border-strong);
+      min-height: 42px;
+      padding: 7px 13px;
+      font-size: 0.88em;
+    }
+
+    .btn-ice-badge {
+      background: var(--danger);
+      color: #ffffff;
+      border-color: var(--danger-dark);
+      min-height: 42px;
+      padding: 7px 13px;
+      font-size: 0.88em;
+    }
+
+    .shell {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 18px 14px 96px;
+    }
+
+    .hero-banner {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 20px 22px;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 16px;
+    }
+
+    .hero-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .hero-title {
+      margin: 0;
+      font-size: 1.65em;
+      font-weight: 800;
+    }
+
+    .hero-sub {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.98em;
+    }
+
+    .pill-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.82em;
+      font-weight: 700;
+      background: var(--surface-3);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .tag-free { background: var(--surface-3); color: var(--text); }
+    .tag-pro { background: var(--surface-2); color: var(--muted); }
+    .tag-warn { background: var(--danger-soft); color: var(--danger-dark); border-color: var(--danger); }
+
+    .hero-footer {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 0.9em;
+    }
+
+    .profiles-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .profile-pill {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 999px;
+      min-height: 42px;
+      padding: 7px 14px;
+      font-size: 0.88em;
+      box-shadow: var(--shadow-sm);
+    }
+    .profile-pill.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+    body.mode-contrast .profile-pill.active { color: #000000; }
+
+    .module-nav {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .module-tab {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 12px 10px;
+      min-height: 66px;
+      flex-direction: column;
+      gap: 3px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+    .module-tab.active {
+      background: var(--primary);
+      border-color: var(--primary-dark);
+      color: #ffffff;
+    }
+    body.mode-contrast .module-tab.active { color: #000000; }
+
+    .module-panel {
+      display: none;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 22px;
+      box-shadow: var(--shadow-lg);
+    }
+    .module-panel.active { display: block; }
+
+    .panel-title { margin: 0 0 6px; font-size: 1.35em; font-weight: 800; }
+    .panel-sub { margin: 0 0 16px; color: var(--muted); }
+
+    .btn-blue { background: var(--primary); color: #ffffff; border-color: var(--primary-dark); }
+    body.mode-contrast .btn-blue { color: #000000; }
+    .btn-green { background: var(--primary); color: #ffffff; border-color: var(--primary-dark); }
+    body.mode-contrast .btn-green { color: #000000; }
+    .btn-amber { background: var(--surface-3); color: var(--text); border-color: var(--border-strong); }
+    .btn-soft { background: var(--surface-2); border: 1.5px solid var(--border); }
+
+    .stage-box {
+      background: var(--surface-2);
+      border: 1.5px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .stage-text {
+      font-size: 1.35em;
+      font-weight: 800;
+      min-height: 42px;
+      margin-bottom: 12px;
+    }
+
+    .row-flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+      align-items: center;
+    }
+
+    input[type="text"], input[type="time"], input[type="tel"], textarea, select.std-select {
+      background: var(--surface-2);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      min-height: 48px;
+      flex: 1 1 200px;
+    }
+
+    .caa-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .caa-tile {
+      background: var(--surface-2);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 14px 10px;
+      min-height: 112px;
+      flex-direction: column;
+      text-align: center;
+      gap: 6px;
+    }
+    .caa-tile:hover { border-color: var(--primary); }
+
+    .priority-card {
+      background: var(--surface-2);
+      color: var(--text);
+      border: 2px solid var(--primary);
+      border-radius: var(--radius-xl);
+      padding: 22px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .box-card {
+      background: var(--surface-2);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+    }
+
+    .item-strip {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .bar-bg {
+      height: 10px;
+      background: var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 12px 0;
+    }
+    .bar-fill {
+      height: 100%;
+      width: 100%;
+      background: var(--primary);
+      transition: width 0.35s linear;
+    }
+
+    .orb-breath {
+      width: 144px;
+      height: 144px;
+      border-radius: 50%;
+      margin: 14px auto;
+      background: var(--primary);
+      color: #ffffff;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 12px;
+      transition: transform 3.8s ease-in-out;
+    }
+    body.mode-contrast .orb-breath { color: #000000; }
+
+    /* Jeux adaptés */
+    .simon-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      max-width: 420px;
+      margin: 14px auto;
+    }
+    .simon-pad {
+      min-height: 92px;
+      border-radius: var(--radius-lg);
+      border: 2px solid var(--border-strong);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 1.15em;
+      font-weight: 800;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .simon-pad.lit {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary-dark);
+      transform: scale(1.03);
+    }
+    body.mode-contrast .simon-pad.lit { color: #000000; }
+
+    .odd-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .odd-card {
+      min-height: 76px;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      font-size: 1.15em;
+      font-weight: 800;
+    }
+    .odd-card:hover { border-color: var(--primary); }
+
+    .pairs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .pair-card {
+      min-height: 72px;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      font-weight: 800;
+    }
+    .pair-card.matched {
+      background: var(--primary-soft);
+      border-color: var(--primary);
+    }
+
+    .ice-hero {
+      background: var(--danger);
+      color: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .ice-dial {
+      background: #ffffff;
+      color: var(--danger-dark);
+      font-weight: 900;
+      margin-top: 8px;
+    }
+
+    .ice-preview {
+      background: var(--danger-soft);
+      border: 1.5px solid var(--danger);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      margin-top: 14px;
+      color: var(--text);
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 1100;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal-box {
+      background: var(--surface);
+      border: 2px solid var(--border-strong);
+      border-radius: var(--radius-xl);
+      max-width: 580px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 22px;
+    }
+
+    .toast-msg {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #111827;
+      color: #ffffff;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9em;
+      z-index: 1500;
+      display: none;
+      max-width: 92vw;
+      text-align: center;
+    }
+    .toast-msg.show { display: block; }
+  </style>
+</head>
+<body>
+  <div class="reading-ruler" id="readingRuler"></div>
+  <div class="screen-flash" id="screenFlash"></div>
+  <div class="toast-msg" id="toastMsg" role="status" aria-live="polite"></div>
+
+  <header class="topbar" aria-label="Outils d'accessibilité et langue">
+    <div class="topbar-inner">
+      <div class="cluster">
+        <button type="button" class="chip-btn" id="btnFontDown">A-</button>
+        <button type="button" class="chip-btn" id="btnFontUp">A+</button>
+        <button type="button" class="chip-btn" id="btnContrast">Contraste</button>
+        <button type="button" class="chip-btn" id="btnDys">DYS</button>
+        <button type="button" class="chip-btn" id="btnRuler">Règle</button>
+        <button type="button" class="chip-btn" id="btnScan">Balayage</button>
+        <button type="button" class="chip-btn" id="btnReadScreen">Lire</button>
+      </div>
+
+      <div class="cluster">
+        <select class="lang-picker" id="langSelect" aria-label="Langue">
+          <option value="fr">Français</option>
+          <option value="ar">العربية</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="de">Deutsch</option>
+          <option value="it">Italiano</option>
+        </select>
+        <button type="button" class="btn-pro-badge" id="btnOpenSub">2,00 €/mois</button>
+        <button type="button" class="btn-ice-badge" id="btnTopIce">Urgence ICE</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero-banner">
+      <div class="hero-header">
+        <div>
+          <h1 class="hero-title" id="uiAppTitle">HandiVie+</h1>
+          <p class="hero-sub" id="uiAppSub">Suite complète d'autonomie, communication, santé, loisirs adaptés et accès prioritaire</p>
+        </div>
+        <span class="pill-tag tag-free" id="uiFreeBadge">Urgence ICE 100 % gratuite</span>
+      </div>
+
+      <div class="hero-footer">
+        <span id="uiNetState" style="font-weight:700;">Internet : vérification...</span>
+        <span class="pill-tag tag-pro" id="uiSubStatus">Essai 7 jours • Option Confort 2,00 €/mois</span>
+        <span id="uiActivityLog" style="color:var(--muted);font-weight:600;">Prêt</span>
+      </div>
+    </section>
+
+    <div class="profiles-strip" aria-label="Profils rapides">
+      <button type="button" class="profile-pill" data-prof="vision">Handicap Visuel</button>
+      <button type="button" class="profile-pill" data-prof="motor">Handicap Moteur</button>
+      <button type="button" class="profile-pill" data-prof="hearing">Handicap Auditif</button>
+      <button type="button" class="profile-pill" data-prof="cognitive">Cognitif / DYS</button>
+      <button type="button" class="profile-pill" data-prof="reset">Standard</button>
+    </div>
+
+    <nav class="module-nav" aria-label="Navigation principale">
+      <button type="button" class="module-tab active" data-tab="speak" id="navSpeak"><span>Parler & Écouter</span></button>
+      <button type="button" class="module-tab" data-tab="priority" id="navPriority"><span>Pass Prioritaire</span></button>
+      <button type="button" class="module-tab" data-tab="health" id="navHealth"><span>Pilulier & Jour</span></button>
+      <button type="button" class="module-tab" data-tab="falc" id="navFalc"><span>Lecteur FALC</span></button>
+      <button type="button" class="module-tab" data-tab="calm" id="navCalm"><span>Calme & Temps</span></button>
+      <button type="button" class="module-tab" data-tab="games" id="navGames"><span>Loisirs & Jeux</span></button>
+      <button type="button" class="module-tab" data-tab="places" id="navPlaces"><span>GPS & Lieux PMR</span></button>
+      <button type="button" class="module-tab" data-tab="ice" id="navIce"><span>Urgence ICE</span></button>
+    </nav>
+
+    <!-- 1. PARLER & ECOUTER -->
+    <section class="module-panel active" id="panel-speak">
+      <h2 class="panel-title" id="speakHead">Communication Parlée, Pictogrammes & Sous-titres</h2>
+      <p class="panel-sub" id="speakLead">Construisez une phrase avec les cartes, faites-la lire à voix haute ou transcrivez la voix de votre interlocuteur.</p>
+
+      <div class="stage-box">
+        <div class="stage-text" id="phraseDisplay" aria-live="polite">Bonjour, j'ai besoin d'aide s'il vous plaît.</div>
+        <div class="row-flex" style="margin-bottom:0;">
+          <button type="button" class="btn-blue" id="btnSpeakNow">Parler</button>
+          <button type="button" class="btn-green" id="btnLiveCaptions">Sous-titrer</button>
+          <button type="button" class="btn-amber" id="btnFullscreenText">Écran Géant</button>
+          <button type="button" class="btn-soft" id="btnCopyPhrase">Copier</button>
+          <button type="button" class="btn-soft" id="btnClearText">Effacer</button>
+          <select class="std-select" id="speechRate" aria-label="Vitesse vocale" style="max-width:175px;">
+            <option value="0.75">Voix lente</option>
+            <option value="1" selected>Voix normale</option>
+            <option value="1.25">Voix rapide</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row-flex">
+        <input type="text" id="customInput" placeholder="Écrire une phrase personnalisée..." />
+        <button type="button" class="btn-blue" id="btnAddSpeak">Dire</button>
+      </div>
+
+      <div class="caa-grid" id="caaContainer"></div>
+    </section>
+
+    <!-- 2. PASS PRIORITAIRE & CMI -->
+    <section class="module-panel" id="panel-priority">
+      <h2 class="panel-title" id="prioHead">Pass Prioritaire Visuel & Sonore (File d'attente / Caisse)</h2>
+      <p class="panel-sub" id="prioLead">Signalez votre priorité ou votre besoin d'aménagement sans avoir à vous justifier oralement.</p>
+
+      <div class="priority-card">
+        <span class="pill-tag tag-warn" style="margin-bottom:8px;">CARTE MOBILITÉ INCLUSION / PRIORITÉ</span>
+        <h3 id="prioCardTitle" style="margin:6px 0 10px;font-size:1.5em;">Accès Prioritaire Demandé</h3>
+        <p id="prioCardBody" style="margin:0 0 16px;">
+          Je suis titulaire d'une carte de priorité / mobilité inclusion. Merci de me faciliter le passage ou de m'accorder un accueil adapté.
+        </p>
+        <div class="row-flex" style="justify-content:center;margin-bottom:0;">
+          <button type="button" class="btn-blue" id="btnTriggerSignal">Signal Visuel & Vocal</button>
+          <button type="button" class="btn-amber" id="btnQuickAlarm">Alerte Visuelle</button>
+          <button type="button" class="btn-soft" id="btnShowPrioFull">Montrer en Plein Écran</button>
+        </div>
+      </div>
+
+      <div class="box-card">
+        <h3 style="margin-top:0;">Personnaliser mon message d'accueil</h3>
+        <div class="row-flex" style="margin-bottom:0;">
+          <select class="std-select" id="prioPresetSelect">
+            <option value="Je suis titulaire d'une carte de priorité / mobilité inclusion. Merci de me faciliter le passage.">Accès prioritaire file d'attente / caisse</option>
+            <option value="J'ai un handicap invisible qui rend la station debout pénible. Merci de me laisser une place assise.">Besoin d'une place assise (handicap invisible)</option>
+            <option value="Je suis sourd ou malentendant. Merci de me parler de face, lentement, ou d'écrire.">Communication adaptée (malentendant)</option>
+            <option value="J'ai besoin d'un accompagnement calme et sans précipitation pour mes démarches.">Accueil calme et sans stress</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. PILULIER & ROUTINE -->
+    <section class="module-panel" id="panel-health">
+      <h2 class="panel-title" id="healthHead">Pilulier Horodaté, Hydratation & Routine Quotidienne</h2>
+      <p class="panel-sub" id="healthLead">Suivez vos prises de médicaments, votre hydratation et vos rendez-vous puis partagez le bilan.</p>
+
+      <div class="box-card">
+        <div class="row-flex" style="justify-content:space-between;margin-bottom:0;">
+          <div>
+            <strong>Hydratation du jour :</strong> <span id="waterCountText">0 verre(s)</span>
+          </div>
+          <div class="cluster">
+            <button type="button" class="btn-blue" id="btnAddWater">+1 Verre d'eau</button>
+            <button type="button" class="btn-soft" id="btnResetWater">Réinitialiser</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row-flex">
+        <input type="time" id="medTime" value="08:30" />
+        <input type="text" id="medName" placeholder="Ex. Traitement matin, séance kiné, rdv médecin..." />
+        <button type="button" class="btn-green" id="btnAddMed">Ajouter</button>
+        <button type="button" class="btn-soft" id="btnShareLog">Copier le bilan</button>
+      </div>
+
+      <div id="medList"></div>
+    </section>
+
+    <!-- 4. LECTEUR FALC & DYS -->
+    <section class="module-panel" id="panel-falc">
+      <h2 class="panel-title" id="falcHead">Assistant de Lecture Facile (FALC / DYS) & Numéros Utiles</h2>
+      <p class="panel-sub" id="falcLead">Collez un courrier administratif, une ordonnance ou une notice : l'outil découpe les syllabes et le lit lentement.</p>
+
+      <div class="box-card">
+        <textarea id="falcInput" rows="3" style="width:100%;margin-bottom:10px;" placeholder="Collez ici un texte difficile à lire...">Votre dossier de renouvellement de Carte Mobilité Inclusion est en cours de traitement par la maison départementale.</textarea>
+        <div class="row-flex" style="margin-bottom:10px;">
+          <button type="button" class="btn-blue" id="btnProcessFalc">Découper en syllabes & Lire</button>
+          <button type="button" class="btn-soft" id="btnReadFalcOnly">Lire sans découper</button>
+          <button type="button" class="btn-soft" id="btnClearFalc">Effacer</button>
+        </div>
+        <div id="falcStats" style="font-size:0.9em;color:var(--muted);margin-bottom:8px;">Mots : 0</div>
+        <div id="falcOutput" style="font-size:1.2em;font-weight:700;padding:12px;background:var(--surface);border-radius:10px;border:1px solid var(--border);"></div>
+      </div>
+
+      <div class="box-card">
+        <h3 style="margin-top:0;">Numéros d'urgence accessibles</h3>
+        <p style="margin:4px 0;"><strong>114</strong> : Urgences par SMS, chat et visio pour personnes sourdes ou malentendantes (gratuit 24h/24).</p>
+        <p style="margin:4px 0;"><strong>15</strong> (SAMU) • <strong>18</strong> (Pompiers) • <strong>112</strong> (Urgence européen).</p>
+      </div>
+    </section>
+
+    <!-- 5. CALME & TEMPS -->
+    <section class="module-panel" id="panel-calm">
+      <h2 class="panel-title" id="calmHead">Minuteur Visuel & Cohérence Cardiaque</h2>
+      <p class="panel-sub" id="calmLead">Structurer le temps visuellement et apaiser le stress ou la surcharge sensorielle.</p>
+
+      <div class="grid-2">
+        <div class="box-card" style="text-align:center;">
+          <h3 style="margin-top:0;">Minuteur Visuel</h3>
+          <div id="timerText" style="font-size:2.2em;font-weight:800;">05:00</div>
+          <div class="bar-bg"><div class="bar-fill" id="timerBar"></div></div>
+          <div class="row-flex" style="justify-content:center;margin-bottom:8px;">
+            <button type="button" class="btn-soft" data-min="3">3 min</button>
+            <button type="button" class="btn-soft" data-min="5">5 min</button>
+            <button type="button" class="btn-soft" data-min="15">15 min</button>
+          </div>
+          <div class="row-flex" style="justify-content:center;margin-bottom:0;">
+            <button type="button" class="btn-blue" id="btnTimerRun">Démarrer / Pause</button>
+            <button type="button" class="btn-soft" id="btnTimerZero">Réinitialiser</button>
+          </div>
+        </div>
+
+        <div class="box-card" style="text-align:center;">
+          <h3 style="margin-top:0;">Respiration Apaisante</h3>
+          <div class="orb-breath" id="breathCircle">Inspirez</div>
+          <div id="breathCycles" style="font-weight:700;margin-bottom:10px;color:var(--muted);">Cycles complétés : 0</div>
+          <div class="row-flex" style="justify-content:center;margin-bottom:0;">
+            <button type="button" class="btn-green" id="btnBreathStart">Lancer / Arrêter</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. LOISIRS & JEUX ADAPTÉS + AIDES -->
+    <section class="module-panel" id="panel-games">
+      <h2 class="panel-title" id="gamesHead">Loisirs, Jeux Adaptés & Aides du Quotidien</h2>
+      <p class="panel-sub" id="gamesLead">Jeux accessibles sans limite de temps stressante, sons doux et aides pratiques pour la maison ou les sorties.</p>
+
+      <div class="grid-2">
+        <!-- 1. Mémoire Visuelle & Sonore -->
+        <div class="box-card" style="text-align:center;">
+          <h3 style="margin-top:0;">1. Mémoire Visuelle & Sonore</h3>
+          <p id="simonStatus" style="color:var(--muted);margin:0 0 8px;">Appuyez sur Démarrer pour observer la suite.</p>
+          <div class="simon-grid">
+            <button type="button" class="simon-pad" data-pad="0">1 • Nord</button>
+            <button type="button" class="simon-pad" data-pad="1">2 • Est</button>
+            <button type="button" class="simon-pad" data-pad="2">3 • Ouest</button>
+            <button type="button" class="simon-pad" data-pad="3">4 • Sud</button>
+          </div>
+          <div class="row-flex" style="justify-content:center;margin-bottom:0;">
+            <button type="button" class="btn-blue" id="btnSimonStart">Démarrer</button>
+            <button type="button" class="btn-soft" id="btnSimonReplay">Réécouter</button>
+            <span id="simonScore" style="font-weight:700;">Niveau : 0</span>
+          </div>
+        </div>
+
+        <!-- 2. Cherche l'Intrus -->
+        <div class="box-card" style="text-align:center;">
+          <h3 style="margin-top:0;">2. Cherche l'Intrus</h3>
+          <p id="oddPrompt" style="color:var(--muted);margin:0 0 8px;">Touchez l'élément qui est différent des trois autres :</p>
+          <div class="odd-grid" id="oddGrid"></div>
+          <div id="oddFeedback" style="font-weight:700;margin-top:10px;min-height:28px;">Score : 0</div>
+          <div class="row-flex" style="justify-content:center;margin-top:8px;margin-bottom:0;">
+            <button type="button" class="btn-soft" id="btnOddSpeak">Lire les mots</button>
+            <button type="button" class="btn-soft" id="btnOddNext">Nouvelle grille</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- 3. Jeu des Paires -->
+        <div class="box-card" style="text-align:center;">
+          <h3 style="margin-top:0;">3. Jeu des Paires</h3>
+          <p style="color:var(--muted);margin:0 0 8px;">Associez deux cartes identiques.</p>
+          <div class="pairs-grid" id="pairsGrid"></div>
+          <div id="pairsStatus" style="font-weight:700;margin-top:10px;">Paires trouvées : 0 / 3</div>
+          <button type="button" class="btn-soft" id="btnPairsReset" style="margin-top:8px;">Mélanger</button>
+        </div>
+
+        <!-- 4. Vrai ou Faux du Quotidien -->
+        <div class="box-card">
+          <h3 style="margin-top:0;">4. Vrai ou Faux</h3>
+          <p id="tfStatement" style="font-weight:800;font-size:1.1em;margin:0 0 12px;"></p>
+          <div class="row-flex">
+            <button type="button" class="btn-blue" id="btnTfTrue">Vrai</button>
+            <button type="button" class="btn-soft" id="btnTfFalse">Faux</button>
+            <button type="button" class="btn-soft" id="btnTfRead">Lire</button>
+          </div>
+          <div id="tfFeedback" style="font-weight:700;min-height:26px;"></div>
+          <button type="button" class="btn-soft" id="btnTfNext" style="margin-top:6px;">Phrase suivante</button>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- 5. Ambiance Sonore -->
+        <div class="box-card">
+          <h3 style="margin-top:0;">5. Ambiance Sonore Apaisante</h3>
+          <p style="color:var(--muted);margin-top:0;">Sons doux générés sur l'appareil, même sans internet.</p>
+          <div class="row-flex">
+            <button type="button" class="btn-blue sound-btn" data-sound="waves">Vagues calmes</button>
+            <button type="button" class="btn-blue sound-btn" data-sound="rain">Pluie douce</button>
+            <button type="button" class="btn-blue sound-btn" data-sound="bowl">Note harmonique</button>
+          </div>
+          <div class="row-flex" style="margin-bottom:0;">
+            <button type="button" class="btn-soft" id="btnSoundStop">Couper le son</button>
+            <span id="soundStatus" style="color:var(--muted);font-weight:700;">Son : arrêté</span>
+          </div>
+        </div>
+
+        <!-- 6. Aide : Liste de Courses & Avant de Sortir -->
+        <div class="box-card">
+          <h3 style="margin-top:0;">6. Aide : Courses & Avant de Sortir</h3>
+          <div class="row-flex">
+            <input type="text" id="shopInput" placeholder="Ajouter un article (ex. Pain, Eau, Clés)..." />
+            <button type="button" class="btn-blue" id="btnAddShop">Ajouter</button>
+            <button type="button" class="btn-soft" id="btnReadShop">Lire la liste</button>
+          </div>
+          <div id="shopList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. GPS & LIEUX PMR -->
+    <section class="module-panel" id="panel-places">
+      <h2 class="panel-title" id="placesHead">Recherche GPS d'Endroits & Lieux Accessibles PMR</h2>
+      <p class="panel-sub" id="placesLead">La recherche utilise votre position GPS pour trouver uniquement les lieux proches autour de vous.</p>
+
+      <div class="row-flex">
+        <button type="button" class="btn-blue" id="btnGpsHere">Ma position GPS</button>
+        <button type="button" class="btn-soft" id="btnCheckConn">Vérifier Wi-Fi / Données</button>
+        <button type="button" class="btn-soft" id="btnCopyCoords">Copier coordonnées</button>
+      </div>
+
+      <div class="row-flex">
+        <input type="text" id="gpsSearchInput" placeholder="Rechercher autour de moi (ex. pharmacie, hôpital, gare, parking)..." />
+        <button type="button" class="btn-blue" id="btnDoGpsSearch">Rechercher autour de moi</button>
+      </div>
+
+      <div class="row-flex">
+        <button type="button" class="btn-soft gps-quick" data-q="pharmacie">Pharmacie</button>
+        <button type="button" class="btn-soft gps-quick" data-q="hopital">Hôpital</button>
+        <button type="button" class="btn-soft gps-quick" data-q="parking">Parking</button>
+        <button type="button" class="btn-soft gps-quick" data-q="toilettes publiques">Toilettes</button>
+        <button type="button" class="btn-soft gps-quick" data-q="mairie">Mairie</button>
+      </div>
+
+      <div class="box-card" id="gpsResultsBox">
+        Appuyez sur <strong>Ma position GPS</strong> ou directement sur un bouton de recherche pour trouver les lieux proches de vous.
+      </div>
+
+      <div class="row-flex">
+        <a class="ext-link btn-blue" id="gpsMapLink" href="https://www.google.com/maps" target="_blank" rel="noopener">Ouvrir sur Google Maps</a>
+        <a class="ext-link btn-soft" href="https://wheelmap.org/" target="_blank" rel="noopener">Carte Wheelmap</a>
+      </div>
+
+      <div class="box-card">
+        <h3 style="margin-top:0;">Mon Carnet de Lieux Vérifiés</h3>
+        <div class="row-flex">
+          <input type="text" id="placeName" placeholder="Nom du lieu (ex. Pharmacie du Centre)" />
+          <input type="text" id="placeNote" placeholder="Équipement (ex. Rampe douce, WC PMR, calme)" />
+          <button type="button" class="btn-blue" id="btnAddPlace">Enregistrer</button>
+        </div>
+        <div id="placesList"></div>
+      </div>
+    </section>
+
+    <!-- 8. URGENCE ICE -->
+    <section class="module-panel" id="panel-ice">
+      <div class="ice-hero">
+        <span class="pill-tag tag-free" style="margin-bottom:8px;">100 % GRATUIT</span>
+        <h2 style="margin:0 0 6px;font-size:1.5em;" id="iceTitle">Urgence ICE (In Case of Emergency)</h2>
+        <p style="margin:0 0 12px;" id="iceSub">Vos informations vitales et l'appel d'urgence sont toujours accessibles gratuitement.</p>
+        <div class="row-flex" style="margin-bottom:0;">
+          <button type="button" class="btn-soft" style="background:#ffffff;color:var(--danger-dark);" id="btnIceSpeak">Alerte Vocale & Flash</button>
+          <button type="button" class="btn-soft" style="background:#ffffff;color:var(--danger-dark);" id="btnCopyIce">Copier fiche ICE</button>
+        </div>
+      </div>
+
+      <div class="row-flex">
+        <input type="text" id="iceName" placeholder="Votre nom et prénom" />
+        <input type="text" id="iceContact" placeholder="Proche à prévenir (ex. Samira — Sœur)" />
+      </div>
+      <div class="row-flex">
+        <input type="tel" id="icePhone" placeholder="Téléphone d'urgence (ex. 0612345678)" />
+        <input type="text" id="iceBlood" placeholder="Groupe sanguin / Allergies / Traitement" />
+      </div>
+      <div class="row-flex">
+        <input type="text" id="iceNeeds" placeholder="Consignes aux secours (ex. Fauteuil roulant, malentendant...)" />
+        <button type="button" class="btn-blue" id="btnSaveIce">Enregistrer ma fiche ICE</button>
+      </div>
+
+      <a class="ext-link ice-dial" id="iceCallBtn" href="tel:114">Appeler le contact ICE</a>
+
+      <div class="ice-preview" id="icePreviewBox">
+        <strong>Aperçu de la fiche ICE :</strong>
+        <p id="icePreviewText" style="margin:6px 0 0;">Aucune fiche enregistrée pour le moment.</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-overlay" id="fullModal" role="dialog" aria-modal="true" aria-label="Affichage géant">
+    <div class="modal-box" style="text-align:center;max-width:780px;">
+      <p style="margin:0 0 10px;color:var(--muted);font-weight:800;">HandiVie+</p>
+      <div id="fullModalContent" style="font-size:2.1em;font-weight:800;line-height:1.35;margin:20px 0 28px;"></div>
+      <button type="button" class="btn-blue" id="btnCloseFull">Fermer</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="subModal" role="dialog" aria-modal="true" aria-labelledby="subTitle">
+    <div class="modal-box">
+      <span class="pill-tag tag-pro">HANDIVIE+ CONFORT</span>
+      <h2 id="subTitle" style="margin:10px 0 8px;">Abonnement HandiVie+ — 2,00 € / mois</h2>
+      <p style="margin:0 0 12px;color:var(--muted);">
+        Inclut <strong>7 jours d'essai gratuit</strong>, puis <strong>2,00 €/mois</strong>. La <strong>Fiche Urgence ICE</strong> reste toujours 100 % gratuite.
+      </p>
+      <ul style="margin:0 0 18px;padding-inline-start:20px;">
+        <li>Communication CAA multilingue (6 langues dont l'arabe RTL) + sous-titrage vocal</li>
+        <li>Pass Prioritaire CMI visuel et sonore</li>
+        <li>Pilulier horodaté, hydratation & bilan + Lecteur FALC / DYS</li>
+        <li>Loisirs & jeux adaptés + aides du quotidien</li>
+        <li>Recherche GPS d'endroits proches, carnet PMR, minuteur et respiration</li>
+      </ul>
+      <div class="row-flex" style="margin-bottom:0;">
+        <button type="button" class="btn-blue" id="btnActivateSub">Activer l'essai / 2,00 €/mois</button>
+        <button type="button" class="btn-soft" id="btnCloseSub">Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const LANGS = {
+        fr: {
+          dir: 'ltr', voice: 'fr-FR',
+          title: 'HandiVie+',
+          sub: "Suite complète d'autonomie, communication, santé, loisirs adaptés et accès prioritaire",
+          free: 'Urgence ICE 100 % gratuite',
+          subOff: 'Essai 7 jours • Option Confort 2,00 €/mois',
+          subOn: 'HandiVie+ actif (2,00 €/mois) • ICE toujours gratuit',
+          nav: ['Parler & Écouter', 'Pass Prioritaire', 'Pilulier & Jour', 'Lecteur FALC', 'Calme & Temps', 'Loisirs & Jeux', 'GPS & Lieux PMR', 'Urgence ICE'],
+          defaultMsg: "Bonjour, j'ai besoin d'aide s'il vous plaît.",
+          iceVoice: "Urgence médicale. Merci de consulter ma fiche ICE sur l'écran et d'appeler mon contact.",
+          caa: [
+            { e: '1', t: "J'ai besoin d'aide" },
+            { e: '2', t: "J'ai soif, un verre d'eau s'il vous plaît" },
+            { e: '3', t: "J'ai faim" },
+            { e: '4', t: 'Où sont les toilettes accessibles ?' },
+            { e: '5', t: 'Je ressens une douleur' },
+            { e: '6', t: "J'ai besoin de m'asseoir" },
+            { e: '7', t: 'Trop de bruit, cherchons un endroit calme' },
+            { e: '8', t: 'Parlez lentement et clairement' }
+          ]
+        },
+        ar: {
+          dir: 'rtl', voice: 'ar-SA',
+          title: 'HandiVie+ — هاندي في بلس',
+          sub: 'منظومة متكاملة للاستقلالية والتواصل والصحة والألعاب الميسرة والأولوية',
+          free: 'طوارئ ICE مجانية 100٪',
+          subOff: 'تجربة 7 أيام • خيار الراحة 2,00 € / شهر',
+          subOn: 'اشتراك HandiVie+ مفعّل (2,00 € / شهر) • طوارئ ICE مجانية',
+          nav: ['تحدث واستمع', 'بطاقة الأولوية', 'الأدوية ويومي', 'القارئ السهل', 'الهدوء والوقت', 'ترفيه وألعاب', 'GPS وأماكن PMR', 'طوارئ ICE'],
+          defaultMsg: 'مرحبًا، أحتاج إلى مساعدة من فضلك.',
+          iceVoice: 'حالة طوارئ. يرجى قراءة بطاقة الطوارئ على الشاشة والاتصال بجهة الاتصال.',
+          caa: [
+            { e: '1', t: 'أحتاج إلى مساعدة' },
+            { e: '2', t: 'أنا عطشان، أريد كوب ماء من فضلك' },
+            { e: '3', t: 'أنا جائع' },
+            { e: '4', t: 'أين توجد دورات المياه الميسرة؟' },
+            { e: '5', t: 'أشعر بألم' },
+            { e: '6', t: 'أحتاج إلى الجلوس' },
+            { e: '7', t: 'الضوضاء مرتفعة جدًا، لنذهب لمكان هادئ' },
+            { e: '8', t: 'يرجى التحدث ببطء ووضوح' }
+          ]
+        },
+        en: {
+          dir: 'ltr', voice: 'en-US',
+          title: 'HandiVie+',
+          sub: 'Complete autonomy, communication, health, adapted games, and priority suite',
+          free: 'ICE Emergency 100% free',
+          subOff: '7-day trial • Comfort Option €2.00 / month',
+          subOn: 'HandiVie+ active (€2.00/mo) • ICE always free',
+          nav: ['Speak & Listen', 'Priority Pass', 'Meds & Day', 'Easy Reader', 'Calm & Time', 'Leisure & Games', 'GPS & Places', 'ICE Emergency'],
+          defaultMsg: 'Hello, I need help please.',
+          iceVoice: 'Medical emergency. Please read my ICE card on screen and call my emergency contact.',
+          caa: [
+            { e: '1', t: 'I need help' },
+            { e: '2', t: 'I am thirsty, a glass of water please' },
+            { e: '3', t: 'I am hungry' },
+            { e: '4', t: 'Where is the accessible restroom?' },
+            { e: '5', t: 'I am in pain' },
+            { e: '6', t: 'I need to sit down' },
+            { e: '7', t: 'Too noisy, please move to a quiet spot' },
+            { e: '8', t: 'Please speak slowly and clearly' }
+          ]
+        },
+        es: {
+          dir: 'ltr', voice: 'es-ES',
+          title: 'HandiVie+',
+          sub: 'Suite completa de autonomía, comunicación, salud, juegos adaptados y prioridad',
+          free: 'Emergencia ICE 100 % gratuita',
+          subOff: 'Prueba 7 días • Opción Confort 2,00 € / mes',
+          subOn: 'HandiVie+ activo (2,00 €/mes) • ICE siempre gratis',
+          nav: ['Hablar y Escuchar', 'Pase Prioritario', 'Medicación y Día', 'Lector Fácil', 'Calma y Tiempo', 'Ocio y Juegos', 'GPS y Lugares', 'Emergencia ICE'],
+          defaultMsg: 'Hola, necesito ayuda por favor.',
+          iceVoice: 'Emergencia médica. Por favor lea mi ficha ICE en pantalla y llame a mi contacto.',
+          caa: [
+            { e: '1', t: 'Necesito ayuda' },
+            { e: '2', t: 'Tengo sed, un vaso de agua por favor' },
+            { e: '3', t: 'Tengo hambre' },
+            { e: '4', t: '¿Dónde está el baño accesible?' },
+            { e: '5', t: 'Siento dolor' },
+            { e: '6', t: 'Necesito sentarme' },
+            { e: '7', t: 'Demasiado ruido, busquemos un lugar tranquilo' },
+            { e: '8', t: 'Por favor hable despacio y con claridad' }
+          ]
+        },
+        de: {
+          dir: 'ltr', voice: 'de-DE',
+          title: 'HandiVie+',
+          sub: 'Komplette Suite für Selbstständigkeit, Kommunikation, Gesundheit & Spiele',
+          free: 'ICE-Notfall 100 % kostenlos',
+          subOff: '7 Tage Test • Komfort-Option 2,00 € / Monat',
+          subOn: 'HandiVie+ aktiv (2,00 €/Monat) • ICE kostenlos',
+          nav: ['Sprechen & Hören', 'Vorrang-Pass', 'Medikamente', 'Leichtes Lesen', 'Ruhe & Zeit', 'Freizeit & Spiele', 'GPS & Orte', 'ICE-Notfall'],
+          defaultMsg: 'Hallo, ich brauche bitte Hilfe.',
+          iceVoice: 'Medizinischer Notfall. Bitte lesen Sie meine ICE-Karte und rufen Sie meinen Kontakt an.',
+          caa: [
+            { e: '1', t: 'Ich brauche Hilfe' },
+            { e: '2', t: 'Ich habe Durst, bitte ein Glas Wasser' },
+            { e: '3', t: 'Ich habe Hunger' },
+            { e: '4', t: 'Wo ist die barrierefreie Toilette?' },
+            { e: '5', t: 'Ich habe Schmerzen' },
+            { e: '6', t: 'Ich muss mich setzen' },
+            { e: '7', t: 'Zu laut, bitte an einen ruhigen Ort' },
+            { e: '8', t: 'Bitte sprechen Sie langsam und deutlich' }
+          ]
+        },
+        it: {
+          dir: 'ltr', voice: 'it-IT',
+          title: 'HandiVie+',
+          sub: 'Suite completa per autonomia, comunicazione, salute, giochi e accesso prioritario',
+          free: 'Emergenza ICE 100% gratuita',
+          subOff: 'Prova 7 giorni • Opzione Comfort 2,00 € / mese',
+          subOn: 'HandiVie+ attivo (2,00 €/mese) • ICE sempre gratuito',
+          nav: ['Parla e Ascolta', 'Pass Prioritario', 'Farmaci e Giorno', 'Lettura Facile', 'Calma e Tempo', 'Svago e Giochi', 'GPS e Luoghi', 'Emergenza ICE'],
+          defaultMsg: 'Ciao, ho bisogno di aiuto per favore.',
+          iceVoice: 'Emergenza medica. Leggi la mia scheda ICE sullo schermo e chiama il mio contatto.',
+          caa: [
+            { e: '1', t: 'Ho bisogno di aiuto' },
+            { e: '2', t: 'Ho sete, un bicchiere d’acqua per favore' },
+            { e: '3', t: 'Ho fame' },
+            { e: '4', t: 'Dov’è il bagno accessibile?' },
+            { e: '5', t: 'Sento dolore' },
+            { e: '6', t: 'Ho bisogno di sedermi' },
+            { e: '7', t: 'Troppo rumore, cerchiamo un posto calmo' },
+            { e: '8', t: 'Parla lentamente e chiaramente' }
+          ]
+        }
+      };
+
+      function safeGet(key, fallback) {
+        try {
+          const v = localStorage.getItem(key);
+          return v === null ? fallback : JSON.parse(v);
+        } catch (_) {
+          return fallback;
+        }
+      }
+
+      function safeSet(key, val) {
+        try { localStorage.setItem(key, JSON.stringify(val)); } catch (_) {}
+      }
+
+      const store = {
+        lang: 'fr',
+        fontSize: 18,
+        coords: null,
+        water: safeGet('hv5_water', 0),
+        shop: safeGet('hv5_shop', ['Clés & Téléphone', 'Eau']),
+        meds: safeGet('hv5_meds', [{ time: '08:30', name: 'Traitement du matin', takenAt: '' }]),
+        places: safeGet('hv5_places', [{ name: 'Mairie & Accueil', note: 'Rampe douce + toilettes PMR' }]),
+        ice: safeGet('hv5_ice', { name: '', contact: '', phone: '114', blood: '', needs: '' }),
+        subscribed: safeGet('hv5_sub', false) === true,
+        timerTotal: 300,
+        timerLeft: 300,
+        timerId: null,
+        breathId: null,
+        breathCycles: 0,
+        scanId: null,
+        scanIdx: 0
+      };
+
+      function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, function (m) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+        });
+      }
+
+      function showToast(msg) {
+        const t = document.getElementById('toastMsg');
+        const log = document.getElementById('uiActivityLog');
+        if (log) log.textContent = msg;
+        if (t) {
+          t.textContent = msg;
+          t.classList.add('show');
+          clearTimeout(showToast._h);
+          showToast._h = setTimeout(function () { t.classList.remove('show'); }, 2500);
+        }
+      }
+
+      function flashScreen() {
+        const f = document.getElementById('screenFlash');
+        if (!f) return;
+        f.classList.add('on');
+        setTimeout(function () { f.classList.remove('on'); }, 240);
+      }
+
+      function copyText(text, label) {
+        if (!text) return;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).catch(function () {});
+        }
+        showToast(label || 'Copié');
+      }
+
+      function readConnectionInfo() {
+        if (!navigator.onLine) return { online: false, text: 'Internet : Hors ligne' };
+        const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        const type = conn && conn.type ? conn.type : '';
+        const eff = conn && conn.effectiveType ? conn.effectiveType.toUpperCase() : '';
+        if (type === 'wifi') return { online: true, text: 'Internet : Wi-Fi connecté' };
+        if (type === 'cellular' || eff) return { online: true, text: 'Internet : Données mobiles' + (eff ? ' (' + eff + ')' : '') };
+        return { online: true, text: 'Internet : Connecté' };
+      }
+
+      function refreshConnectionUI() {
+        const info = readConnectionInfo();
+        const el = document.getElementById('uiNetState');
+        if (el) {
+          el.textContent = info.text;
+          el.style.color = info.online ? 'var(--primary)' : 'var(--danger)';
+        }
+      }
+
+      function speak(text) {
+        if (!text) return;
+        const disp = document.getElementById('phraseDisplay');
+        if (disp) disp.textContent = text;
+        if ('speechSynthesis' in window) {
+          try {
+            window.speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(text);
+            u.lang = LANGS[store.lang].voice;
+            const rateEl = document.getElementById('speechRate');
+            u.rate = rateEl ? parseFloat(rateEl.value || '1') : 1;
+            window.speechSynthesis.speak(u);
+          } catch (_) {}
+        }
+        showToast(text);
+      }
+
+      function openTab(key) {
+        document.querySelectorAll('.module-tab').forEach(function (b) {
+          b.classList.toggle('active', b.dataset.tab === key);
+        });
+        document.querySelectorAll('.module-panel').forEach(function (p) {
+          p.classList.toggle('active', p.id === 'panel-' + key);
+        });
+      }
+
+      function renderCaa() {
+        const wrap = document.getElementById('caaContainer');
+        if (!wrap) return;
+        wrap.innerHTML = '';
+        LANGS[store.lang].caa.forEach(function (c) {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'caa-tile';
+          b.innerHTML = '<span style="font-weight:800;color:var(--primary);">#' + escapeHtml(c.e) + '</span><span>' + escapeHtml(c.t) + '</span>';
+          b.addEventListener('click', function () { speak(c.t); });
+          wrap.appendChild(b);
+        });
+      }
+
+      function renderWater() {
+        const el = document.getElementById('waterCountText');
+        if (el) el.textContent = store.water + ' verre(s)';
+      }
+
+      function renderMeds() {
+        const list = document.getElementById('medList');
+        if (!list) return;
+        list.innerHTML = '';
+        store.meds.forEach(function (m, idx) {
+          const row = document.createElement('div');
+          row.className = 'item-strip';
+
+          const left = document.createElement('div');
+          left.innerHTML = '<strong>' + escapeHtml(m.time) + '</strong> — ' + escapeHtml(m.name) +
+            (m.takenAt ? ' <span class="pill-tag tag-free" style="margin-inline-start:6px;">Validé à ' + escapeHtml(m.takenAt) + '</span>' : '');
+
+          const right = document.createElement('div');
+          right.className = 'cluster';
+
+          const bTake = document.createElement('button');
+          bTake.type = 'button';
+          bTake.className = m.takenAt ? 'btn-soft' : 'btn-green';
+          bTake.textContent = m.takenAt ? 'Annuler' : 'Valider';
+          bTake.addEventListener('click', function () {
+            if (m.takenAt) {
+              store.meds[idx].takenAt = '';
+            } else {
+              const now = new Date();
+              store.meds[idx].takenAt = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+            }
+            saveMeds();
+          });
+
+          const bSpeak = document.createElement('button');
+          bSpeak.type = 'button';
+          bSpeak.className = 'btn-soft';
+          bSpeak.textContent = 'Dire';
+          bSpeak.addEventListener('click', function () { speak(m.time + ' : ' + m.name); });
+
+          const bDel = document.createElement('button');
+          bDel.type = 'button';
+          bDel.className = 'btn-soft';
+          bDel.textContent = 'Suppr.';
+          bDel.addEventListener('click', function () {
+            store.meds.splice(idx, 1);
+            saveMeds();
+          });
+
+          right.append(bTake, bSpeak, bDel);
+          row.append(left, right);
+          list.appendChild(row);
+        });
+      }
+
+      function saveMeds() {
+        safeSet('hv5_meds', store.meds);
+        renderMeds();
+      }
+
+      function renderPlaces() {
+        const box = document.getElementById('placesList');
+        if (!box) return;
+        box.innerHTML = '';
+        store.places.forEach(function (p, idx) {
+          const row = document.createElement('div');
+          row.className = 'item-strip';
+          row.innerHTML = '<div><strong>' + escapeHtml(p.name) + '</strong><p style="margin:3px 0 0;color:var(--muted);">' + escapeHtml(p.note) + '</p></div>';
+          const del = document.createElement('button');
+          del.type = 'button';
+          del.className = 'btn-soft';
+          del.textContent = 'Suppr.';
+          del.addEventListener('click', function () {
+            store.places.splice(idx, 1);
+            safeSet('hv5_places', store.places);
+            renderPlaces();
+          });
+          row.appendChild(del);
+          box.appendChild(row);
+        });
+      }
+
+      function buildIceSummary() {
+        const phone = store.ice.phone || '114';
+        return 'Personne : ' + (store.ice.name || 'Non renseigné') +
+          ' • Contact : ' + (store.ice.contact || 'Non renseigné') +
+          ' • Tél : ' + phone +
+          ' • Médical : ' + (store.ice.blood || 'Aucun') +
+          ' • Consignes : ' + (store.ice.needs || 'Aucune');
+      }
+
+      function renderIce() {
+        const phone = store.ice.phone || '114';
+        const btn = document.getElementById('iceCallBtn');
+        const txt = document.getElementById('icePreviewText');
+        if (btn) {
+          btn.href = 'tel:' + phone;
+          btn.textContent = 'Appeler le contact ICE (' + phone + ')';
+        }
+        if (txt) txt.textContent = buildIceSummary();
+      }
+
+      function setLanguage(code) {
+        store.lang = LANGS[code] ? code : 'fr';
+        const l = LANGS[store.lang];
+        document.documentElement.lang = store.lang;
+        document.documentElement.dir = l.dir;
+
+        document.getElementById('uiAppTitle').textContent = l.title;
+        document.getElementById('uiAppSub').textContent = l.sub;
+        document.getElementById('uiFreeBadge').textContent = l.free;
+        document.getElementById('uiSubStatus').textContent = store.subscribed ? l.subOn : l.subOff;
+
+        const tabIds = ['navSpeak', 'navPriority', 'navHealth', 'navFalc', 'navCalm', 'navGames', 'navPlaces', 'navIce'];
+        tabIds.forEach(function (id, i) {
+          const el = document.getElementById(id);
+          if (el) el.innerHTML = '<span>' + l.nav[i] + '</span>';
+        });
+
+        document.getElementById('phraseDisplay').textContent = l.defaultMsg;
+        renderCaa();
+        showToast('Langue : ' + store.lang.toUpperCase());
+      }
+
+      function distanceKmNum(lat1, lon1, lat2, lon2) {
+        const R = 6371;
+        const dLat = (lat2 - lat1) * Math.PI / 180;
+        const dLon = (lon2 - lon1) * Math.PI / 180;
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+          Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+          Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      }
+
+      function requestGpsPromise() {
+        return new Promise(function (resolve, reject) {
+          if (!navigator.geolocation) {
+            reject(new Error('GPS non disponible'));
+            return;
+          }
+          navigator.geolocation.getCurrentPosition(
+            function (pos) {
+              store.coords = { lat: pos.coords.latitude, lon: pos.coords.longitude };
+              resolve(store.coords);
+            },
+            function (err) {
+              reject(err);
+            },
+            { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
+          );
+        });
+      }
+
+      async function runPlaceSearch(queryOverride) {
+        const q = (queryOverride || document.getElementById('gpsSearchInput').value || '').trim();
+        const box = document.getElementById('gpsResultsBox');
+        const mapLink = document.getElementById('gpsMapLink');
+
+        if (!q) {
+          box.textContent = 'Saisissez un endroit à rechercher (ex. : pharmacie, hôpital, parking, mairie).';
+          return;
+        }
+
+        if (!navigator.onLine) {
+          box.innerHTML = '<span style="color:var(--danger);font-weight:700;">Hors ligne.</span> Activez le Wi-Fi ou les données mobiles pour rechercher des endroits.';
+          return;
+        }
+
+        if (!store.coords) {
+          box.textContent = 'Localisation GPS en cours pour chercher autour de vous...';
+          try {
+            await requestGpsPromise();
+          } catch (_) {
+            box.innerHTML = 'Autorisez la localisation GPS sur votre téléphone pour trouver uniquement les lieux près de chez vous, ou touchez <strong>Ouvrir sur Google Maps</strong>.';
+            mapLink.href = 'https://www.google.com/maps/search/' + encodeURIComponent(q + ' près de moi') + '/';
+            return;
+          }
+        }
+
+        const lat0 = store.coords.lat;
+        const lon0 = store.coords.lon;
+        mapLink.href = 'https://www.google.com/maps/search/' + encodeURIComponent(q) + '/@' + lat0 + ',' + lon0 + ',15z';
+
+        box.textContent = 'Recherche autour de votre position (' + lat0.toFixed(4) + ', ' + lon0.toFixed(4) + ') : ' + q + '...';
+
+        try {
+          const dLat = 0.14;
+          const dLon = 0.18;
+          const viewbox = (lon0 - dLon) + ',' + (lat0 + dLat) + ',' + (lon0 + dLon) + ',' + (lat0 - dLat);
+          const url = 'https://nominatim.openstreetmap.org/search?format=json&limit=10&bounded=1&viewbox=' +
+                      encodeURIComponent(viewbox) + '&q=' + encodeURIComponent(q);
+
+          const resp = await fetch(url, { headers: { Accept: 'application/json' } });
+          const rawList = await resp.json();
+
+          if (!Array.isArray(rawList) || rawList.length === 0) {
+            box.innerHTML = 'Aucun résultat direct dans un rayon de 15 km pour « ' + escapeHtml(q) + ' ». Touchez <strong>Ouvrir sur Google Maps</strong> pour voir tous les lieux autour de vous.';
+            return;
+          }
+
+          const sorted = rawList.map(function (place) {
+            const pLat = Number(place.lat);
+            const pLon = Number(place.lon);
+            return {
+              name: place.display_name,
+              lat: pLat,
+              lon: pLon,
+              dist: distanceKmNum(lat0, lon0, pLat, pLon)
+            };
+          }).sort(function (a, b) { return a.dist - b.dist; }).slice(0, 5);
+
+          box.innerHTML = sorted.map(function (place) {
+            const urlPlace = 'https://www.google.com/maps/dir/?api=1&destination=' + place.lat.toFixed(5) + ',' + place.lon.toFixed(5);
+            return '<div style="padding:8px 0;border-bottom:1px solid var(--border);">' +
+              '<div><strong>' + escapeHtml(place.name) + '</strong> <span style="color:var(--primary);font-weight:700;">(' + place.dist.toFixed(1) + ' km)</span></div>' +
+              '<div style="margin-top:6px;"><a class="ext-link btn-blue" href="' + urlPlace + '" target="_blank" rel="noopener">Itinéraire GPS</a></div>' +
+              '</div>';
+          }).join('');
+        } catch (_) {
+          box.innerHTML = 'Touchez <strong>Ouvrir sur Google Maps</strong> pour afficher « ' + escapeHtml(q) + ' » autour de votre position GPS.';
+        }
+      }
+
+      // --- AUDIO & JEUX ADAPTÉS ---
+      let audioCtx = null;
+      function getAudioCtx() {
+        if (!audioCtx) {
+          const Ctx = window.AudioContext || window.webkitAudioContext;
+          if (Ctx) audioCtx = new Ctx();
+        }
+        if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume().catch(function () {});
+        return audioCtx;
+      }
+
+      function playTone(freq, durSec) {
+        const ctx = getAudioCtx();
+        if (!ctx) return;
+        try {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(0.14, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (durSec || 0.45));
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + (durSec || 0.45));
+        } catch (_) {}
+      }
+
+      // 1. Mémoire Visuelle & Sonore
+      const SIMON_FREQS = [261.63, 329.63, 392.00, 523.25];
+      let simonSeq = [];
+      let simonUserIdx = 0;
+      let simonPlaying = false;
+
+      function lightSimonPad(idx) {
+        const pad = document.querySelector('.simon-pad[data-pad="' + idx + '"]');
+        if (!pad) return;
+        pad.classList.add('lit');
+        playTone(SIMON_FREQS[idx], 0.45);
+        setTimeout(function () { pad.classList.remove('lit'); }, 450);
+      }
+
+      function playSimonSequence() {
+        if (!simonSeq.length) return;
+        simonPlaying = true;
+        simonUserIdx = 0;
+        document.getElementById('simonStatus').textContent = 'Observez bien la suite...';
+        simonSeq.forEach(function (padIdx, step) {
+          setTimeout(function () {
+            lightSimonPad(padIdx);
+            if (step === simonSeq.length - 1) {
+              setTimeout(function () {
+                simonPlaying = false;
+                document.getElementById('simonStatus').textContent = 'À vous : reproduisez la suite (' + simonSeq.length + ')';
+              }, 520);
+            }
+          }, (step + 1) * 780);
+        });
+      }
+
+      function nextSimonRound() {
+        simonSeq.push(Math.floor(Math.random() * 4));
+        document.getElementById('simonScore').textContent = 'Niveau : ' + simonSeq.length;
+        playSimonSequence();
+      }
+
+      document.getElementById('btnSimonStart').addEventListener('click', function () {
+        simonSeq = [];
+        nextSimonRound();
+      });
+
+      document.getElementById('btnSimonReplay').addEventListener('click', function () {
+        if (!simonSeq.length) {
+          showToast('Appuyez d’abord sur Démarrer');
+          return;
+        }
+        playSimonSequence();
+      });
+
+      document.querySelectorAll('.simon-pad').forEach(function (pad) {
+        pad.addEventListener('click', function () {
+          if (simonPlaying || simonSeq.length === 0) return;
+          const idx = Number(pad.dataset.pad);
+          lightSimonPad(idx);
+          if (idx === simonSeq[simonUserIdx]) {
+            simonUserIdx++;
+            if (simonUserIdx === simonSeq.length) {
+              document.getElementById('simonStatus').textContent = 'Bravo ! Niveau suivant...';
+              setTimeout(nextSimonRound, 900);
+            }
+          } else {
+            document.getElementById('simonStatus').textContent = 'Raté au niveau ' + simonSeq.length + '. Touchez Démarrer.';
+            simonSeq = [];
+          }
+        });
+      });
+
+      // 2. Cherche l'intrus
+      const ODD_SETS = [
+        { common: 'Pomme', odd: 'Chaise' },
+        { common: 'Train', odd: 'Nuage' },
+        { common: 'Livre', odd: 'Fourchette' },
+        { common: 'Soleil', odd: 'Parapluie' },
+        { common: 'Guitare', odd: 'Valise' },
+        { common: 'Maison', odd: 'Poisson' },
+        { common: 'Chien', odd: 'Voiture' },
+        { common: 'Pain', odd: 'Marteau' }
+      ];
+      let oddScore = 0;
+      let oddCurrentWords = [];
+
+      function renderOddGame() {
+        const grid = document.getElementById('oddGrid');
+        if (!grid) return;
+        const pair = ODD_SETS[Math.floor(Math.random() * ODD_SETS.length)];
+        const oddPos = Math.floor(Math.random() * 4);
+        oddCurrentWords = [];
+        grid.innerHTML = '';
+        for (let i = 0; i < 4; i++) {
+          const isOdd = i === oddPos;
+          const label = isOdd ? pair.odd : pair.common;
+          oddCurrentWords.push(label);
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'odd-card';
+          b.textContent = label;
+          b.addEventListener('click', function () {
+            if (isOdd) {
+              oddScore++;
+              document.getElementById('oddFeedback').textContent = 'Bravo ! « ' + pair.odd + ' » était l’intrus • Score : ' + oddScore;
+              playTone(523.25, 0.35);
+              setTimeout(renderOddGame, 900);
+            } else {
+              document.getElementById('oddFeedback').textContent = 'Non, « ' + pair.common + ' » apparaît plusieurs fois • Score : ' + oddScore;
+            }
+          });
+          grid.appendChild(b);
+        }
+      }
+      document.getElementById('btnOddSpeak').addEventListener('click', function () {
+        if (oddCurrentWords.length) speak('Les mots proposés sont : ' + oddCurrentWords.join(', '));
+      });
+      document.getElementById('btnOddNext').addEventListener('click', renderOddGame);
+
+      // 3. Jeu des Paires (3 paires = 6 cartes)
+      const PAIR_WORDS = ['Soleil', 'Arbre', 'Étoile'];
+      let pairCards = [];
+      let firstPick = null;
+      let pairLock = false;
+      let pairMatchedCount = 0;
+
+      function initPairsGame() {
+        const deck = PAIR_WORDS.concat(PAIR_WORDS).sort(function () { return Math.random() - 0.5; });
+        pairCards = deck.map(function (w, idx) { return { id: idx, word: w, matched: false }; });
+        firstPick = null;
+        pairLock = false;
+        pairMatchedCount = 0;
+        document.getElementById('pairsStatus').textContent = 'Paires trouvées : 0 / 3';
+        renderPairsGrid();
+      }
+
+      function renderPairsGrid() {
+        const grid = document.getElementById('pairsGrid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        pairCards.forEach(function (card, idx) {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'pair-card' + (card.matched ? ' matched' : '');
+          const revealed = card.matched || (firstPick && firstPick.idx === idx);
+          btn.textContent = revealed ? card.word : 'Carte ' + (idx + 1);
+          btn.addEventListener('click', function () {
+            if (pairLock || card.matched) return;
+            if (!firstPick) {
+              firstPick = { idx: idx, word: card.word };
+              renderPairsGrid();
+              return;
+            }
+            if (firstPick.idx === idx) return;
+            pairLock = true;
+            btn.textContent = card.word;
+            if (firstPick.word === card.word) {
+              pairCards[firstPick.idx].matched = true;
+              pairCards[idx].matched = true;
+              pairMatchedCount++;
+              playTone(523.25, 0.35);
+              document.getElementById('pairsStatus').textContent = 'Paires trouvées : ' + pairMatchedCount + ' / 3';
+              firstPick = null;
+              pairLock = false;
+              renderPairsGrid();
+            } else {
+              setTimeout(function () {
+                firstPick = null;
+                pairLock = false;
+                renderPairsGrid();
+              }, 700);
+            }
+          });
+          grid.appendChild(btn);
+        });
+      }
+      document.getElementById('btnPairsReset').addEventListener('click', initPairsGame);
+
+      // 4. Vrai ou Faux
+      const TF_ITEMS = [
+        { s: "Boire de l'eau régulièrement aide à rester hydraté.", ans: true },
+        { s: "Il y a 24 heures dans une journée complète.", ans: true },
+        { s: "Le numéro 114 est réservé aux personnes qui ne savent pas lire.", ans: false },
+        { s: "Prendre le temps de respirer calmement peut aider à relâcher la tension.", ans: true }
+      ];
+      let tfIdx = 0;
+
+      function renderTf() {
+        document.getElementById('tfStatement').textContent = TF_ITEMS[tfIdx % TF_ITEMS.length].s;
+        document.getElementById('tfFeedback').textContent = '';
+      }
+
+      function answerTf(choice) {
+        const item = TF_ITEMS[tfIdx % TF_ITEMS.length];
+        if (choice === item.ans) {
+          document.getElementById('tfFeedback').textContent = 'Bonne réponse !';
+          playTone(523.25, 0.35);
+        } else {
+          document.getElementById('tfFeedback').textContent = 'Pas tout à fait. La réponse était : ' + (item.ans ? 'Vrai' : 'Faux');
+        }
+      }
+      document.getElementById('btnTfTrue').addEventListener('click', function () { answerTf(true); });
+      document.getElementById('btnTfFalse').addEventListener('click', function () { answerTf(false); });
+      document.getElementById('btnTfRead').addEventListener('click', function () {
+        speak(TF_ITEMS[tfIdx % TF_ITEMS.length].s);
+      });
+      document.getElementById('btnTfNext').addEventListener('click', function () {
+        tfIdx++;
+        renderTf();
+      });
+
+      // 5. Ambiance Sonore Hors Ligne
+      let ambientNode = null;
+      let ambientFilter = null;
+      let ambientInterval = null;
+
+      function stopAmbientSound() {
+        if (ambientInterval) { clearInterval(ambientInterval); ambientInterval = null; }
+        if (ambientNode) {
+          try { ambientNode.stop(); ambientNode.disconnect(); } catch (_) {}
+          ambientNode = null;
+        }
+        if (ambientFilter) {
+          try { ambientFilter.disconnect(); } catch (_) {}
+          ambientFilter = null;
+        }
+        document.getElementById('soundStatus').textContent = 'Son : arrêté';
+      }
+
+      function startAmbientSound(kind) {
+        stopAmbientSound();
+        const ctx = getAudioCtx();
+        if (!ctx) {
+          showToast('Audio non disponible');
+          return;
+        }
+        if (kind === 'bowl') {
+          playTone(256, 2.2);
+          ambientInterval = setInterval(function () { playTone(256, 2.2); }, 3200);
+          document.getElementById('soundStatus').textContent = 'Son : Note harmonique';
+          return;
+        }
+        const bufferSize = ctx.sampleRate * 2;
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+
+        const noise = ctx.createBufferSource();
+        noise.buffer = buffer;
+        noise.loop = true;
+
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = kind === 'waves' ? 320 : 850;
+
+        const gain = ctx.createGain();
+        gain.gain.value = 0.08;
+
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+        noise.start();
+
+        ambientNode = noise;
+        ambientFilter = filter;
+        document.getElementById('soundStatus').textContent = 'Son : ' + (kind === 'waves' ? 'Vagues calmes' : 'Pluie douce');
+      }
+
+      document.querySelectorAll('.sound-btn').forEach(function (b) {
+        b.addEventListener('click', function () { startAmbientSound(b.dataset.sound); });
+      });
+      document.getElementById('btnSoundStop').addEventListener('click', stopAmbientSound);
+
+      // 6. Aide : Liste de Courses & Avant de Sortir
+      function renderShop() {
+        const box = document.getElementById('shopList');
+        if (!box) return;
+        box.innerHTML = '';
+        store.shop.forEach(function (item, idx) {
+          const row = document.createElement('div');
+          row.className = 'item-strip';
+          row.innerHTML = '<span>' + escapeHtml(item) + '</span>';
+          const del = document.createElement('button');
+          del.type = 'button';
+          del.className = 'btn-soft';
+          del.textContent = 'Fait';
+          del.addEventListener('click', function () {
+            store.shop.splice(idx, 1);
+            safeSet('hv5_shop', store.shop);
+            renderShop();
+          });
+          row.appendChild(del);
+          box.appendChild(row);
+        });
+      }
+
+      document.getElementById('btnAddShop').addEventListener('click', function () {
+        const inp = document.getElementById('shopInput');
+        if (!inp.value.trim()) return;
+        store.shop.push(inp.value.trim());
+        inp.value = '';
+        safeSet('hv5_shop', store.shop);
+        renderShop();
+        showToast('Ajouté à la liste');
+      });
+      document.getElementById('btnReadShop').addEventListener('click', function () {
+        if (!store.shop.length) {
+          speak('La liste est vide.');
+          return;
+        }
+        speak('Liste : ' + store.shop.join(', '));
+      });
+
+      // Navigation & Langue
+      document.querySelectorAll('.module-tab').forEach(function (b) {
+        b.addEventListener('click', function () { openTab(b.dataset.tab); });
+      });
+      document.getElementById('langSelect').addEventListener('change', function (e) {
+        setLanguage(e.target.value);
+      });
+
+      // Barre accessibilité
+      document.getElementById('btnFontUp').addEventListener('click', function () {
+        store.fontSize = Math.min(28, store.fontSize + 2);
+        document.body.style.fontSize = store.fontSize + 'px';
+        showToast('Taille : ' + store.fontSize + 'px');
+      });
+      document.getElementById('btnFontDown').addEventListener('click', function () {
+        store.fontSize = Math.max(15, store.fontSize - 2);
+        document.body.style.fontSize = store.fontSize + 'px';
+        showToast('Taille : ' + store.fontSize + 'px');
+      });
+      document.getElementById('btnContrast').addEventListener('click', function () {
+        document.body.classList.toggle('mode-contrast');
+        this.classList.toggle('on');
+        showToast('Contraste mis à jour');
+      });
+      document.getElementById('btnDys').addEventListener('click', function () {
+        document.body.classList.toggle('mode-dys');
+        this.classList.toggle('on');
+        showToast('Mode DYS mis à jour');
+      });
+      document.getElementById('btnRuler').addEventListener('click', function () {
+        document.body.classList.toggle('ruler-on');
+        this.classList.toggle('on');
+        showToast('Règle de lecture mise à jour');
+      });
+      document.addEventListener('pointermove', function (e) {
+        if (document.body.classList.contains('ruler-on')) {
+          document.getElementById('readingRuler').style.top = (e.clientY - 27) + 'px';
+        }
+      });
+
+      document.getElementById('btnScan').addEventListener('click', function () {
+        this.classList.toggle('on');
+        if (this.classList.contains('on')) {
+          const targets = Array.from(document.querySelectorAll('button:not(#btnScan), a.ext-link'));
+          store.scanIdx = 0;
+          store.scanId = setInterval(function () {
+            targets.forEach(function (el) { el.classList.remove('scan-active'); });
+            if (targets.length) {
+              targets[store.scanIdx % targets.length].classList.add('scan-active');
+              store.scanIdx++;
+            }
+          }, 1500);
+          showToast('Balayage actif');
+        } else {
+          clearInterval(store.scanId);
+          document.querySelectorAll('.scan-active').forEach(function (el) { el.classList.remove('scan-active'); });
+          showToast('Balayage arrêté');
+        }
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && document.getElementById('btnScan').classList.contains('on')) {
+          const cur = document.querySelector('.scan-active');
+          if (cur) { e.preventDefault(); cur.click(); }
+        }
+      });
+
+      document.getElementById('btnReadScreen').addEventListener('click', function () {
+        const active = document.querySelector('.module-panel.active');
+        if (active) speak(active.innerText.slice(0, 260));
+      });
+
+      // Profils
+      document.querySelectorAll('.profile-pill').forEach(function (p) {
+        p.addEventListener('click', function () {
+          document.querySelectorAll('.profile-pill').forEach(function (x) { x.classList.remove('active'); });
+          p.classList.add('active');
+          const mode = p.dataset.prof;
+          document.body.classList.remove('mode-contrast', 'mode-dys', 'ruler-on');
+          document.getElementById('btnContrast').classList.remove('on');
+          document.getElementById('btnDys').classList.remove('on');
+          document.getElementById('btnRuler').classList.remove('on');
+
+          if (mode === 'vision') {
+            document.body.classList.add('mode-contrast');
+            document.getElementById('btnContrast').classList.add('on');
+            store.fontSize = 24;
+          } else if (mode === 'motor') {
+            store.fontSize = 22;
+          } else if (mode === 'hearing') {
+            flashScreen();
+            openTab('speak');
+          } else if (mode === 'cognitive') {
+            document.body.classList.add('mode-dys', 'ruler-on');
+            document.getElementById('btnDys').classList.add('on');
+            document.getElementById('btnRuler').classList.add('on');
+            store.fontSize = 20;
+          } else {
+            store.fontSize = 18;
+          }
+          document.body.style.fontSize = store.fontSize + 'px';
+          showToast('Profil appliqué');
+        });
+      });
+
+      // Parler & Écouter
+      document.getElementById('btnSpeakNow').addEventListener('click', function () {
+        speak(document.getElementById('phraseDisplay').textContent);
+      });
+      document.getElementById('btnCopyPhrase').addEventListener('click', function () {
+        copyText(document.getElementById('phraseDisplay').textContent, 'Phrase copiée');
+      });
+      document.getElementById('btnClearText').addEventListener('click', function () {
+        document.getElementById('phraseDisplay').textContent = '';
+        showToast('Message effacé');
+      });
+      document.getElementById('btnAddSpeak').addEventListener('click', function () {
+        const inp = document.getElementById('customInput');
+        if (!inp.value.trim()) return;
+        speak(inp.value.trim());
+        inp.value = '';
+      });
+      document.getElementById('btnFullscreenText').addEventListener('click', function () {
+        document.getElementById('fullModalContent').textContent = document.getElementById('phraseDisplay').textContent || LANGS[store.lang].defaultMsg;
+        document.getElementById('fullModal').classList.add('open');
+      });
+      document.getElementById('btnCloseFull').addEventListener('click', function () {
+        document.getElementById('fullModal').classList.remove('open');
+      });
+
+      document.getElementById('btnLiveCaptions').addEventListener('click', function () {
+        const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SR) {
+          showToast('Sous-titrage micro non disponible sur ce navigateur');
+          return;
+        }
+        try {
+          const rec = new SR();
+          rec.lang = LANGS[store.lang].voice;
+          rec.onresult = function (ev) {
+            document.getElementById('phraseDisplay').textContent = ev.results[0][0].transcript;
+          };
+          rec.start();
+          showToast('Écoute active...');
+        } catch (_) {
+          showToast('Micro indisponible');
+        }
+      });
+
+      // Pass Prioritaire
+      document.getElementById('prioPresetSelect').addEventListener('change', function (e) {
+        document.getElementById('prioCardBody').textContent = e.target.value;
+      });
+      document.getElementById('btnTriggerSignal').addEventListener('click', function () {
+        flashScreen();
+        speak(document.getElementById('prioCardBody').textContent);
+      });
+      document.getElementById('btnQuickAlarm').addEventListener('click', function () {
+        flashScreen();
+        showToast('Signal visuel déclenché');
+      });
+      document.getElementById('btnShowPrioFull').addEventListener('click', function () {
+        document.getElementById('fullModalContent').textContent = document.getElementById('prioCardBody').textContent;
+        document.getElementById('fullModal').classList.add('open');
+      });
+
+      // Pilulier & Hydratation
+      document.getElementById('btnAddWater').addEventListener('click', function () {
+        store.water++;
+        safeSet('hv5_water', store.water);
+        renderWater();
+        showToast('Hydratation : ' + store.water + ' verre(s)');
+      });
+      document.getElementById('btnResetWater').addEventListener('click', function () {
+        store.water = 0;
+        safeSet('hv5_water', store.water);
+        renderWater();
+        showToast('Hydratation réinitialisée');
+      });
+
+      document.getElementById('btnAddMed').addEventListener('click', function () {
+        const time = document.getElementById('medTime').value || '09:00';
+        const name = document.getElementById('medName').value.trim();
+        if (!name) return;
+        store.meds.push({ time: time, name: name, takenAt: '' });
+        document.getElementById('medName').value = '';
+        saveMeds();
+        showToast('Élément ajouté');
+      });
+      document.getElementById('btnShareLog').addEventListener('click', function () {
+        const summary = 'Bilan HandiVie+ (Hydratation : ' + store.water + ' verre(s)) :\n' +
+          store.meds.map(function (m) {
+            return '- ' + m.time + ' : ' + m.name + (m.takenAt ? ' (Validé à ' + m.takenAt + ')' : ' (À faire)');
+          }).join('\n');
+        copyText(summary, 'Bilan copié');
+      });
+
+      // Lecteur FALC
+      function updateFalcStats(text) {
+        const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+        const st = document.getElementById('falcStats');
+        if (st) st.textContent = 'Mots : ' + words;
+      }
+
+      document.getElementById('btnProcessFalc').addEventListener('click', function () {
+        const raw = document.getElementById('falcInput').value.trim();
+        if (!raw) return;
+        updateFalcStats(raw);
+        const syll = raw.split(/\s+/).map(function (w) {
+          return w.replace(/([aeiouyàâéèêëîïôùûü])([^aeiouyàâéèêëîïôùûü\s])/gi, '$1·$2');
+        }).join('   ');
+        document.getElementById('falcOutput').textContent = syll;
+        speak(raw);
+      });
+      document.getElementById('btnReadFalcOnly').addEventListener('click', function () {
+        const raw = document.getElementById('falcInput').value.trim();
+        if (!raw) return;
+        updateFalcStats(raw);
+        document.getElementById('falcOutput').textContent = raw;
+        speak(raw);
+      });
+      document.getElementById('btnClearFalc').addEventListener('click', function () {
+        document.getElementById('falcInput').value = '';
+        document.getElementById('falcOutput').textContent = '';
+        updateFalcStats('');
+      });
+
+      // Calme & Temps
+      function updateClockUI() {
+        const m = String(Math.floor(store.timerLeft / 60)).padStart(2, '0');
+        const s = String(store.timerLeft % 60).padStart(2, '0');
+        document.getElementById('timerText').textContent = m + ':' + s;
+        document.getElementById('timerBar').style.width = Math.max(0, (store.timerLeft / store.timerTotal) * 100) + '%';
+      }
+      document.querySelectorAll('[data-min]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          clearInterval(store.timerId);
+          store.timerId = null;
+          store.timerTotal = Number(b.dataset.min) * 60;
+          store.timerLeft = store.timerTotal;
+          updateClockUI();
+          showToast('Minuteur : ' + b.dataset.min + ' min');
+        });
+      });
+      document.getElementById('btnTimerRun').addEventListener('click', function () {
+        if (store.timerId) {
+          clearInterval(store.timerId);
+          store.timerId = null;
+          showToast('Minuteur en pause');
+          return;
+        }
+        showToast('Minuteur démarré');
+        store.timerId = setInterval(function () {
+          if (store.timerLeft > 0) {
+            store.timerLeft--;
+            updateClockUI();
+          } else {
+            clearInterval(store.timerId);
+            store.timerId = null;
+            store.timerLeft = store.timerTotal;
+            updateClockUI();
+            flashScreen();
+            speak('Le temps est écoulé');
+          }
+        }, 1000);
+      });
+      document.getElementById('btnTimerZero').addEventListener('click', function () {
+        clearInterval(store.timerId);
+        store.timerId = null;
+        store.timerLeft = store.timerTotal;
+        updateClockUI();
+        showToast('Minuteur réinitialisé');
+      });
+
+      document.getElementById('btnBreathStart').addEventListener('click', function () {
+        const orb = document.getElementById('breathCircle');
+        if (store.breathId) {
+          clearInterval(store.breathId);
+          store.breathId = null;
+          orb.style.transform = 'scale(1)';
+          orb.textContent = 'Repos';
+          showToast('Respiration arrêtée');
+          return;
+        }
+        let step = 0;
+        const tick = function () {
+          const inhale = step % 2 === 0;
+          orb.textContent = inhale ? 'Inspirez' : 'Expirez';
+          orb.style.transform = inhale ? 'scale(1.22)' : 'scale(0.92)';
+          if (!inhale) {
+            store.breathCycles++;
+            document.getElementById('breathCycles').textContent = 'Cycles complétés : ' + store.breathCycles;
+          }
+          step++;
+        };
+        tick();
+        store.breathId = setInterval(tick, 4000);
+        showToast('Respiration démarrée');
+      });
+
+      // GPS & Lieux
+      document.getElementById('btnCheckConn').addEventListener('click', function () {
+        refreshConnectionUI();
+        const info = readConnectionInfo();
+        document.getElementById('gpsResultsBox').innerHTML = '<strong>' + escapeHtml(info.text) + '</strong>';
+        showToast(info.text);
+      });
+
+      document.getElementById('btnGpsHere').addEventListener('click', async function () {
+        const box = document.getElementById('gpsResultsBox');
+        box.textContent = 'Recherche de votre position GPS...';
+        try {
+          const c = await requestGpsPromise();
+          document.getElementById('gpsMapLink').href =
+            'https://www.google.com/maps/search/?api=1&query=' + c.lat + ',' + c.lon;
+          box.innerHTML = '<strong>Position GPS trouvée :</strong> ' + c.lat.toFixed(5) + ', ' + c.lon.toFixed(5) +
+            ' — Vous pouvez maintenant rechercher un lieu autour de vous.';
+          showToast('Position GPS trouvée');
+        } catch (err) {
+          box.textContent = 'GPS indisponible ou refusé (' + (err && err.message ? err.message : 'autorisation requise') + ').';
+        }
+      });
+
+      document.getElementById('btnCopyCoords').addEventListener('click', function () {
+        if (!store.coords) {
+          showToast('Appuyez d’abord sur Ma position GPS');
+          return;
+        }
+        copyText(store.coords.lat.toFixed(5) + ', ' + store.coords.lon.toFixed(5), 'Coordonnées copiées');
+      });
+
+      document.getElementById('btnDoGpsSearch').addEventListener('click', function () { runPlaceSearch(); });
+      document.getElementById('gpsSearchInput').addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') runPlaceSearch();
+      });
+      document.querySelectorAll('.gps-quick').forEach(function (b) {
+        b.addEventListener('click', function () {
+          document.getElementById('gpsSearchInput').value = b.dataset.q;
+          runPlaceSearch(b.dataset.q);
+        });
+      });
+
+      document.getElementById('btnAddPlace').addEventListener('click', function () {
+        const name = document.getElementById('placeName').value.trim();
+        const note = document.getElementById('placeNote').value.trim();
+        if (!name) return;
+        store.places.push({ name: name, note: note || 'Accessible PMR' });
+        safeSet('hv5_places', store.places);
+        document.getElementById('placeName').value = '';
+        document.getElementById('placeNote').value = '';
+        renderPlaces();
+        showToast('Lieu enregistré');
+      });
+
+      // Urgence ICE
+      document.getElementById('btnTopIce').addEventListener('click', function () { openTab('ice'); });
+      document.getElementById('btnIceSpeak').addEventListener('click', function () {
+        flashScreen();
+        speak(LANGS[store.lang].iceVoice);
+      });
+      document.getElementById('btnCopyIce').addEventListener('click', function () {
+        copyText(buildIceSummary(), 'Fiche ICE copiée');
+      });
+      document.getElementById('btnSaveIce').addEventListener('click', function () {
+        store.ice = {
+          name: document.getElementById('iceName').value.trim(),
+          contact: document.getElementById('iceContact').value.trim(),
+          phone: document.getElementById('icePhone').value.trim() || '114',
+          blood: document.getElementById('iceBlood').value.trim(),
+          needs: document.getElementById('iceNeeds').value.trim()
+        };
+        safeSet('hv5_ice', store.ice);
+        renderIce();
+        showToast('Fiche ICE enregistrée');
+      });
+
+      // Abonnement 2,00 EUR / mois
+      document.getElementById('btnOpenSub').addEventListener('click', function () {
+        document.getElementById('subModal').classList.add('open');
+      });
+      document.getElementById('btnCloseSub').addEventListener('click', function () {
+        document.getElementById('subModal').classList.remove('open');
+      });
+      document.getElementById('btnActivateSub').addEventListener('click', function () {
+        store.subscribed = true;
+        safeSet('hv5_sub', true);
+        document.getElementById('uiSubStatus').textContent = LANGS[store.lang].subOn;
+        document.getElementById('subModal').classList.remove('open');
+        showToast('Option 2,00 €/mois activée');
+      });
+
+      window.addEventListener('online', refreshConnectionUI);
+      window.addEventListener('offline', refreshConnectionUI);
+
+      document.getElementById('iceName').value = store.ice.name || '';
+      document.getElementById('iceContact').value = store.ice.contact || '';
+      document.getElementById('icePhone').value = store.ice.phone || '114';
+      document.getElementById('iceBlood').value = store.ice.blood || '';
+      document.getElementById('iceNeeds').value = store.ice.needs || '';
+
+      refreshConnectionUI();
+      setLanguage('fr');
+      renderWater();
+      renderShop();
+      renderMeds();
+      renderPlaces();
+      renderIce();
+      renderOddGame();
+      initPairsGame();
+      renderTf();
+      updateClockUI();
+      updateFalcStats(document.getElementById('falcInput').value);
+    })();
+  </script>
+</body>
+</html>
 
