@@ -1973,12 +1973,10 @@
         showToast('Élément ajouté');
       });
       document.getElementById('btnShareLog').addEventListener('click', function () {
-        const summary = 'Bilan HandiVie+ (Hydratation : ' + store.water + ' verre(s)) :
-' +
+        const summary = 'Bilan HandiVie+ (Hydratation : ' + store.water + ' verre(s)) :\n' +
           store.meds.map(function (m) {
             return '- ' + m.time + ' : ' + m.name + (m.takenAt ? ' (Validé à ' + m.takenAt + ')' : ' (À faire)');
-          }).join('
-');
+          }).join('\n');
         copyText(summary, 'Bilan copié');
       });
 
