@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HandiVie+ — Compagnon d'Autonomie, Accessibilité & Loisirs</title>
   <meta name="theme-color" content="#1e3a8a" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="icon-192.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Naskh+Arabic:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -457,7 +459,6 @@
     }
     body.mode-contrast .orb-breath { color: #000000; }
 
-    /* Jeux adaptés */
     .simon-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -650,7 +651,6 @@
       <button type="button" class="module-tab" data-tab="ice" id="navIce"><span>Urgence ICE</span></button>
     </nav>
 
-    <!-- 1. PARLER & ECOUTER -->
     <section class="module-panel active" id="panel-speak">
       <h2 class="panel-title" id="speakHead">Communication Parlée, Pictogrammes & Sous-titres</h2>
       <p class="panel-sub" id="speakLead">Construisez une phrase avec les cartes, faites-la lire à voix haute ou transcrivez la voix de votre interlocuteur.</p>
@@ -679,7 +679,6 @@
       <div class="caa-grid" id="caaContainer"></div>
     </section>
 
-    <!-- 2. PASS PRIORITAIRE & CMI -->
     <section class="module-panel" id="panel-priority">
       <h2 class="panel-title" id="prioHead">Pass Prioritaire Visuel & Sonore (File d'attente / Caisse)</h2>
       <p class="panel-sub" id="prioLead">Signalez votre priorité ou votre besoin d'aménagement sans avoir à vous justifier oralement.</p>
@@ -710,7 +709,6 @@
       </div>
     </section>
 
-    <!-- 3. PILULIER & ROUTINE -->
     <section class="module-panel" id="panel-health">
       <h2 class="panel-title" id="healthHead">Pilulier Horodaté, Hydratation & Routine Quotidienne</h2>
       <p class="panel-sub" id="healthLead">Suivez vos prises de médicaments, votre hydratation et vos rendez-vous puis partagez le bilan.</p>
@@ -737,7 +735,6 @@
       <div id="medList"></div>
     </section>
 
-    <!-- 4. LECTEUR FALC & DYS -->
     <section class="module-panel" id="panel-falc">
       <h2 class="panel-title" id="falcHead">Assistant de Lecture Facile (FALC / DYS) & Numéros Utiles</h2>
       <p class="panel-sub" id="falcLead">Collez un courrier administratif, une ordonnance ou une notice : l'outil découpe les syllabes et le lit lentement.</p>
@@ -760,7 +757,6 @@
       </div>
     </section>
 
-    <!-- 5. CALME & TEMPS -->
     <section class="module-panel" id="panel-calm">
       <h2 class="panel-title" id="calmHead">Minuteur Visuel & Cohérence Cardiaque</h2>
       <p class="panel-sub" id="calmLead">Structurer le temps visuellement et apaiser le stress ou la surcharge sensorielle.</p>
@@ -792,13 +788,11 @@
       </div>
     </section>
 
-    <!-- 6. LOISIRS & JEUX ADAPTÉS + AIDES -->
     <section class="module-panel" id="panel-games">
       <h2 class="panel-title" id="gamesHead">Loisirs, Jeux Adaptés & Aides du Quotidien</h2>
       <p class="panel-sub" id="gamesLead">Jeux accessibles sans limite de temps stressante, sons doux et aides pratiques pour la maison ou les sorties.</p>
 
       <div class="grid-2">
-        <!-- 1. Mémoire Visuelle & Sonore -->
         <div class="box-card" style="text-align:center;">
           <h3 style="margin-top:0;">1. Mémoire Visuelle & Sonore</h3>
           <p id="simonStatus" style="color:var(--muted);margin:0 0 8px;">Appuyez sur Démarrer pour observer la suite.</p>
@@ -815,7 +809,6 @@
           </div>
         </div>
 
-        <!-- 2. Cherche l'Intrus -->
         <div class="box-card" style="text-align:center;">
           <h3 style="margin-top:0;">2. Cherche l'Intrus</h3>
           <p id="oddPrompt" style="color:var(--muted);margin:0 0 8px;">Touchez l'élément qui est différent des trois autres :</p>
@@ -829,7 +822,6 @@
       </div>
 
       <div class="grid-2">
-        <!-- 3. Jeu des Paires -->
         <div class="box-card" style="text-align:center;">
           <h3 style="margin-top:0;">3. Jeu des Paires</h3>
           <p style="color:var(--muted);margin:0 0 8px;">Associez deux cartes identiques.</p>
@@ -838,7 +830,6 @@
           <button type="button" class="btn-soft" id="btnPairsReset" style="margin-top:8px;">Mélanger</button>
         </div>
 
-        <!-- 4. Vrai ou Faux du Quotidien -->
         <div class="box-card">
           <h3 style="margin-top:0;">4. Vrai ou Faux</h3>
           <p id="tfStatement" style="font-weight:800;font-size:1.1em;margin:0 0 12px;"></p>
@@ -853,7 +844,6 @@
       </div>
 
       <div class="grid-2">
-        <!-- 5. Ambiance Sonore -->
         <div class="box-card">
           <h3 style="margin-top:0;">5. Ambiance Sonore Apaisante</h3>
           <p style="color:var(--muted);margin-top:0;">Sons doux générés sur l'appareil, même sans internet.</p>
@@ -868,7 +858,6 @@
           </div>
         </div>
 
-        <!-- 6. Aide : Liste de Courses & Avant de Sortir -->
         <div class="box-card">
           <h3 style="margin-top:0;">6. Aide : Courses & Avant de Sortir</h3>
           <div class="row-flex">
@@ -881,7 +870,6 @@
       </div>
     </section>
 
-    <!-- 7. GPS & LIEUX PMR -->
     <section class="module-panel" id="panel-places">
       <h2 class="panel-title" id="placesHead">Recherche GPS d'Endroits & Lieux Accessibles PMR</h2>
       <p class="panel-sub" id="placesLead">La recherche utilise votre position GPS pour trouver uniquement les lieux proches autour de vous.</p>
@@ -925,7 +913,6 @@
       </div>
     </section>
 
-    <!-- 8. URGENCE ICE -->
     <section class="module-panel" id="panel-ice">
       <div class="ice-hero">
         <span class="pill-tag tag-free" style="margin-bottom:8px;">100 % GRATUIT</span>
@@ -990,6 +977,12 @@
 
   <script>
     (function () {
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('./sw.js').catch(function () {});
+        });
+      }
+
       const LANGS = {
         fr: {
           dir: 'ltr', voice: 'fr-FR',
@@ -1466,7 +1459,6 @@
         }
       }
 
-      // --- AUDIO & JEUX ADAPTÉS ---
       let audioCtx = null;
       function getAudioCtx() {
         if (!audioCtx) {
@@ -1494,7 +1486,6 @@
         } catch (_) {}
       }
 
-      // 1. Mémoire Visuelle & Sonore
       const SIMON_FREQS = [261.63, 329.63, 392.00, 523.25];
       let simonSeq = [];
       let simonUserIdx = 0;
@@ -1563,7 +1554,6 @@
         });
       });
 
-      // 2. Cherche l'intrus
       const ODD_SETS = [
         { common: 'Pomme', odd: 'Chaise' },
         { common: 'Train', odd: 'Nuage' },
@@ -1610,7 +1600,6 @@
       });
       document.getElementById('btnOddNext').addEventListener('click', renderOddGame);
 
-      // 3. Jeu des Paires (3 paires = 6 cartes)
       const PAIR_WORDS = ['Soleil', 'Arbre', 'Étoile'];
       let pairCards = [];
       let firstPick = null;
@@ -1669,7 +1658,6 @@
       }
       document.getElementById('btnPairsReset').addEventListener('click', initPairsGame);
 
-      // 4. Vrai ou Faux
       const TF_ITEMS = [
         { s: "Boire de l'eau régulièrement aide à rester hydraté.", ans: true },
         { s: "Il y a 24 heures dans une journée complète.", ans: true },
@@ -1702,7 +1690,6 @@
         renderTf();
       });
 
-      // 5. Ambiance Sonore Hors Ligne
       let ambientNode = null;
       let ambientFilter = null;
       let ambientInterval = null;
@@ -1764,7 +1751,6 @@
       });
       document.getElementById('btnSoundStop').addEventListener('click', stopAmbientSound);
 
-      // 6. Aide : Liste de Courses & Avant de Sortir
       function renderShop() {
         const box = document.getElementById('shopList');
         if (!box) return;
@@ -1804,7 +1790,6 @@
         speak('Liste : ' + store.shop.join(', '));
       });
 
-      // Navigation & Langue
       document.querySelectorAll('.module-tab').forEach(function (b) {
         b.addEventListener('click', function () { openTab(b.dataset.tab); });
       });
@@ -1812,7 +1797,6 @@
         setLanguage(e.target.value);
       });
 
-      // Barre accessibilité
       document.getElementById('btnFontUp').addEventListener('click', function () {
         store.fontSize = Math.min(28, store.fontSize + 2);
         document.body.style.fontSize = store.fontSize + 'px';
@@ -1875,7 +1859,6 @@
         if (active) speak(active.innerText.slice(0, 260));
       });
 
-      // Profils
       document.querySelectorAll('.profile-pill').forEach(function (p) {
         p.addEventListener('click', function () {
           document.querySelectorAll('.profile-pill').forEach(function (x) { x.classList.remove('active'); });
@@ -1908,7 +1891,6 @@
         });
       });
 
-      // Parler & Écouter
       document.getElementById('btnSpeakNow').addEventListener('click', function () {
         speak(document.getElementById('phraseDisplay').textContent);
       });
@@ -1952,7 +1934,6 @@
         }
       });
 
-      // Pass Prioritaire
       document.getElementById('prioPresetSelect').addEventListener('change', function (e) {
         document.getElementById('prioCardBody').textContent = e.target.value;
       });
@@ -1969,7 +1950,6 @@
         document.getElementById('fullModal').classList.add('open');
       });
 
-      // Pilulier & Hydratation
       document.getElementById('btnAddWater').addEventListener('click', function () {
         store.water++;
         safeSet('hv5_water', store.water);
@@ -1993,14 +1973,15 @@
         showToast('Élément ajouté');
       });
       document.getElementById('btnShareLog').addEventListener('click', function () {
-        const summary = 'Bilan HandiVie+ (Hydratation : ' + store.water + ' verre(s)) :\n' +
+        const summary = 'Bilan HandiVie+ (Hydratation : ' + store.water + ' verre(s)) :
+' +
           store.meds.map(function (m) {
             return '- ' + m.time + ' : ' + m.name + (m.takenAt ? ' (Validé à ' + m.takenAt + ')' : ' (À faire)');
-          }).join('\n');
+          }).join('
+');
         copyText(summary, 'Bilan copié');
       });
 
-      // Lecteur FALC
       function updateFalcStats(text) {
         const words = text.trim() ? text.trim().split(/\s+/).length : 0;
         const st = document.getElementById('falcStats');
@@ -2030,7 +2011,6 @@
         updateFalcStats('');
       });
 
-      // Calme & Temps
       function updateClockUI() {
         const m = String(Math.floor(store.timerLeft / 60)).padStart(2, '0');
         const s = String(store.timerLeft % 60).padStart(2, '0');
@@ -2103,7 +2083,6 @@
         showToast('Respiration démarrée');
       });
 
-      // GPS & Lieux
       document.getElementById('btnCheckConn').addEventListener('click', function () {
         refreshConnectionUI();
         const info = readConnectionInfo();
@@ -2157,7 +2136,6 @@
         showToast('Lieu enregistré');
       });
 
-      // Urgence ICE
       document.getElementById('btnTopIce').addEventListener('click', function () { openTab('ice'); });
       document.getElementById('btnIceSpeak').addEventListener('click', function () {
         flashScreen();
@@ -2179,7 +2157,6 @@
         showToast('Fiche ICE enregistrée');
       });
 
-      // Abonnement 2,00 EUR / mois
       document.getElementById('btnOpenSub').addEventListener('click', function () {
         document.getElementById('subModal').classList.add('open');
       });
@@ -2219,4 +2196,3 @@
   </script>
 </body>
 </html>
-
