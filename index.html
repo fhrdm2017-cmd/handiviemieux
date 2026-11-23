@@ -363,7 +363,7 @@
       align-items: center;
     }
 
-    input[type="text"], input[type="time"], input[type="tel"], textarea, select.std-select {
+    input[type="text"], input[type="time"], input[type="tel"], input[type="date"], textarea, select.std-select {
       background: var(--surface-2);
       border: 1.5px solid var(--border);
       border-radius: var(--radius-md);
@@ -609,7 +609,7 @@
           <option value="de">Deutsch</option>
           <option value="it">Italiano</option>
         </select>
-        <button type="button" class="btn-pro-badge" id="btnOpenSub">2,00 €/mois</button>
+        <button type="button" class="btn-pro-badge" id="btnOpenSub">1,00 €/mois</button>
         <button type="button" class="btn-ice-badge" id="btnTopIce">Urgence ICE</button>
       </div>
     </div>
@@ -627,7 +627,7 @@
 
       <div class="hero-footer">
         <span id="uiNetState" style="font-weight:700;">Internet : vérification...</span>
-        <span class="pill-tag tag-pro" id="uiSubStatus">Essai 7 jours • Option Confort 2,00 €/mois</span>
+        <span class="pill-tag tag-pro" id="uiSubStatus">Option Confort 1,00 €/mois (sans essai)</span>
         <span id="uiActivityLog" style="color:var(--muted);font-weight:600;">Prêt</span>
       </div>
     </section>
@@ -647,6 +647,7 @@
       <button type="button" class="module-tab" data-tab="falc" id="navFalc"><span>Lecteur FALC</span></button>
       <button type="button" class="module-tab" data-tab="calm" id="navCalm"><span>Calme & Temps</span></button>
       <button type="button" class="module-tab" data-tab="games" id="navGames"><span>Loisirs & Jeux</span></button>
+      <button type="button" class="module-tab" data-tab="aids20" id="navAids20"><span>20 Aides</span></button>
       <button type="button" class="module-tab" data-tab="places" id="navPlaces"><span>GPS & Lieux PMR</span></button>
       <button type="button" class="module-tab" data-tab="ice" id="navIce"><span>Urgence ICE</span></button>
     </nav>
@@ -870,6 +871,173 @@
       </div>
     </section>
 
+    <section class="module-panel" id="panel-aids20">
+      <h2 class="panel-title" id="aids20Head">20 Fonctions & Aides du Quotidien</h2>
+      <p class="panel-sub" id="aids20Lead">Les 6 fonctions de base et les 14 nouvelles aides réunies pour l'autonomie, la santé, les trajets, les proches et le calme.</p>
+
+      <div class="box-card">
+        <h3 style="margin-top:0;">7. Check-list Avant de Sortir</h3>
+        <div class="row-flex">
+          <input type="text" id="exitCheckInput" placeholder="Ajouter un point (ex. Carte priorité, Eau, Clés)..." />
+          <button type="button" class="btn-blue" id="btnAddExitCheck">Ajouter</button>
+          <button type="button" class="btn-soft" id="btnReadExitCheck">Lire</button>
+        </div>
+        <div id="exitCheckList"></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="box-card">
+          <h3 style="margin-top:0;">8. Routine Matin & Soir</h3>
+          <div class="row-flex">
+            <input type="text" id="routineInput" placeholder="Ex. Brosser les dents, Préparer le sac..." />
+            <button type="button" class="btn-blue" id="btnAddRoutine">Ajouter</button>
+          </div>
+          <div id="routineList"></div>
+        </div>
+
+        <div class="box-card">
+          <h3 style="margin-top:0;">9. Rendez-vous Médicaux & Kiné</h3>
+          <div class="row-flex">
+            <input type="date" id="apptDate" />
+            <input type="time" id="apptTime" value="10:00" />
+            <input type="text" id="apptLabel" placeholder="Ex. Médecin traitant, Kiné, Lieu..." />
+            <button type="button" class="btn-green" id="btnAddAppt">Ajouter</button>
+          </div>
+          <div id="apptList"></div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="box-card">
+          <h3 style="margin-top:0;">10. Suivi Douleur & Énergie (0 à 10)</h3>
+          <p style="margin:0 0 8px;">Douleur : <strong id="painValText">0</strong>/10 • Énergie : <strong id="energyValText">5</strong>/10</p>
+          <div class="row-flex">
+            <button type="button" class="btn-soft" id="btnPainDown">Douleur -</button>
+            <button type="button" class="btn-soft" id="btnPainUp">Douleur +</button>
+            <button type="button" class="btn-soft" id="btnEnergyDown">Énergie -</button>
+            <button type="button" class="btn-soft" id="btnEnergyUp">Énergie +</button>
+          </div>
+          <button type="button" class="btn-blue" id="btnSpeakHealthScore">Dire & Copier le niveau</button>
+        </div>
+
+        <div class="box-card">
+          <h3 style="margin-top:0;">11. Message SMS Rapide à un Proche</h3>
+          <div class="row-flex">
+            <select class="std-select" id="quickSmsSelect">
+              <option value="Je suis bien arrivé à destination.">Je suis bien arrivé à destination.</option>
+              <option value="Peux-tu m'appeler quand tu as un moment ?">Peux-tu m'appeler quand tu as un moment ?</option>
+              <option value="J'ai un peu de retard, j'arrive dès que possible.">J'ai un peu de retard, j'arrive dès que possible.</option>
+              <option value="J'ai besoin d'un coup de main ou d'un accompagnement.">J'ai besoin d'un coup de main ou d'un accompagnement.</option>
+            </select>
+          </div>
+          <div class="row-flex" style="margin-bottom:0;">
+            <button type="button" class="btn-blue" id="btnCopyQuickSms">Copier le message</button>
+            <a class="ext-link btn-soft" id="quickSmsLink" href="sms:?body=Je%20suis%20bien%20arriv%C3%A9%20%C3%A0%20destination.">Ouvrir SMS</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="box-card">
+          <h3 style="margin-top:0;">12. Partage de Position GPS</h3>
+          <p id="shareGpsText" style="color:var(--muted);margin-top:0;">Récupérez votre position puis copiez ou partagez le texte.</p>
+          <div class="row-flex" style="margin-bottom:0;">
+            <button type="button" class="btn-blue" id="btnRefreshShareGps">Actualiser ma position</button>
+            <button type="button" class="btn-soft" id="btnCopyShareGps">Copier position</button>
+          </div>
+        </div>
+
+        <div class="box-card">
+          <h3 style="margin-top:0;">13. Aide Transport & Accessibilité</h3>
+          <div class="row-flex" style="margin-bottom:0;">
+            <button type="button" class="btn-soft transport-phrase" data-p="Merci de déployer la rampe d'accès s'il vous plaît.">Rampe d'accès</button>
+            <button type="button" class="btn-soft transport-phrase" data-p="Où se trouve l'ascenseur ou le chemin accessible le plus proche ?">Ascenseur / Accès</button>
+            <button type="button" class="btn-soft transport-phrase" data-p="Merci de me prévenir à l'arrêt demandé.">Aide à la descente</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="box-card">
+          <h3 style="margin-top:0;">14. Répertoire des Contacts Utiles</h3>
+          <div class="row-flex">
+            <input type="text" id="contactLabel" placeholder="Nom ou rôle (ex. Docteur, Taxi PMR)" />
+            <input type="tel" id="contactTel" placeholder="Téléphone" />
+            <button type="button" class="btn-blue" id="btnAddContact">Ajouter</button>
+          </div>
+          <div id="contactsList"></div>
+        </div>
+
+        <div class="box-card">
+          <h3 style="margin-top:0;">15. Carnet de Repères & Codes</h3>
+          <div class="row-flex">
+            <input type="text" id="clueTitle" placeholder="Repère (ex. Digicode, Place parking)" />
+            <input type="text" id="clueValue" placeholder="Valeur / détail" />
+            <button type="button" class="btn-blue" id="btnAddClue">Enregistrer</button>
+          </div>
+          <div id="cluesList"></div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="box-card">
+          <h3 style="margin-top:0;">16. Aide Budget & Dépenses du Jour</h3>
+          <div class="row-flex">
+            <input type="text" id="budgetLabel" placeholder="Dépense (ex. Boulangerie, Bus)" />
+            <input type="text" id="budgetAmount" placeholder="Montant en € (ex. 4.50)" />
+            <button type="button" class="btn-blue" id="btnAddBudget">Ajouter</button>
+          </div>
+          <div id="budgetTotalText" style="font-weight:800;margin-bottom:8px;">Total du jour : 0,00 €</div>
+          <div id="budgetList"></div>
+        </div>
+
+        <div class="box-card">
+          <h3 style="margin-top:0;">17. Menu & Repas de la Journée</h3>
+          <div class="row-flex">
+            <select class="std-select" id="mealSlot">
+              <option value="Petit-déjeuner">Petit-déjeuner</option>
+              <option value="Déjeuner">Déjeuner</option>
+              <option value="Collation">Collation</option>
+              <option value="Dîner">Dîner</option>
+            </select>
+            <input type="text" id="mealText" placeholder="Ex. Yaourt, pain, soupe..." />
+            <button type="button" class="btn-blue" id="btnAddMeal">Noter</button>
+          </div>
+          <div id="mealsList"></div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="box-card">
+          <h3 style="margin-top:0;">18. Météo & Tenue Adaptée</h3>
+          <div class="row-flex" style="margin-bottom:0;">
+            <button type="button" class="btn-soft weather-tip" data-w="Soleil et chaleur : pensez à l'eau, chapeau ou lunettes et crème solaire.">Soleil / Chaleur</button>
+            <button type="button" class="btn-soft weather-tip" data-w="Pluie ou humidité : pensez au parapluie ou imperméable et chaussures antidérapantes.">Pluie</button>
+            <button type="button" class="btn-soft weather-tip" data-w="Fraîcheur ou vent : prévoyez une veste chaude ou un gilet.">Fraîcheur</button>
+          </div>
+        </div>
+
+        <div class="box-card">
+          <h3 style="margin-top:0;">19. Anti-Stress & Ancrage (5-4-3-2-1)</h3>
+          <p id="groundingText" style="font-weight:700;margin:0 0 10px;">5 choses à voir • 4 à toucher • 3 à entendre • 2 à sentir • 1 respiration lente.</p>
+          <div class="row-flex" style="margin-bottom:0;">
+            <button type="button" class="btn-green" id="btnGroundingNext">Étape suivante</button>
+            <button type="button" class="btn-soft" id="btnGroundingSpeak">Lire</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="box-card">
+        <h3 style="margin-top:0;">20. Journal de Bord / Notes</h3>
+        <textarea id="journalInput" rows="2" style="width:100%;margin-bottom:10px;" placeholder="Écrire une note rapide de la journée..."></textarea>
+        <div class="row-flex" style="margin-bottom:0;">
+          <button type="button" class="btn-blue" id="btnSaveJournal">Enregistrer la note</button>
+          <button type="button" class="btn-soft" id="btnReadJournal">Lire la note</button>
+          <button type="button" class="btn-soft" id="btnCopyJournal">Copier</button>
+        </div>
+      </div>
+    </section>
+
     <section class="module-panel" id="panel-places">
       <h2 class="panel-title" id="placesHead">Recherche GPS d'Endroits & Lieux Accessibles PMR</h2>
       <p class="panel-sub" id="placesLead">La recherche utilise votre position GPS pour trouver uniquement les lieux proches autour de vous.</p>
@@ -957,19 +1125,19 @@
   <div class="modal-overlay" id="subModal" role="dialog" aria-modal="true" aria-labelledby="subTitle">
     <div class="modal-box">
       <span class="pill-tag tag-pro">HANDIVIE+ CONFORT</span>
-      <h2 id="subTitle" style="margin:10px 0 8px;">Abonnement HandiVie+ — 2,00 € / mois</h2>
+      <h2 id="subTitle" style="margin:10px 0 8px;">Abonnement HandiVie+ — 1,00 € / mois</h2>
       <p style="margin:0 0 12px;color:var(--muted);">
-        Inclut <strong>7 jours d'essai gratuit</strong>, puis <strong>2,00 €/mois</strong>. La <strong>Fiche Urgence ICE</strong> reste toujours 100 % gratuite.
+        Tarif <strong>1,00 €/mois sans période d'essai</strong>. La <strong>Fiche Urgence ICE</strong> reste toujours 100 % gratuite.
       </p>
       <ul style="margin:0 0 18px;padding-inline-start:20px;">
         <li>Communication CAA multilingue (6 langues dont l'arabe RTL) + sous-titrage vocal</li>
         <li>Pass Prioritaire CMI visuel et sonore</li>
         <li>Pilulier horodaté, hydratation & bilan + Lecteur FALC / DYS</li>
-        <li>Loisirs & jeux adaptés + aides du quotidien</li>
+        <li>Loisirs & jeux adaptés + 20 fonctions & aides du quotidien</li>
         <li>Recherche GPS d'endroits proches, carnet PMR, minuteur et respiration</li>
       </ul>
       <div class="row-flex" style="margin-bottom:0;">
-        <button type="button" class="btn-blue" id="btnActivateSub">Activer l'essai / 2,00 €/mois</button>
+        <button type="button" class="btn-blue" id="btnActivateSub">Activer à 1,00 €/mois</button>
         <button type="button" class="btn-soft" id="btnCloseSub">Fermer</button>
       </div>
     </div>
@@ -989,9 +1157,9 @@
           title: 'HandiVie+',
           sub: "Suite complète d'autonomie, communication, santé, loisirs adaptés et accès prioritaire",
           free: 'Urgence ICE 100 % gratuite',
-          subOff: 'Essai 7 jours • Option Confort 2,00 €/mois',
-          subOn: 'HandiVie+ actif (2,00 €/mois) • ICE toujours gratuit',
-          nav: ['Parler & Écouter', 'Pass Prioritaire', 'Pilulier & Jour', 'Lecteur FALC', 'Calme & Temps', 'Loisirs & Jeux', 'GPS & Lieux PMR', 'Urgence ICE'],
+          subOff: 'Option Confort 1,00 €/mois (sans essai)',
+          subOn: 'HandiVie+ actif (1,00 €/mois) • ICE toujours gratuit',
+          nav: ['Parler & Écouter', 'Pass Prioritaire', 'Pilulier & Jour', 'Lecteur FALC', 'Calme & Temps', 'Loisirs & Jeux', '20 Aides', 'GPS & Lieux PMR', 'Urgence ICE'],
           defaultMsg: "Bonjour, j'ai besoin d'aide s'il vous plaît.",
           iceVoice: "Urgence médicale. Merci de consulter ma fiche ICE sur l'écran et d'appeler mon contact.",
           caa: [
@@ -1010,9 +1178,9 @@
           title: 'HandiVie+ — هاندي في بلس',
           sub: 'منظومة متكاملة للاستقلالية والتواصل والصحة والألعاب الميسرة والأولوية',
           free: 'طوارئ ICE مجانية 100٪',
-          subOff: 'تجربة 7 أيام • خيار الراحة 2,00 € / شهر',
-          subOn: 'اشتراك HandiVie+ مفعّل (2,00 € / شهر) • طوارئ ICE مجانية',
-          nav: ['تحدث واستمع', 'بطاقة الأولوية', 'الأدوية ويومي', 'القارئ السهل', 'الهدوء والوقت', 'ترفيه وألعاب', 'GPS وأماكن PMR', 'طوارئ ICE'],
+          subOff: 'خيار الراحة 1,00 € / شهر (بدون فترة تجريبية)',
+          subOn: 'اشتراك HandiVie+ مفعّل (1,00 € / شهر) • طوارئ ICE مجانية',
+          nav: ['تحدث واستمع', 'بطاقة الأولوية', 'الأدوية ويومي', 'القارئ السهل', 'الهدوء والوقت', 'ترفيه وألعاب', '20 مساعدة', 'GPS وأماكن PMR', 'طوارئ ICE'],
           defaultMsg: 'مرحبًا، أحتاج إلى مساعدة من فضلك.',
           iceVoice: 'حالة طوارئ. يرجى قراءة بطاقة الطوارئ على الشاشة والاتصال بجهة الاتصال.',
           caa: [
@@ -1031,9 +1199,9 @@
           title: 'HandiVie+',
           sub: 'Complete autonomy, communication, health, adapted games, and priority suite',
           free: 'ICE Emergency 100% free',
-          subOff: '7-day trial • Comfort Option €2.00 / month',
-          subOn: 'HandiVie+ active (€2.00/mo) • ICE always free',
-          nav: ['Speak & Listen', 'Priority Pass', 'Meds & Day', 'Easy Reader', 'Calm & Time', 'Leisure & Games', 'GPS & Places', 'ICE Emergency'],
+          subOff: 'Comfort Option €1.00 / month (no trial)',
+          subOn: 'HandiVie+ active (€1.00/mo) • ICE always free',
+          nav: ['Speak & Listen', 'Priority Pass', 'Meds & Day', 'Easy Reader', 'Calm & Time', 'Leisure & Games', '20 Aids', 'GPS & Places', 'ICE Emergency'],
           defaultMsg: 'Hello, I need help please.',
           iceVoice: 'Medical emergency. Please read my ICE card on screen and call my emergency contact.',
           caa: [
@@ -1052,9 +1220,9 @@
           title: 'HandiVie+',
           sub: 'Suite completa de autonomía, comunicación, salud, juegos adaptados y prioridad',
           free: 'Emergencia ICE 100 % gratuita',
-          subOff: 'Prueba 7 días • Opción Confort 2,00 € / mes',
-          subOn: 'HandiVie+ activo (2,00 €/mes) • ICE siempre gratis',
-          nav: ['Hablar y Escuchar', 'Pase Prioritario', 'Medicación y Día', 'Lector Fácil', 'Calma y Tiempo', 'Ocio y Juegos', 'GPS y Lugares', 'Emergencia ICE'],
+          subOff: 'Opción Confort 1,00 € / mes (sin prueba)',
+          subOn: 'HandiVie+ activo (1,00 €/mes) • ICE siempre gratis',
+          nav: ['Hablar y Escuchar', 'Pase Prioritario', 'Medicación y Día', 'Lector Fácil', 'Calma y Tiempo', 'Ocio y Juegos', '20 Ayudas', 'GPS y Lugares', 'Emergencia ICE'],
           defaultMsg: 'Hola, necesito ayuda por favor.',
           iceVoice: 'Emergencia médica. Por favor lea mi ficha ICE en pantalla y llame a mi contacto.',
           caa: [
@@ -1073,9 +1241,9 @@
           title: 'HandiVie+',
           sub: 'Komplette Suite für Selbstständigkeit, Kommunikation, Gesundheit & Spiele',
           free: 'ICE-Notfall 100 % kostenlos',
-          subOff: '7 Tage Test • Komfort-Option 2,00 € / Monat',
-          subOn: 'HandiVie+ aktiv (2,00 €/Monat) • ICE kostenlos',
-          nav: ['Sprechen & Hören', 'Vorrang-Pass', 'Medikamente', 'Leichtes Lesen', 'Ruhe & Zeit', 'Freizeit & Spiele', 'GPS & Orte', 'ICE-Notfall'],
+          subOff: 'Komfort-Option 1,00 € / Monat (ohne Testphase)',
+          subOn: 'HandiVie+ aktiv (1,00 €/Monat) • ICE kostenlos',
+          nav: ['Sprechen & Hören', 'Vorrang-Pass', 'Medikamente', 'Leichtes Lesen', 'Ruhe & Zeit', 'Freizeit & Spiele', '20 Hilfen', 'GPS & Orte', 'ICE-Notfall'],
           defaultMsg: 'Hallo, ich brauche bitte Hilfe.',
           iceVoice: 'Medizinischer Notfall. Bitte lesen Sie meine ICE-Karte und rufen Sie meinen Kontakt an.',
           caa: [
@@ -1094,9 +1262,9 @@
           title: 'HandiVie+',
           sub: 'Suite completa per autonomia, comunicazione, salute, giochi e accesso prioritario',
           free: 'Emergenza ICE 100% gratuita',
-          subOff: 'Prova 7 giorni • Opzione Comfort 2,00 € / mese',
-          subOn: 'HandiVie+ attivo (2,00 €/mese) • ICE sempre gratuito',
-          nav: ['Parla e Ascolta', 'Pass Prioritario', 'Farmaci e Giorno', 'Lettura Facile', 'Calma e Tempo', 'Svago e Giochi', 'GPS e Luoghi', 'Emergenza ICE'],
+          subOff: 'Opzione Comfort 1,00 € / mese (senza prova)',
+          subOn: 'HandiVie+ attivo (1,00 €/mese) • ICE sempre gratuito',
+          nav: ['Parla e Ascolta', 'Pass Prioritario', 'Farmaci e Giorno', 'Lettura Facile', 'Calma e Tempo', 'Svago e Giochi', '20 Aiuti', 'GPS e Luoghi', 'Emergenza ICE'],
           defaultMsg: 'Ciao, ho bisogno di aiuto per favore.',
           iceVoice: 'Emergenza medica. Leggi la mia scheda ICE sullo schermo e chiama il mio contatto.',
           caa: [
@@ -1135,6 +1303,16 @@
         places: safeGet('hv5_places', [{ name: 'Mairie & Accueil', note: 'Rampe douce + toilettes PMR' }]),
         ice: safeGet('hv5_ice', { name: '', contact: '', phone: '114', blood: '', needs: '' }),
         subscribed: safeGet('hv5_sub', false) === true,
+        exitCheck: safeGet('hv20_exit', ['Téléphone chargé', 'Clés', 'Carte priorité / mobilité', 'Eau']),
+        routine: safeGet('hv20_routine', ['Matin : Verre d\'eau & étirements', 'Soir : Préparer affaires du lendemain']),
+        appts: safeGet('hv20_appts', [{ date: '', time: '10:00', label: 'Suivi médical' }]),
+        pain: safeGet('hv20_pain', 0),
+        energy: safeGet('hv20_energy', 5),
+        contacts: safeGet('hv20_contacts', [{ label: 'Urgences accessibles', tel: '114' }]),
+        clues: safeGet('hv20_clues', [{ title: 'Repère maison', value: 'Garder le double de clés en sécurité' }]),
+        budget: safeGet('hv20_budget', []),
+        meals: safeGet('hv20_meals', [{ slot: 'Petit-déjeuner', text: 'Pain, boisson chaude' }]),
+        journal: safeGet('hv20_journal', ''),
         timerTotal: 300,
         timerLeft: 300,
         timerId: null,
@@ -1349,7 +1527,7 @@
         document.getElementById('uiFreeBadge').textContent = l.free;
         document.getElementById('uiSubStatus').textContent = store.subscribed ? l.subOn : l.subOff;
 
-        const tabIds = ['navSpeak', 'navPriority', 'navHealth', 'navFalc', 'navCalm', 'navGames', 'navPlaces', 'navIce'];
+        const tabIds = ['navSpeak', 'navPriority', 'navHealth', 'navFalc', 'navCalm', 'navGames', 'navAids20', 'navPlaces', 'navIce'];
         tabIds.forEach(function (id, i) {
           const el = document.getElementById(id);
           if (el) el.innerHTML = '<span>' + l.nav[i] + '</span>';
@@ -1379,6 +1557,7 @@
           navigator.geolocation.getCurrentPosition(
             function (pos) {
               store.coords = { lat: pos.coords.latitude, lon: pos.coords.longitude };
+              updateShareGpsUI();
               resolve(store.coords);
             },
             function (err) {
@@ -1387,6 +1566,16 @@
             { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
           );
         });
+      }
+
+      function updateShareGpsUI() {
+        const el = document.getElementById('shareGpsText');
+        if (!el) return;
+        if (store.coords) {
+          el.textContent = 'Position : ' + store.coords.lat.toFixed(5) + ', ' + store.coords.lon.toFixed(5);
+        } else {
+          el.textContent = 'Récupérez votre position puis copiez ou partagez le texte.';
+        }
       }
 
       async function runPlaceSearch(queryOverride) {
@@ -1790,6 +1979,340 @@
         speak('Liste : ' + store.shop.join(', '));
       });
 
+      function renderExitCheck() {
+        const box = document.getElementById('exitCheckList');
+        if (!box) return;
+        box.innerHTML = '';
+        store.exitCheck.forEach(function (item, idx) {
+          const row = document.createElement('div');
+          row.className = 'item-strip';
+          row.innerHTML = '<span>' + escapeHtml(item) + '</span>';
+          const del = document.createElement('button');
+          del.type = 'button';
+          del.className = 'btn-soft';
+          del.textContent = 'OK';
+          del.addEventListener('click', function () {
+            store.exitCheck.splice(idx, 1);
+            safeSet('hv20_exit', store.exitCheck);
+            renderExitCheck();
+          });
+          row.appendChild(del);
+          box.appendChild(row);
+        });
+      }
+      document.getElementById('btnAddExitCheck').addEventListener('click', function () {
+        const inp = document.getElementById('exitCheckInput');
+        if (!inp.value.trim()) return;
+        store.exitCheck.push(inp.value.trim());
+        inp.value = '';
+        safeSet('hv20_exit', store.exitCheck);
+        renderExitCheck();
+        showToast('Point ajouté');
+      });
+      document.getElementById('btnReadExitCheck').addEventListener('click', function () {
+        speak(store.exitCheck.length ? 'Avant de sortir : ' + store.exitCheck.join(', ') : 'Liste vide');
+      });
+
+      function renderRoutine() {
+        const box = document.getElementById('routineList');
+        if (!box) return;
+        box.innerHTML = '';
+        store.routine.forEach(function (item, idx) {
+          const row = document.createElement('div');
+          row.className = 'item-strip';
+          row.innerHTML = '<span>' + escapeHtml(item) + '</span>';
+          const del = document.createElement('button');
+          del.type = 'button';
+          del.className = 'btn-soft';
+          del.textContent = 'Fait';
+          del.addEventListener('click', function () {
+            store.routine.splice(idx, 1);
+            safeSet('hv20_routine', store.routine);
+            renderRoutine();
+          });
+          row.appendChild(del);
+          box.appendChild(row);
+        });
+      }
+      document.getElementById('btnAddRoutine').addEventListener('click', function () {
+        const inp = document.getElementById('routineInput');
+        if (!inp.value.trim()) return;
+        store.routine.push(inp.value.trim());
+        inp.value = '';
+        safeSet('hv20_routine', store.routine);
+        renderRoutine();
+        showToast('Routine enregistrée');
+      });
+
+      function renderAppts() {
+        const box = document.getElementById('apptList');
+        if (!box) return;
+        box.innerHTML = '';
+        store.appts.forEach(function (a, idx) {
+          const row = document.createElement('div');
+          row.className = 'item-strip';
+          const info = (a.date ? a.date + ' ' : '') + (a.time ? a.time + ' — ' : '') + a.label;
+          row.innerHTML = '<span>' + escapeHtml(info) + '</span>';
+          const del = document.createElement('button');
+          del.type = 'button';
+          del.className = 'btn-soft';
+          del.textContent = 'Suppr.';
+          del.addEventListener('click', function () {
+            store.appts.splice(idx, 1);
+            safeSet('hv20_appts', store.appts);
+            renderAppts();
+          });
+          row.appendChild(del);
+          box.appendChild(row);
+        });
+      }
+      document.getElementById('btnAddAppt').addEventListener('click', function () {
+        const d = document.getElementById('apptDate').value;
+        const t = document.getElementById('apptTime').value;
+        const lbl = document.getElementById('apptLabel').value.trim();
+        if (!lbl) return;
+        store.appts.push({ date: d, time: t, label: lbl });
+        document.getElementById('apptLabel').value = '';
+        safeSet('hv20_appts', store.appts);
+        renderAppts();
+        showToast('Rendez-vous ajouté');
+      });
+
+      function renderPainEnergy() {
+        document.getElementById('painValText').textContent = store.pain;
+        document.getElementById('energyValText').textContent = store.energy;
+      }
+      document.getElementById('btnPainDown').addEventListener('click', function () {
+        store.pain = Math.max(0, store.pain - 1);
+        safeSet('hv20_pain', store.pain);
+        renderPainEnergy();
+      });
+      document.getElementById('btnPainUp').addEventListener('click', function () {
+        store.pain = Math.min(10, store.pain + 1);
+        safeSet('hv20_pain', store.pain);
+        renderPainEnergy();
+      });
+      document.getElementById('btnEnergyDown').addEventListener('click', function () {
+        store.energy = Math.max(0, store.energy - 1);
+        safeSet('hv20_energy', store.energy);
+        renderPainEnergy();
+      });
+      document.getElementById('btnEnergyUp').addEventListener('click', function () {
+        store.energy = Math.min(10, store.energy + 1);
+        safeSet('hv20_energy', store.energy);
+        renderPainEnergy();
+      });
+      document.getElementById('btnSpeakHealthScore').addEventListener('click', function () {
+        const txt = 'Douleur ' + store.pain + ' sur 10, énergie ' + store.energy + ' sur 10.';
+        copyText(txt, 'Niveau copié');
+        speak(txt);
+      });
+
+      function syncQuickSms() {
+        const msg = document.getElementById('quickSmsSelect').value;
+        document.getElementById('quickSmsLink').href = 'sms:?body=' + encodeURIComponent(msg);
+      }
+      document.getElementById('quickSmsSelect').addEventListener('change', syncQuickSms);
+      document.getElementById('btnCopyQuickSms').addEventListener('click', function () {
+        copyText(document.getElementById('quickSmsSelect').value, 'Message SMS copié');
+      });
+
+      document.getElementById('btnRefreshShareGps').addEventListener('click', async function () {
+        try {
+          await requestGpsPromise();
+          showToast('Position GPS actualisée');
+        } catch (_) {
+          showToast('GPS indisponible');
+        }
+      });
+      document.getElementById('btnCopyShareGps').addEventListener('click', function () {
+        if (!store.coords) {
+          showToast('Actualisez d\'abord votre position');
+          return;
+        }
+        const link = 'https://www.google.com/maps/search/?api=1&query=' + store.coords.lat.toFixed(5) + ',' + store.coords.lon.toFixed(5);
+        copyText('Ma position : ' + link, 'Position copiée');
+      });
+
+      document.querySelectorAll('.transport-phrase').forEach(function (b) {
+        b.addEventListener('click', function () { speak(b.dataset.p); });
+      });
+
+      function renderContacts() {
+        const box = document.getElementById('contactsList');
+        if (!box) return;
+        box.innerHTML = '';
+        store.contacts.forEach(function (c, idx) {
+          const row = document.createElement('div');
+          row.className = 'item-strip';
+          row.innerHTML = '<div><strong>' + escapeHtml(c.label) + '</strong> — ' + escapeHtml(c.tel) + '</div>';
+          const right = document.createElement('div');
+          right.className = 'cluster';
+          const callA = document.createElement('a');
+          callA.className = 'ext-link btn-blue';
+          callA.href = 'tel:' + c.tel;
+          callA.textContent = 'Appeler';
+          const del = document.createElement('button');
+          del.type = 'button';
+          del.className = 'btn-soft';
+          del.textContent = 'Suppr.';
+          del.addEventListener('click', function () {
+            store.contacts.splice(idx, 1);
+            safeSet('hv20_contacts', store.contacts);
+            renderContacts();
+          });
+          right.append(callA, del);
+          row.appendChild(right);
+          box.appendChild(row);
+        });
+      }
+      document.getElementById('btnAddContact').addEventListener('click', function () {
+        const lbl = document.getElementById('contactLabel').value.trim();
+        const tel = document.getElementById('contactTel').value.trim();
+        if (!lbl || !tel) return;
+        store.contacts.push({ label: lbl, tel: tel });
+        document.getElementById('contactLabel').value = '';
+        document.getElementById('contactTel').value = '';
+        safeSet('hv20_contacts', store.contacts);
+        renderContacts();
+        showToast('Contact ajouté');
+      });
+
+      function renderClues() {
+        const box = document.getElementById('cluesList');
+        if (!box) return;
+        box.innerHTML = '';
+        store.clues.forEach(function (cl, idx) {
+          const row = document.createElement('div');
+          row.className = 'item-strip';
+          row.innerHTML = '<div><strong>' + escapeHtml(cl.title) + ' :</strong> ' + escapeHtml(cl.value) + '</div>';
+          const del = document.createElement('button');
+          del.type = 'button';
+          del.className = 'btn-soft';
+          del.textContent = 'Suppr.';
+          del.addEventListener('click', function () {
+            store.clues.splice(idx, 1);
+            safeSet('hv20_clues', store.clues);
+            renderClues();
+          });
+          row.appendChild(del);
+          box.appendChild(row);
+        });
+      }
+      document.getElementById('btnAddClue').addEventListener('click', function () {
+        const t = document.getElementById('clueTitle').value.trim();
+        const v = document.getElementById('clueValue').value.trim();
+        if (!t || !v) return;
+        store.clues.push({ title: t, value: v });
+        document.getElementById('clueTitle').value = '';
+        document.getElementById('clueValue').value = '';
+        safeSet('hv20_clues', store.clues);
+        renderClues();
+        showToast('Repère enregistré');
+      });
+
+      function renderBudget() {
+        const box = document.getElementById('budgetList');
+        const totEl = document.getElementById('budgetTotalText');
+        if (!box || !totEl) return;
+        box.innerHTML = '';
+        let sum = 0;
+        store.budget.forEach(function (b, idx) {
+          sum += Number(b.amount) || 0;
+          const row = document.createElement('div');
+          row.className = 'item-strip';
+          row.innerHTML = '<span>' + escapeHtml(b.label) + ' — <strong>' + Number(b.amount).toFixed(2) + ' €</strong></span>';
+          const del = document.createElement('button');
+          del.type = 'button';
+          del.className = 'btn-soft';
+          del.textContent = 'Suppr.';
+          del.addEventListener('click', function () {
+            store.budget.splice(idx, 1);
+            safeSet('hv20_budget', store.budget);
+            renderBudget();
+          });
+          row.appendChild(del);
+          box.appendChild(row);
+        });
+        totEl.textContent = 'Total du jour : ' + sum.toFixed(2) + ' €';
+      }
+      document.getElementById('btnAddBudget').addEventListener('click', function () {
+        const lbl = document.getElementById('budgetLabel').value.trim();
+        const amt = parseFloat(document.getElementById('budgetAmount').value.replace(',', '.'));
+        if (!lbl || isNaN(amt)) return;
+        store.budget.push({ label: lbl, amount: amt });
+        document.getElementById('budgetLabel').value = '';
+        document.getElementById('budgetAmount').value = '';
+        safeSet('hv20_budget', store.budget);
+        renderBudget();
+        showToast('Dépense ajoutée');
+      });
+
+      function renderMeals() {
+        const box = document.getElementById('mealsList');
+        if (!box) return;
+        box.innerHTML = '';
+        store.meals.forEach(function (m, idx) {
+          const row = document.createElement('div');
+          row.className = 'item-strip';
+          row.innerHTML = '<span><strong>' + escapeHtml(m.slot) + ' :</strong> ' + escapeHtml(m.text) + '</span>';
+          const del = document.createElement('button');
+          del.type = 'button';
+          del.className = 'btn-soft';
+          del.textContent = 'Suppr.';
+          del.addEventListener('click', function () {
+            store.meals.splice(idx, 1);
+            safeSet('hv20_meals', store.meals);
+            renderMeals();
+          });
+          row.appendChild(del);
+          box.appendChild(row);
+        });
+      }
+      document.getElementById('btnAddMeal').addEventListener('click', function () {
+        const slot = document.getElementById('mealSlot').value;
+        const txt = document.getElementById('mealText').value.trim();
+        if (!txt) return;
+        store.meals.push({ slot: slot, text: txt });
+        document.getElementById('mealText').value = '';
+        safeSet('hv20_meals', store.meals);
+        renderMeals();
+        showToast('Repas noté');
+      });
+
+      document.querySelectorAll('.weather-tip').forEach(function (b) {
+        b.addEventListener('click', function () { speak(b.dataset.w); });
+      });
+
+      const GROUNDING_STEPS = [
+        '5 choses à voir • 4 à toucher • 3 à entendre • 2 à sentir • 1 respiration lente.',
+        'Regardez autour de vous et nommez calmement 5 objets visibles.',
+        'Touchez 4 surfaces proches (vêtement, table, chaise, sol) et sentez leur texture.',
+        'Écoutez 3 sons doux ou lointains sans essayer de les juger.',
+        'Inspirez lentement sur 4 secondes, puis expirez doucement sur 4 secondes.'
+      ];
+      let groundIdx = 0;
+      document.getElementById('btnGroundingNext').addEventListener('click', function () {
+        groundIdx = (groundIdx + 1) % GROUNDING_STEPS.length;
+        document.getElementById('groundingText').textContent = GROUNDING_STEPS[groundIdx];
+      });
+      document.getElementById('btnGroundingSpeak').addEventListener('click', function () {
+        speak(document.getElementById('groundingText').textContent);
+      });
+
+      document.getElementById('btnSaveJournal').addEventListener('click', function () {
+        store.journal = document.getElementById('journalInput').value;
+        safeSet('hv20_journal', store.journal);
+        showToast('Note enregistrée');
+      });
+      document.getElementById('btnReadJournal').addEventListener('click', function () {
+        const txt = document.getElementById('journalInput').value.trim();
+        speak(txt || 'Aucune note enregistrée.');
+      });
+      document.getElementById('btnCopyJournal').addEventListener('click', function () {
+        copyText(document.getElementById('journalInput').value, 'Note copiée');
+      });
+
       document.querySelectorAll('.module-tab').forEach(function (b) {
         b.addEventListener('click', function () { openTab(b.dataset.tab); });
       });
@@ -2166,7 +2689,7 @@
         safeSet('hv5_sub', true);
         document.getElementById('uiSubStatus').textContent = LANGS[store.lang].subOn;
         document.getElementById('subModal').classList.remove('open');
-        showToast('Option 2,00 €/mois activée');
+        showToast('Option 1,00 €/mois activée');
       });
 
       window.addEventListener('online', refreshConnectionUI);
@@ -2177,6 +2700,7 @@
       document.getElementById('icePhone').value = store.ice.phone || '114';
       document.getElementById('iceBlood').value = store.ice.blood || '';
       document.getElementById('iceNeeds').value = store.ice.needs || '';
+      document.getElementById('journalInput').value = store.journal || '';
 
       refreshConnectionUI();
       setLanguage('fr');
@@ -2190,6 +2714,16 @@
       renderTf();
       updateClockUI();
       updateFalcStats(document.getElementById('falcInput').value);
+      renderExitCheck();
+      renderRoutine();
+      renderAppts();
+      renderPainEnergy();
+      syncQuickSms();
+      updateShareGpsUI();
+      renderContacts();
+      renderClues();
+      renderBudget();
+      renderMeals();
     })();
   </script>
 </body>
