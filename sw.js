@@ -1,4 +1,4 @@
-const CACHE_NAME = 'handivie-plus-v1';
+const CACHE_NAME = 'handivie-plus-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -33,15 +33,17 @@ self.addEventListener('activate', function (event) {
 self.addEventListener('fetch', function (event) {
   if (event.request.method !== 'GET') return;
   event.respondWith(
-    caches.match(event.request).then(function (cached) {
-      return cached || fetch(event.request).then(function (resp) {
+    fetch(event.request).then(function (resp) {
+      if (resp && resp.status === 200) {
         const copy = resp.clone();
         caches.open(CACHE_NAME).then(function (cache) {
           cache.put(event.request, copy);
         }).catch(function () {});
-        return resp;
-      }).catch(function () {
-        return caches.match('./index.html');
+      }
+      return resp;
+    }).catch(function () {
+      return caches.match(event.request).then(function (cached) {
+        return cached || caches.match('./index.html');
       });
     })
   );
