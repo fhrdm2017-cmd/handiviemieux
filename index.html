@@ -2,8 +2,8 @@
 <html lang="fr" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APEX STUDIO v6.0 — Executive Performance & Athletic Command</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>APEX STUDIO v7.1 — Direct Click & AI Voice Coach</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
@@ -35,25 +35,29 @@
         :root {
             color-scheme: dark;
         }
-        body {
+        html, body {
             background-color: #06070a;
+            color: #f8fafc;
+            overscroll-behavior-y: contain;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
             background-image:
                 radial-gradient(circle at 12% 0%, rgba(16, 185, 129, 0.09), transparent 36%),
                 radial-gradient(circle at 88% 8%, rgba(6, 182, 212, 0.07), transparent 34%);
-            color: #f8fafc;
             overflow-x: hidden;
         }
         .pro-surface {
-            background: rgba(13, 15, 20, 0.86);
+            background: rgba(13, 15, 20, 0.88);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.075);
         }
         .pro-card {
-            background: linear-gradient(180deg, rgba(20, 23, 31, 0.94) 0%, rgba(12, 14, 19, 0.97) 100%);
+            background: linear-gradient(180deg, rgba(20, 23, 31, 0.95) 0%, rgba(12, 14, 19, 0.98) 100%);
             border: 1px solid rgba(255, 255, 255, 0.075);
             box-shadow: 0 12px 32px -12px rgba(0, 0, 0, 0.65);
-            transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+            transition: border-color 0.18s ease, transform 0.18s ease;
         }
         .pro-card:hover {
             border-color: rgba(16, 185, 129, 0.32);
@@ -92,9 +96,6 @@
             background: #232734;
             border-radius: 9999px;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #33394d;
-        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col lg:flex-row antialiased selection:bg-emerald-400 selection:text-slate-950">
@@ -111,9 +112,9 @@
                     <div>
                         <div class="flex items-center gap-2">
                             <span class="font-extrabold text-[15px] tracking-tight text-white">APEX STUDIO</span>
-                            <span class="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">v6.0</span>
+                            <span class="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">v7.1</span>
                         </div>
-                        <p class="text-[11px] font-mono text-slate-400 tracking-wide">PRO PERFORMANCE OS</p>
+                        <p class="text-[11px] font-mono text-slate-400 tracking-wide">DIRECT CLICK & VOICE COACH</p>
                     </div>
                 </div>
             </div>
@@ -129,6 +130,13 @@
                     <span>Sport & Entraînement</span>
                     <span class="ml-auto hidden lg:inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-mono font-bold rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">
                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>PRO
+                    </span>
+                </button>
+                <button onclick="switchTab('challenges')" data-tab="challenges" class="nav-item flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-[13px] font-semibold text-slate-400 hover:text-white hover:bg-white/[0.03] text-left whitespace-nowrap border border-transparent">
+                    <i data-lucide="flame-kindling" class="w-4 h-4 text-rose-400 shrink-0"></i>
+                    <span>Défis & Coach Vocal</span>
+                    <span class="ml-auto hidden lg:inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-mono font-bold rounded-full bg-rose-500/15 text-rose-300 border border-rose-500/25">
+                        VOIX
                     </span>
                 </button>
                 <button onclick="switchTab('nutrition')" data-tab="nutrition" class="nav-item flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-[13px] font-semibold text-slate-400 hover:text-white hover:bg-white/[0.03] text-left whitespace-nowrap border border-transparent">
@@ -181,7 +189,12 @@
         <!-- TOP COMMAND BAR -->
         <header class="sticky top-0 z-30 pro-surface border-b border-white/[0.075] px-6 py-3.5 flex flex-wrap items-center justify-between gap-4">
             <div class="min-w-0">
-                <h1 id="page-title" class="text-lg font-extrabold tracking-tight text-white truncate">Centre de Pilotage</h1>
+                <div class="flex items-center gap-2.5">
+                    <h1 id="page-title" class="text-lg font-extrabold tracking-tight text-white truncate">Centre de Pilotage</h1>
+                    <span class="hidden sm:inline-flex items-center gap-1 text-[10px] font-mono text-emerald-300 bg-emerald-500/10 border border-emerald-500/25 px-2 py-0.5 rounded-full">
+                        <i data-lucide="mouse-pointer-click" class="w-3 h-3"></i> Clic direct instantané
+                    </span>
+                </div>
                 <p id="current-date" class="text-xs text-slate-400 capitalize"></p>
             </div>
 
@@ -201,412 +214,535 @@
             </div>
         </header>
 
-        <!-- ==================== TAB 1: DASHBOARD ==================== -->
-        <section id="tab-dashboard" class="tab-content p-6 space-y-6 max-w-7xl mx-auto w-full">
-            <!-- Executive KPI Row -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-                <div class="pro-card p-5 rounded-2xl">
-                    <div class="flex items-start justify-between">
+        <!-- MAIN CONTENT STAGE (INSTANT DIRECT FOCUS ON CLICK) -->
+        <div id="main-stage" class="flex-1">
+
+            <!-- ==================== TAB 1: DASHBOARD ==================== -->
+            <section id="tab-dashboard" class="tab-content p-6 space-y-6 max-w-7xl mx-auto w-full">
+                <!-- Executive KPI Row -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+                    <div class="pro-card p-5 rounded-2xl">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Volume Séance</span>
+                                <div id="dash-volume" class="text-2xl font-extrabold font-mono text-white mt-1">0 kg</div>
+                            </div>
+                            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+                                <i data-lucide="activity" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-3">
+                            <span id="dash-sets-count" class="text-emerald-400 font-semibold font-mono">0 série validée</span> • RPE moy. <span id="dash-rpe" class="text-white font-mono">0.0</span>
+                        </p>
+                    </div>
+
+                    <div class="pro-card p-5 rounded-2xl">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Apport Énergétique</span>
+                                <div id="dash-cals" class="text-2xl font-extrabold font-mono text-white mt-1">0 kcal</div>
+                            </div>
+                            <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
+                                <i data-lucide="flame" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-3">
+                            Protéines : <span id="dash-prot" class="text-amber-300 font-semibold font-mono">0g</span> / <span id="dash-prot-target" class="font-mono">180g</span>
+                        </p>
+                    </div>
+
+                    <div class="pro-card p-5 rounded-2xl">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Exécution Tâches</span>
+                                <div id="dash-tasks" class="text-2xl font-extrabold font-mono text-white mt-1">0 / 0</div>
+                            </div>
+                            <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+                                <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                        <div class="w-full h-1.5 bg-slate-800 rounded-full mt-4 overflow-hidden">
+                            <div id="dash-task-bar" class="h-full bg-cyan-400 transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="pro-card p-5 rounded-2xl">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Poids Corporel</span>
+                                <div id="dash-weight" class="text-2xl font-extrabold font-mono text-white mt-1">78.5 kg</div>
+                            </div>
+                            <div class="w-10 h-10 rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400">
+                                <i data-lucide="scale" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                        <div class="mt-3 flex items-center gap-2">
+                            <input type="number" step="0.1" id="quick-weight-input" placeholder="Ex: 78.2" class="w-24 bg-obsidian border border-white/[0.1] rounded-lg px-2.5 py-1 text-xs font-mono text-white focus:outline-none focus:border-emerald-400">
+                            <button onclick="updateBodyWeight()" class="px-2.5 py-1 bg-emerald-500/15 hover:bg-emerald-400 text-emerald-300 hover:text-slate-950 border border-emerald-500/30 rounded-lg text-xs font-bold transition">Enregistrer</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics Chart + Quick Workout & Challenges -->
+                <div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
+                    <div class="xl:col-span-7 pro-card p-6 rounded-2xl flex flex-col justify-between">
+                        <div class="flex items-center justify-between gap-2 mb-4">
+                            <div>
+                                <h3 class="text-base font-bold text-white">Évolution du Volume d'Entraînement</h3>
+                                <p class="text-xs text-slate-400">Tonnage cumulé par séance enregistrée (kg)</p>
+                            </div>
+                            <span class="text-[11px] font-mono px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/[0.08] text-slate-300">TÉLÉMÉTRIE</span>
+                        </div>
+                        <div class="h-56 w-full relative">
+                            <canvas id="volumeChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="xl:col-span-5 pro-card p-6 rounded-2xl flex flex-col justify-between">
                         <div>
-                            <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Volume Séance</span>
-                            <div id="dash-volume" class="text-2xl font-extrabold font-mono text-white mt-1">0 kg</div>
-                        </div>
-                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
-                            <i data-lucide="activity" class="w-5 h-5"></i>
-                        </div>
-                    </div>
-                    <p class="text-xs text-slate-400 mt-3">
-                        <span id="dash-sets-count" class="text-emerald-400 font-semibold font-mono">0 série validée</span> • RPE moy. <span id="dash-rpe" class="text-white font-mono">0.0</span>
-                    </p>
-                </div>
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="text-base font-bold text-white">Accès Direct Séance & Défis</h3>
+                                <button onclick="switchTab('challenges')" class="text-xs font-semibold text-rose-400 hover:text-rose-300 transition">Coach Vocal →</button>
+                            </div>
+                            <p class="text-xs text-slate-400 mb-4">Un clic amène directement à la section choisie sans glisser.</p>
 
-                <div class="pro-card p-5 rounded-2xl">
-                    <div class="flex items-start justify-between">
-                        <div>
-                            <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Apport Énergétique</span>
-                            <div id="dash-cals" class="text-2xl font-extrabold font-mono text-white mt-1">0 kcal</div>
+                            <div class="space-y-2.5">
+                                <button onclick="loadPresetWorkout('push')" class="w-full p-3.5 rounded-xl bg-obsidian/80 hover:bg-white/[0.04] border border-white/[0.08] hover:border-emerald-500/40 flex items-center justify-between text-left transition group">
+                                    <div>
+                                        <span class="text-[10px] font-mono font-bold text-emerald-400">PROTOCOLE A • HYPERTROPHIE</span>
+                                        <div class="text-sm font-bold text-white group-hover:text-emerald-300 transition">Push — Pectoraux, Épaules & Triceps</div>
+                                    </div>
+                                    <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-500 group-hover:text-emerald-400 transition"></i>
+                                </button>
+
+                                <button onclick="loadPresetWorkout('pull')" class="w-full p-3.5 rounded-xl bg-obsidian/80 hover:bg-white/[0.04] border border-white/[0.08] hover:border-cyan-500/40 flex items-center justify-between text-left transition group">
+                                    <div>
+                                        <span class="text-[10px] font-mono font-bold text-cyan-400">PROTOCOLE B • DOS & POSTÉRIEUR</span>
+                                        <div class="text-sm font-bold text-white group-hover:text-cyan-300 transition">Pull — Dos, Chaîne Postérieure & Biceps</div>
+                                    </div>
+                                    <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-500 group-hover:text-cyan-400 transition"></i>
+                                </button>
+
+                                <button onclick="switchTab('challenges')" class="w-full p-3.5 rounded-xl bg-obsidian/80 hover:bg-white/[0.04] border border-rose-500/25 hover:border-rose-400/50 flex items-center justify-between text-left transition group">
+                                    <div>
+                                        <span class="text-[10px] font-mono font-bold text-rose-400">DÉFI GUIDÉ PAR VOIX</span>
+                                        <div class="text-sm font-bold text-white group-hover:text-rose-300 transition">Circuit Varié + Coach Vocal en Direct</div>
+                                    </div>
+                                    <i data-lucide="volume-2" class="w-4 h-4 text-rose-400 transition"></i>
+                                </button>
+                            </div>
                         </div>
-                        <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
-                            <i data-lucide="flame" class="w-5 h-5"></i>
-                        </div>
-                    </div>
-                    <p class="text-xs text-slate-400 mt-3">
-                        Protéines : <span id="dash-prot" class="text-amber-300 font-semibold font-mono">0g</span> / <span id="dash-prot-target" class="font-mono">180g</span>
-                    </p>
-                </div>
 
-                <div class="pro-card p-5 rounded-2xl">
-                    <div class="flex items-start justify-between">
-                        <div>
-                            <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Exécution Tâches</span>
-                            <div id="dash-tasks" class="text-2xl font-extrabold font-mono text-white mt-1">0 / 0</div>
-                        </div>
-                        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
-                            <i data-lucide="check-circle-2" class="w-5 h-5"></i>
-                        </div>
-                    </div>
-                    <div class="w-full h-1.5 bg-slate-800 rounded-full mt-4 overflow-hidden">
-                        <div id="dash-task-bar" class="h-full bg-cyan-400 transition-all duration-300" style="width: 0%"></div>
-                    </div>
-                </div>
-
-                <div class="pro-card p-5 rounded-2xl">
-                    <div class="flex items-start justify-between">
-                        <div>
-                            <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Poids Corporel</span>
-                            <div id="dash-weight" class="text-2xl font-extrabold font-mono text-white mt-1">78.5 kg</div>
-                        </div>
-                        <div class="w-10 h-10 rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400">
-                            <i data-lucide="scale" class="w-5 h-5"></i>
-                        </div>
-                    </div>
-                    <div class="mt-3 flex items-center gap-2">
-                        <input type="number" step="0.1" id="quick-weight-input" placeholder="Ex: 78.2" class="w-24 bg-obsidian border border-white/[0.1] rounded-lg px-2.5 py-1 text-xs font-mono text-white focus:outline-none focus:border-emerald-400">
-                        <button onclick="updateBodyWeight()" class="px-2.5 py-1 bg-emerald-500/15 hover:bg-emerald-400 text-emerald-300 hover:text-slate-950 border border-emerald-500/30 rounded-lg text-xs font-bold transition">Enregistrer</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Analytics Chart + Quick Workout Launch -->
-            <div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
-                <div class="xl:col-span-7 pro-card p-6 rounded-2xl flex flex-col justify-between">
-                    <div class="flex items-center justify-between gap-2 mb-4">
-                        <div>
-                            <h3 class="text-base font-bold text-white">Évolution du Volume d'Entraînement</h3>
-                            <p class="text-xs text-slate-400">Tonnage cumulé par séance enregistrée (kg)</p>
-                        </div>
-                        <span class="text-[11px] font-mono px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/[0.08] text-slate-300">TÉLÉMÉTRIE</span>
-                    </div>
-                    <div class="h-56 w-full relative">
-                        <canvas id="volumeChart"></canvas>
-                    </div>
-                </div>
-
-                <div class="xl:col-span-5 pro-card p-6 rounded-2xl flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center justify-between mb-2">
-                            <h3 class="text-base font-bold text-white">Déploiement Séance Pro</h3>
-                            <button onclick="switchTab('sport')" class="text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition">Studio complet →</button>
-                        </div>
-                        <p class="text-xs text-slate-400 mb-4">Sélectionnez un protocole structuré avec Tempo, RIR et RPE.</p>
-
-                        <div class="space-y-2.5">
-                            <button onclick="loadPresetWorkout('push')" class="w-full p-3.5 rounded-xl bg-obsidian/80 hover:bg-white/[0.04] border border-white/[0.08] hover:border-emerald-500/40 flex items-center justify-between text-left transition group">
-                                <div>
-                                    <span class="text-[10px] font-mono font-bold text-emerald-400">PROTOCOLE A • HYPERTROPHIE</span>
-                                    <div class="text-sm font-bold text-white group-hover:text-emerald-300 transition">Push — Pectoraux, Épaules & Triceps</div>
-                                </div>
-                                <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-500 group-hover:text-emerald-400 transition"></i>
-                            </button>
-
-                            <button onclick="loadPresetWorkout('pull')" class="w-full p-3.5 rounded-xl bg-obsidian/80 hover:bg-white/[0.04] border border-white/[0.08] hover:border-cyan-500/40 flex items-center justify-between text-left transition group">
-                                <div>
-                                    <span class="text-[10px] font-mono font-bold text-cyan-400">PROTOCOLE B • DOS & POSTÉRIEUR</span>
-                                    <div class="text-sm font-bold text-white group-hover:text-cyan-300 transition">Pull — Dos, Chaîne Postérieure & Biceps</div>
-                                </div>
-                                <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-500 group-hover:text-cyan-400 transition"></i>
-                            </button>
-
-                            <button onclick="loadPresetWorkout('legs')" class="w-full p-3.5 rounded-xl bg-obsidian/80 hover:bg-white/[0.04] border border-white/[0.08] hover:border-amber-500/40 flex items-center justify-between text-left transition group">
-                                <div>
-                                    <span class="text-[10px] font-mono font-bold text-amber-400">PROTOCOLE C • FORCE & GAINAGE</span>
-                                    <div class="text-sm font-bold text-white group-hover:text-amber-300 transition">Legs & Core — Jambes & Gainage</div>
-                                </div>
-                                <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-500 group-hover:text-amber-400 transition"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="mt-5 pt-3.5 border-t border-white/[0.075] flex items-center justify-between text-xs">
-                        <span class="text-slate-400 truncate">Dernière : <strong id="last-workout-label" class="text-slate-200">Aucune</strong></span>
-                        <button onclick="switchTab('sport')" class="px-3.5 py-1.5 bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-extrabold rounded-lg transition shrink-0">Ouvrir</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Priority Queue -->
-            <div class="pro-card p-6 rounded-2xl">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-base font-bold text-white flex items-center gap-2">
-                        <i data-lucide="target" class="w-4 h-4 text-emerald-400"></i> Priorités du Jour
-                    </h3>
-                    <button onclick="switchTab('tasks')" class="text-xs font-semibold text-slate-400 hover:text-white transition">Tout afficher</button>
-                </div>
-                <div id="dash-priority-list" class="grid grid-cols-1 md:grid-cols-2 gap-2.5"></div>
-            </div>
-        </section>
-
-        <!-- ==================== TAB 2: SPORT & ENTRAÎNEMENT ==================== -->
-        <section id="tab-sport" class="tab-content hidden p-6 space-y-6 max-w-7xl mx-auto w-full">
-
-            <!-- Session Command Header -->
-            <div class="pro-card p-5 rounded-2xl flex flex-wrap items-center justify-between gap-4">
-                <div class="flex items-center gap-4 min-w-0">
-                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center text-emerald-400 shrink-0">
-                        <i data-lucide="dumbbell" class="w-6 h-6"></i>
-                    </div>
-                    <div class="min-w-0">
-                        <div class="flex items-center gap-2.5 flex-wrap">
-                            <input type="text" id="workout-name-input" onchange="updateWorkoutName(this.value)" value="Séance Hypertrophie — Push" class="bg-transparent font-extrabold text-lg text-white focus:outline-none border-b border-transparent focus:border-emerald-400 min-w-0">
-                            <span class="px-2 py-0.5 text-[10px] font-mono font-bold rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">SESSION ACTIVE</span>
-                        </div>
-                        <div class="flex flex-wrap items-center gap-x-5 gap-y-1 text-xs font-mono text-slate-400 mt-1.5">
-                            <span>Durée : <strong id="workout-stopwatch" class="text-white">00:00:00</strong></span>
-                            <span>Volume : <strong id="sport-total-volume" class="text-emerald-400">0 kg</strong></span>
-                            <span>Séries : <strong id="sport-completed-sets" class="text-white">0/0</strong></span>
-                            <span>RPE Moy. : <strong id="sport-avg-rpe" class="text-amber-400">0.0</strong></span>
-                            <span>Densité : <strong id="sport-density" class="text-cyan-400">0 kg/m</strong></span>
+                        <div class="mt-5 pt-3.5 border-t border-white/[0.075] flex items-center justify-between text-xs">
+                            <span class="text-slate-400 truncate">Dernière : <strong id="last-workout-label" class="text-slate-200">Aucune</strong></span>
+                            <button onclick="switchTab('sport')" class="px-3.5 py-1.5 bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-extrabold rounded-lg transition shrink-0">Sport</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="flex flex-wrap items-center gap-2">
-                    <button onclick="toggleWorkoutStopwatch()" id="btn-stopwatch" class="px-3.5 py-2 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.09] text-white text-xs font-semibold rounded-xl flex items-center gap-1.5 transition">
-                        <i data-lucide="play" class="w-3.5 h-3.5 text-emerald-400"></i> Chrono
-                    </button>
-                    <button onclick="openModal('modal-1rm')" class="px-3.5 py-2 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.09] text-white text-xs font-semibold rounded-xl flex items-center gap-1.5 transition">
-                        <i data-lucide="calculator" class="w-3.5 h-3.5 text-violet-400"></i> 1RM & Disques
-                    </button>
-                    <button onclick="openModal('modal-hiit')" class="px-3.5 py-2 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.09] text-white text-xs font-semibold rounded-xl flex items-center gap-1.5 transition">
-                        <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i> HIIT / Tabata
-                    </button>
-                    <button onclick="finishAndSaveWorkout()" class="px-4 py-2 bg-emerald-400 hover:bg-emerald-300 text-slate-950 text-xs font-extrabold rounded-xl flex items-center gap-1.5 transition shadow-lg shadow-emerald-500/20">
-                        <i data-lucide="check" class="w-4 h-4"></i> Archiver Séance
-                    </button>
-                </div>
-            </div>
-
-            <!-- Weekly Training Planner -->
-            <div class="pro-card p-5 rounded-2xl space-y-3.5">
-                <div class="flex flex-wrap items-center justify-between gap-2">
-                    <div>
-                        <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                            <i data-lucide="calendar-days" class="w-4 h-4 text-cyan-400"></i> Planificateur Hebdomadaire d'Entraînement
-                        </h3>
-                        <p class="text-xs text-slate-400">Assignez un protocole à chaque jour ou chargez directement la séance du jour.</p>
-                    </div>
-                    <span class="text-[11px] font-mono px-2.5 py-1 rounded-lg bg-cyan-500/10 border border-cyan-500/25 text-cyan-300">MICROCYCLE 7J</span>
-                </div>
-                <div id="weekly-planner-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-7 gap-2.5"></div>
-            </div>
-
-            <!-- Muscle Volume Distribution -->
-            <div class="pro-card p-4 rounded-2xl space-y-3">
-                <div class="flex items-center justify-between text-xs">
-                    <span class="font-bold text-slate-200 flex items-center gap-2">
-                        <i data-lucide="bar-chart-3" class="w-4 h-4 text-emerald-400"></i> Distribution du Volume par Groupe Musculaire
-                    </span>
-                    <span id="muscle-balance-summary" class="font-mono text-slate-400">En attente de séries</span>
-                </div>
-                <div id="muscle-breakdown-bars" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5"></div>
-            </div>
-
-            <!-- Presets & Add Exercise Toolbar -->
-            <div class="grid grid-cols-1 xl:grid-cols-12 gap-4">
-                <div class="xl:col-span-7 pro-card p-4 rounded-2xl flex flex-wrap items-center gap-2">
-                    <span class="text-xs font-semibold text-slate-400 mr-1">Protocoles :</span>
-                    <button onclick="loadPresetWorkout('push')" class="px-3 py-1.5 bg-obsidian hover:bg-emerald-500/15 hover:text-emerald-300 border border-white/[0.08] rounded-lg text-xs font-semibold transition">Push</button>
-                    <button onclick="loadPresetWorkout('pull')" class="px-3 py-1.5 bg-obsidian hover:bg-cyan-500/15 hover:text-cyan-300 border border-white/[0.08] rounded-lg text-xs font-semibold transition">Pull</button>
-                    <button onclick="loadPresetWorkout('legs')" class="px-3 py-1.5 bg-obsidian hover:bg-amber-500/15 hover:text-amber-300 border border-white/[0.08] rounded-lg text-xs font-semibold transition">Legs & Core</button>
-                    <button onclick="loadPresetWorkout('fullbody')" class="px-3 py-1.5 bg-obsidian hover:bg-violet-500/15 hover:text-violet-300 border border-white/[0.08] rounded-lg text-xs font-semibold transition">Full Body</button>
-                    <button onclick="clearCurrentWorkout()" class="ml-auto px-3 py-1.5 text-xs font-semibold text-rose-400 hover:bg-rose-500/10 rounded-lg transition">Vider</button>
-                </div>
-
-                <div class="xl:col-span-5 pro-card p-4 rounded-2xl flex items-center gap-2">
-                    <input type="text" id="new-ex-name" placeholder="Ajouter un exercice..." onkeypress="if(event.key==='Enter') addExercise()" class="flex-1 min-w-0 bg-obsidian border border-white/[0.1] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-400">
-                    <select id="new-ex-muscle" class="bg-obsidian border border-white/[0.1] rounded-xl px-2.5 py-2 text-xs text-slate-200 focus:outline-none">
-                        <option value="Pectoraux">Pectoraux</option>
-                        <option value="Dos">Dos</option>
-                        <option value="Jambes">Jambes</option>
-                        <option value="Épaules">Épaules</option>
-                        <option value="Bras">Bras</option>
-                        <option value="Core">Core</option>
-                    </select>
-                    <button onclick="addExercise()" class="px-3.5 py-2 bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-extrabold text-xs rounded-xl transition shrink-0">
-                        + Ajouter
-                    </button>
-                </div>
-            </div>
-
-            <!-- Exercises List -->
-            <div id="exercises-container" class="space-y-4"></div>
-
-            <!-- PRs & Workout Log -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-2">
+                <!-- Priority Queue -->
                 <div class="pro-card p-6 rounded-2xl">
-                    <h3 class="text-sm font-bold uppercase tracking-wider text-slate-300 mb-4 flex items-center gap-2">
-                        <i data-lucide="award" class="w-4 h-4 text-amber-400"></i> Records Personnels Estimés (1RM)
-                    </h3>
-                    <div id="pr-list" class="space-y-2"></div>
-                </div>
-
-                <div class="pro-card p-6 rounded-2xl">
-                    <h3 class="text-sm font-bold uppercase tracking-wider text-slate-300 mb-4 flex items-center gap-2">
-                        <i data-lucide="history" class="w-4 h-4 text-emerald-400"></i> Journal des Séances Archivées
-                    </h3>
-                    <div id="workout-history-list" class="space-y-2.5 max-h-64 overflow-y-auto pr-1"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ==================== TAB 3: NUTRITION ==================== -->
-        <section id="tab-nutrition" class="tab-content hidden p-6 space-y-6 max-w-7xl mx-auto w-full">
-            <div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
-                <div class="xl:col-span-8 pro-card p-6 rounded-2xl space-y-5">
-                    <div class="flex flex-wrap items-center justify-between gap-3">
-                        <div>
-                            <h3 class="text-lg font-bold text-white">Bilan Macronutriments</h3>
-                            <p class="text-xs text-slate-400">Objectifs personnalisables en temps réel</p>
-                        </div>
-                        <div class="flex items-center gap-2 text-xs font-mono">
-                            <span id="nutri-total-cal" class="text-2xl font-extrabold text-amber-400">0</span>
-                            <span class="text-slate-500">/</span>
-                            <input type="number" id="target-cal-input" value="2650" onchange="updateTargets()" class="w-20 bg-obsidian border border-white/[0.1] rounded-lg px-2 py-1 text-white text-right">
-                            <span class="text-slate-500">kcal</span>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div class="bg-obsidian/80 p-4 rounded-xl border border-white/[0.07]">
-                            <div class="flex justify-between items-center text-xs mb-1.5">
-                                <span class="text-slate-400 font-medium">Protéines</span>
-                                <div class="font-mono font-bold text-emerald-400 flex items-center gap-1">
-                                    <span id="nutri-prot">0</span> /
-                                    <input type="number" id="target-prot-input" value="180" onchange="updateTargets()" class="w-12 bg-surface border border-white/[0.08] rounded px-1 text-right text-emerald-300">g
-                                </div>
-                            </div>
-                            <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                                <div id="bar-prot" class="h-full bg-emerald-400 transition-all" style="width: 0%"></div>
-                            </div>
-                        </div>
-
-                        <div class="bg-obsidian/80 p-4 rounded-xl border border-white/[0.07]">
-                            <div class="flex justify-between items-center text-xs mb-1.5">
-                                <span class="text-slate-400 font-medium">Glucides</span>
-                                <div class="font-mono font-bold text-cyan-400 flex items-center gap-1">
-                                    <span id="nutri-carbs">0</span> /
-                                    <input type="number" id="target-carbs-input" value="310" onchange="updateTargets()" class="w-12 bg-surface border border-white/[0.08] rounded px-1 text-right text-cyan-300">g
-                                </div>
-                            </div>
-                            <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                                <div id="bar-carbs" class="h-full bg-cyan-400 transition-all" style="width: 0%"></div>
-                            </div>
-                        </div>
-
-                        <div class="bg-obsidian/80 p-4 rounded-xl border border-white/[0.07]">
-                            <div class="flex justify-between items-center text-xs mb-1.5">
-                                <span class="text-slate-400 font-medium">Lipides</span>
-                                <div class="font-mono font-bold text-violet-400 flex items-center gap-1">
-                                    <span id="nutri-fats">0</span> /
-                                    <input type="number" id="target-fats-input" value="75" onchange="updateTargets()" class="w-12 bg-surface border border-white/[0.08] rounded px-1 text-right text-violet-300">g
-                                </div>
-                            </div>
-                            <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                                <div id="bar-fats" class="h-full bg-violet-400 transition-all" style="width: 0%"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="pt-3 border-t border-white/[0.075] space-y-3">
-                        <span class="text-xs font-mono uppercase tracking-wider text-slate-400 block">Ajouter un repas</span>
-                        <div class="grid grid-cols-2 sm:grid-cols-6 gap-2">
-                            <input type="text" id="meal-name" placeholder="Repas / aliment..." class="col-span-2 bg-obsidian border border-white/[0.1] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400">
-                            <input type="number" id="meal-cal" placeholder="Kcal" class="bg-obsidian border border-white/[0.1] rounded-xl px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-amber-400">
-                            <input type="number" id="meal-prot" placeholder="Prot (g)" class="bg-obsidian border border-white/[0.1] rounded-xl px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-amber-400">
-                            <input type="number" id="meal-carbs" placeholder="Gluc (g)" class="bg-obsidian border border-white/[0.1] rounded-xl px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-amber-400">
-                            <button onclick="addMeal()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs rounded-xl py-2 transition">Ajouter</button>
-                        </div>
-
-                        <div class="flex flex-wrap gap-2">
-                            <button onclick="quickAddMeal('Shaker Whey + Banane', 280, 30, 32, 3)" class="px-2.5 py-1 bg-obsidian hover:bg-white/[0.05] border border-white/[0.08] rounded-lg text-[11px] text-slate-300 transition">+ Whey & Banane</button>
-                            <button onclick="quickAddMeal('Bowl Poulet 200g + Riz Basmati', 620, 52, 75, 11)" class="px-2.5 py-1 bg-obsidian hover:bg-white/[0.05] border border-white/[0.08] rounded-lg text-[11px] text-slate-300 transition">+ Poulet & Riz</button>
-                            <button onclick="quickAddMeal('4 Œufs Brouillés + Avoine', 510, 32, 45, 22)" class="px-2.5 py-1 bg-obsidian hover:bg-white/[0.05] border border-white/[0.08] rounded-lg text-[11px] text-slate-300 transition">+ Œufs & Avoine</button>
-                        </div>
-                    </div>
-
-                    <div id="meals-list" class="space-y-2 pt-1"></div>
-                </div>
-
-                <div class="xl:col-span-4 pro-card p-6 rounded-2xl flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                            <i data-lucide="droplets" class="w-5 h-5 text-cyan-400"></i> Hydratation
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <i data-lucide="target" class="w-4 h-4 text-emerald-400"></i> Priorités du Jour
                         </h3>
-                        <p class="text-xs text-slate-400 mt-1">Objectif quotidien : 3.00 Litres</p>
+                        <button onclick="switchTab('tasks')" class="text-xs font-semibold text-slate-400 hover:text-white transition">Tout afficher</button>
+                    </div>
+                    <div id="dash-priority-list" class="grid grid-cols-1 md:grid-cols-2 gap-2.5"></div>
+                </div>
+            </section>
 
-                        <div class="my-8 text-center">
-                            <div class="inline-flex items-baseline gap-1.5">
-                                <span id="water-amount" class="text-5xl font-extrabold font-mono text-cyan-400">0.00</span>
-                                <span class="text-lg font-mono text-slate-400">L</span>
+            <!-- ==================== TAB 2: SPORT & ENTRAÎNEMENT ==================== -->
+            <section id="tab-sport" class="tab-content hidden p-6 space-y-6 max-w-7xl mx-auto w-full">
+
+                <!-- Session Command Header -->
+                <div class="pro-card p-5 rounded-2xl flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex items-center gap-4 min-w-0">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center text-emerald-400 shrink-0">
+                            <i data-lucide="dumbbell" class="w-6 h-6"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <div class="flex items-center gap-2.5 flex-wrap">
+                                <input type="text" id="workout-name-input" onchange="updateWorkoutName(this.value)" value="Séance Hypertrophie — Push" class="bg-transparent font-extrabold text-lg text-white focus:outline-none border-b border-transparent focus:border-emerald-400 min-w-0">
+                                <span class="px-2 py-0.5 text-[10px] font-mono font-bold rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">SESSION ACTIVE</span>
                             </div>
-                            <div class="w-full h-2.5 bg-slate-800 rounded-full mt-5 overflow-hidden">
-                                <div id="water-bar" class="h-full bg-gradient-to-r from-cyan-400 to-emerald-400 transition-all duration-300" style="width: 0%"></div>
+                            <div class="flex flex-wrap items-center gap-x-5 gap-y-1 text-xs font-mono text-slate-400 mt-1.5">
+                                <span>Durée : <strong id="workout-stopwatch" class="text-white">00:00:00</strong></span>
+                                <span>Volume : <strong id="sport-total-volume" class="text-emerald-400">0 kg</strong></span>
+                                <span>Séries : <strong id="sport-completed-sets" class="text-white">0/0</strong></span>
+                                <span>RPE Moy. : <strong id="sport-avg-rpe" class="text-amber-400">0.0</strong></span>
+                                <span>Densité : <strong id="sport-density" class="text-cyan-400">0 kg/m</strong></span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-3 gap-2">
-                        <button onclick="addWater(0.25)" class="py-2.5 bg-cyan-500/10 hover:bg-cyan-400 text-cyan-300 hover:text-slate-950 border border-cyan-500/25 font-mono font-bold text-xs rounded-xl transition">+250ml</button>
-                        <button onclick="addWater(0.50)" class="py-2.5 bg-cyan-500/10 hover:bg-cyan-400 text-cyan-300 hover:text-slate-950 border border-cyan-500/25 font-mono font-bold text-xs rounded-xl transition">+500ml</button>
-                        <button onclick="resetWater()" class="py-2.5 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-slate-300 font-semibold text-xs rounded-xl transition">Reset</button>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button onclick="toggleWorkoutStopwatch()" id="btn-stopwatch" class="px-3.5 py-2 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.09] text-white text-xs font-semibold rounded-xl flex items-center gap-1.5 transition">
+                            <i data-lucide="play" class="w-3.5 h-3.5 text-emerald-400"></i> Chrono
+                        </button>
+                        <button onclick="openModal('modal-1rm')" class="px-3.5 py-2 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.09] text-white text-xs font-semibold rounded-xl flex items-center gap-1.5 transition">
+                            <i data-lucide="calculator" class="w-3.5 h-3.5 text-violet-400"></i> 1RM & Disques
+                        </button>
+                        <button onclick="openModal('modal-hiit')" class="px-3.5 py-2 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.09] text-white text-xs font-semibold rounded-xl flex items-center gap-1.5 transition">
+                            <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i> HIIT / Tabata
+                        </button>
+                        <button onclick="finishAndSaveWorkout()" class="px-4 py-2 bg-emerald-400 hover:bg-emerald-300 text-slate-950 text-xs font-extrabold rounded-xl flex items-center gap-1.5 transition shadow-lg shadow-emerald-500/20">
+                            <i data-lucide="check" class="w-4 h-4"></i> Archiver Séance
+                        </button>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- ==================== TAB 4: TÂCHES & HABITUDES ==================== -->
-        <section id="tab-tasks" class="tab-content hidden p-6 space-y-6 max-w-7xl mx-auto w-full">
-            <div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
-                <div class="xl:col-span-8 pro-card p-6 rounded-2xl space-y-4">
-                    <h3 class="text-lg font-bold text-white">Plan d'Action Quotidien</h3>
-                    <div class="flex flex-wrap sm:flex-nowrap gap-2">
-                        <input type="text" id="new-task-input" placeholder="Nouvelle tâche à accomplir..." onkeypress="if(event.key==='Enter') addTask()" class="flex-1 min-w-0 bg-obsidian border border-white/[0.1] rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-400">
-                        <select id="new-task-tag" class="bg-obsidian border border-white/[0.1] rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none">
-                            <option value="Sport">Sport</option>
-                            <option value="Travail">Travail</option>
-                            <option value="Perso">Perso</option>
+                <!-- Direct Exercise Selector & Focus Card (Click to bring exercise front & center) -->
+                <div class="pro-card p-4 rounded-2xl space-y-3">
+                    <div class="flex items-center justify-between gap-2 flex-wrap">
+                        <div class="flex items-center gap-2 text-xs font-bold text-white">
+                            <i data-lucide="list-filter" class="w-4 h-4 text-emerald-400"></i>
+                            <span>Sélection Directe d'Exercice (1 clic = mis en avant)</span>
+                        </div>
+                        <span id="exercise-carousel-counter" class="text-xs font-mono text-slate-400 px-2">1 / 3</span>
+                    </div>
+
+                    <!-- Direct clickable exercise pills -->
+                    <div id="exercise-selector-pills" class="flex items-center gap-2 overflow-x-auto pb-1"></div>
+
+                    <!-- Focused exercise card -->
+                    <div id="exercise-focus-deck" class="bg-obsidian/90 border border-emerald-500/25 rounded-2xl p-4"></div>
+                </div>
+
+                <!-- Weekly Training Planner -->
+                <div class="pro-card p-5 rounded-2xl space-y-3.5">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <div>
+                            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                                <i data-lucide="calendar-days" class="w-4 h-4 text-cyan-400"></i> Planificateur Hebdomadaire d'Entraînement
+                            </h3>
+                            <p class="text-xs text-slate-400">Assignez un protocole à chaque jour ou chargez directement la séance du jour.</p>
+                        </div>
+                        <span class="text-[11px] font-mono px-2.5 py-1 rounded-lg bg-cyan-500/10 border border-cyan-500/25 text-cyan-300">MICROCYCLE 7J</span>
+                    </div>
+                    <div id="weekly-planner-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-7 gap-2.5"></div>
+                </div>
+
+                <!-- Muscle Volume Distribution -->
+                <div class="pro-card p-4 rounded-2xl space-y-3">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="font-bold text-slate-200 flex items-center gap-2">
+                            <i data-lucide="bar-chart-3" class="w-4 h-4 text-emerald-400"></i> Distribution du Volume par Groupe Musculaire
+                        </span>
+                        <span id="muscle-balance-summary" class="font-mono text-slate-400">En attente de séries</span>
+                    </div>
+                    <div id="muscle-breakdown-bars" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5"></div>
+                </div>
+
+                <!-- Presets & Add Exercise Toolbar -->
+                <div class="grid grid-cols-1 xl:grid-cols-12 gap-4">
+                    <div class="xl:col-span-7 pro-card p-4 rounded-2xl flex flex-wrap items-center gap-2">
+                        <span class="text-xs font-semibold text-slate-400 mr-1">Protocoles :</span>
+                        <button onclick="loadPresetWorkout('push')" class="px-3 py-1.5 bg-obsidian hover:bg-emerald-500/15 hover:text-emerald-300 border border-white/[0.08] rounded-lg text-xs font-semibold transition">Push</button>
+                        <button onclick="loadPresetWorkout('pull')" class="px-3 py-1.5 bg-obsidian hover:bg-cyan-500/15 hover:text-cyan-300 border border-white/[0.08] rounded-lg text-xs font-semibold transition">Pull</button>
+                        <button onclick="loadPresetWorkout('legs')" class="px-3 py-1.5 bg-obsidian hover:bg-amber-500/15 hover:text-amber-300 border border-white/[0.08] rounded-lg text-xs font-semibold transition">Legs & Core</button>
+                        <button onclick="loadPresetWorkout('fullbody')" class="px-3 py-1.5 bg-obsidian hover:bg-violet-500/15 hover:text-violet-300 border border-white/[0.08] rounded-lg text-xs font-semibold transition">Full Body</button>
+                        <button onclick="clearCurrentWorkout()" class="ml-auto px-3 py-1.5 text-xs font-semibold text-rose-400 hover:bg-rose-500/10 rounded-lg transition">Vider</button>
+                    </div>
+
+                    <div class="xl:col-span-5 pro-card p-4 rounded-2xl flex items-center gap-2">
+                        <input type="text" id="new-ex-name" placeholder="Ajouter un exercice..." onkeypress="if(event.key==='Enter') addExercise()" class="flex-1 min-w-0 bg-obsidian border border-white/[0.1] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-400">
+                        <select id="new-ex-muscle" class="bg-obsidian border border-white/[0.1] rounded-xl px-2.5 py-2 text-xs text-slate-200 focus:outline-none">
+                            <option value="Pectoraux">Pectoraux</option>
+                            <option value="Dos">Dos</option>
+                            <option value="Jambes">Jambes</option>
+                            <option value="Épaules">Épaules</option>
+                            <option value="Bras">Bras</option>
+                            <option value="Core">Core</option>
                         </select>
-                        <button onclick="addTask()" class="px-5 py-2.5 bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-extrabold text-xs rounded-xl transition shrink-0">Ajouter</button>
+                        <button onclick="addExercise()" class="px-3.5 py-2 bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-extrabold text-xs rounded-xl transition shrink-0">
+                            + Ajouter
+                        </button>
                     </div>
-                    <div id="tasks-list" class="space-y-2 pt-1"></div>
                 </div>
 
-                <div class="xl:col-span-4 pro-card p-6 rounded-2xl space-y-4">
+                <!-- Exercises List -->
+                <div id="exercises-container" class="space-y-4"></div>
+
+                <!-- PRs & Workout Log -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-2">
+                    <div class="pro-card p-6 rounded-2xl">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-300 mb-4 flex items-center gap-2">
+                            <i data-lucide="award" class="w-4 h-4 text-amber-400"></i> Records Personnels Estimés (1RM)
+                        </h3>
+                        <div id="pr-list" class="space-y-2"></div>
+                    </div>
+
+                    <div class="pro-card p-6 rounded-2xl">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-300 mb-4 flex items-center gap-2">
+                            <i data-lucide="history" class="w-4 h-4 text-emerald-400"></i> Journal des Séances Archivées
+                        </h3>
+                        <div id="workout-history-list" class="space-y-2.5 max-h-64 overflow-y-auto pr-1"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== TAB 3: DÉFIS & COACH VOCAL ==================== -->
+            <section id="tab-challenges" class="tab-content hidden p-6 space-y-6 max-w-7xl mx-auto w-full">
+                <!-- Challenge Selector & Voice Settings -->
+                <div class="pro-card p-6 rounded-2xl space-y-4">
+                    <div class="flex flex-wrap items-center justify-between gap-4">
+                        <div>
+                            <h2 class="text-lg font-extrabold text-white flex items-center gap-2">
+                                <i data-lucide="flame-kindling" class="w-5 h-5 text-rose-400"></i> Défis Variés & Coach Vocal Interactif
+                            </h2>
+                            <p class="text-xs text-slate-400 mt-0.5">Cliquez sur n'importe quel défi ou exercice pour l'afficher immédiatement et entendre l'explication du coach.</p>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <label class="flex items-center gap-2 text-xs font-semibold text-slate-300 bg-obsidian px-3 py-2 rounded-xl border border-white/[0.09] cursor-pointer">
+                                <input type="checkbox" id="voice-enabled-toggle" checked onchange="toggleVoiceCoach(this.checked)" class="accent-emerald-400 w-4 h-4">
+                                <span>Voix active</span>
+                            </label>
+                            <button onclick="coachSpeakCurrentStep(true)" class="px-3.5 py-2 bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.1] text-xs font-bold text-white rounded-xl flex items-center gap-1.5 transition">
+                                <i data-lucide="volume-2" class="w-4 h-4 text-emerald-400"></i> Réexpliquer
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Challenge Presets -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <button onclick="selectChallenge('inferno')" id="btn-ch-inferno" class="p-4 rounded-xl bg-rose-500/10 border border-rose-500/40 text-left transition">
+                            <div class="text-[10px] font-mono font-bold text-rose-400">DÉFI 01 • CARDIO & EXPLOSIVITÉ</div>
+                            <div class="text-sm font-extrabold text-white mt-0.5">Inferno Circuit (5 exercices variés)</div>
+                            <p class="text-xs text-slate-400 mt-1">Burpees, Mountain Climbers, Jump Squats, Gainage Dynamique, Pompes Diamant.</p>
+                        </button>
+
+                        <button onclick="selectChallenge('spartan')" id="btn-ch-spartan" class="p-4 rounded-xl bg-obsidian/80 hover:bg-white/[0.04] border border-white/[0.08] text-left transition">
+                            <div class="text-[10px] font-mono font-bold text-amber-400">DÉFI 02 • ENDURANCE MUSCULAIRE</div>
+                            <div class="text-sm font-extrabold text-white mt-0.5">Spartan Core & Push (5 exercices)</div>
+                            <p class="text-xs text-slate-400 mt-1">Fentes Sautées, Hollow Hold, Pompes Déclinées, Superman, Chaise Isométrique.</p>
+                        </button>
+
+                        <button onclick="selectChallenge('flow')" id="btn-ch-flow" class="p-4 rounded-xl bg-obsidian/80 hover:bg-white/[0.04] border border-white/[0.08] text-left transition">
+                            <div class="text-[10px] font-mono font-bold text-cyan-400">DÉFI 03 • MOBILITÉ & AGILITÉ</div>
+                            <div class="text-sm font-extrabold text-white mt-0.5">Athletic Flow & Reflex (5 exercices)</div>
+                            <p class="text-xs text-slate-400 mt-1">Skaters Latéraux, Cossack Squats, Bear Crawl, Gainage Latéral, Thrusters Poids du Corps.</p>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Active Coach Live Stage (Instant Click) -->
+                <div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
+                    <div class="xl:col-span-7 pro-card p-6 rounded-2xl flex flex-col justify-between space-y-6" id="coach-active-card">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-3">
+                                <span id="coach-step-badge" class="px-3 py-1 text-xs font-mono font-bold rounded-full bg-rose-500/15 text-rose-300 border border-rose-500/30">EXERCICE 1 / 5</span>
+                                <span id="coach-round-badge" class="text-xs font-mono text-slate-400">Tour 1 / 2</span>
+                            </div>
+
+                            <h3 id="coach-exercise-title" class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Burpees Contrôlés</h3>
+                            <p id="coach-exercise-muscle" class="text-xs font-mono uppercase tracking-wider text-emerald-400 mt-1">Corps Entier • Tempo Explosif</p>
+
+                            <!-- Spoken Explanation Box -->
+                            <div class="mt-4 p-4 rounded-2xl bg-obsidian/90 border border-white/[0.09] space-y-1.5">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[11px] font-mono font-bold text-cyan-400 flex items-center gap-1.5">
+                                        <i data-lucide="message-square-quote" class="w-3.5 h-3.5"></i> EXPLICATION DU COACH VOCAL
+                                    </span>
+                                    <span id="coach-speaking-indicator" class="text-[10px] font-mono text-emerald-400 hidden">● PARLE...</span>
+                                </div>
+                                <p id="coach-explanation-text" class="text-sm text-slate-200 leading-relaxed"></p>
+                            </div>
+                        </div>
+
+                        <!-- Live Countdown & Transport Controls -->
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between bg-obsidian p-4 rounded-2xl border border-white/[0.08]">
+                                <div>
+                                    <span id="coach-phase-label" class="text-xs font-mono font-bold uppercase text-emerald-400">PRÊT À DÉMARRER</span>
+                                    <div id="coach-countdown-display" class="text-5xl font-extrabold font-mono text-white mt-0.5">00:40</div>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="prevChallengeStep()" class="p-3 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.09] text-slate-200 transition" title="Exercice précédent">
+                                        <i data-lucide="skip-back" class="w-4 h-4"></i>
+                                    </button>
+                                    <button onclick="toggleChallengeRunner()" id="coach-run-btn" class="px-6 py-3 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-extrabold text-sm flex items-center gap-2 transition shadow-lg shadow-emerald-500/20">
+                                        <i data-lucide="play" class="w-4 h-4"></i> Lancer Défi
+                                    </button>
+                                    <button onclick="nextChallengeStep(true)" class="p-3 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.09] text-slate-200 transition" title="Exercice suivant">
+                                        <i data-lucide="skip-forward" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Series Queue List -->
+                    <div class="xl:col-span-5 pro-card p-6 rounded-2xl space-y-3">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-300">Série d'Exercices du Défi</h3>
+                            <span id="challenge-completed-count" class="text-xs font-mono text-emerald-400 font-bold">0 validé</span>
+                        </div>
+                        <div id="challenge-series-list" class="space-y-2.5"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== TAB 4: NUTRITION ==================== -->
+            <section id="tab-nutrition" class="tab-content hidden p-6 space-y-6 max-w-7xl mx-auto w-full">
+                <div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
+                    <div class="xl:col-span-8 pro-card p-6 rounded-2xl space-y-5">
+                        <div class="flex flex-wrap items-center justify-between gap-3">
+                            <div>
+                                <h3 class="text-lg font-bold text-white">Bilan Macronutriments</h3>
+                                <p class="text-xs text-slate-400">Objectifs personnalisables en temps réel</p>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs font-mono">
+                                <span id="nutri-total-cal" class="text-2xl font-extrabold text-amber-400">0</span>
+                                <span class="text-slate-500">/</span>
+                                <input type="number" id="target-cal-input" value="2650" onchange="updateTargets()" class="w-20 bg-obsidian border border-white/[0.1] rounded-lg px-2 py-1 text-white text-right">
+                                <span class="text-slate-500">kcal</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div class="bg-obsidian/80 p-4 rounded-xl border border-white/[0.07]">
+                                <div class="flex justify-between items-center text-xs mb-1.5">
+                                    <span class="text-slate-400 font-medium">Protéines</span>
+                                    <div class="font-mono font-bold text-emerald-400 flex items-center gap-1">
+                                        <span id="nutri-prot">0</span> /
+                                        <input type="number" id="target-prot-input" value="180" onchange="updateTargets()" class="w-12 bg-surface border border-white/[0.08] rounded px-1 text-right text-emerald-300">g
+                                    </div>
+                                </div>
+                                <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                                    <div id="bar-prot" class="h-full bg-emerald-400 transition-all" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <div class="bg-obsidian/80 p-4 rounded-xl border border-white/[0.07]">
+                                <div class="flex justify-between items-center text-xs mb-1.5">
+                                    <span class="text-slate-400 font-medium">Glucides</span>
+                                    <div class="font-mono font-bold text-cyan-400 flex items-center gap-1">
+                                        <span id="nutri-carbs">0</span> /
+                                        <input type="number" id="target-carbs-input" value="310" onchange="updateTargets()" class="w-12 bg-surface border border-white/[0.08] rounded px-1 text-right text-cyan-300">g
+                                    </div>
+                                </div>
+                                <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                                    <div id="bar-carbs" class="h-full bg-cyan-400 transition-all" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <div class="bg-obsidian/80 p-4 rounded-xl border border-white/[0.07]">
+                                <div class="flex justify-between items-center text-xs mb-1.5">
+                                    <span class="text-slate-400 font-medium">Lipides</span>
+                                    <div class="font-mono font-bold text-violet-400 flex items-center gap-1">
+                                        <span id="nutri-fats">0</span> /
+                                        <input type="number" id="target-fats-input" value="75" onchange="updateTargets()" class="w-12 bg-surface border border-white/[0.08] rounded px-1 text-right text-violet-300">g
+                                    </div>
+                                </div>
+                                <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                                    <div id="bar-fats" class="h-full bg-violet-400 transition-all" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-3 border-t border-white/[0.075] space-y-3">
+                            <span class="text-xs font-mono uppercase tracking-wider text-slate-400 block">Ajouter un repas</span>
+                            <div class="grid grid-cols-2 sm:grid-cols-6 gap-2">
+                                <input type="text" id="meal-name" placeholder="Repas / aliment..." class="col-span-2 bg-obsidian border border-white/[0.1] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400">
+                                <input type="number" id="meal-cal" placeholder="Kcal" class="bg-obsidian border border-white/[0.1] rounded-xl px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-amber-400">
+                                <input type="number" id="meal-prot" placeholder="Prot (g)" class="bg-obsidian border border-white/[0.1] rounded-xl px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-amber-400">
+                                <input type="number" id="meal-carbs" placeholder="Gluc (g)" class="bg-obsidian border border-white/[0.1] rounded-xl px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-amber-400">
+                                <button onclick="addMeal()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs rounded-xl py-2 transition">Ajouter</button>
+                            </div>
+
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="quickAddMeal('Shaker Whey + Banane', 280, 30, 32, 3)" class="px-2.5 py-1 bg-obsidian hover:bg-white/[0.05] border border-white/[0.08] rounded-lg text-[11px] text-slate-300 transition">+ Whey & Banane</button>
+                                <button onclick="quickAddMeal('Bowl Poulet 200g + Riz Basmati', 620, 52, 75, 11)" class="px-2.5 py-1 bg-obsidian hover:bg-white/[0.05] border border-white/[0.08] rounded-lg text-[11px] text-slate-300 transition">+ Poulet & Riz</button>
+                                <button onclick="quickAddMeal('4 Œufs Brouillés + Avoine', 510, 32, 45, 22)" class="px-2.5 py-1 bg-obsidian hover:bg-white/[0.05] border border-white/[0.08] rounded-lg text-[11px] text-slate-300 transition">+ Œufs & Avoine</button>
+                            </div>
+                        </div>
+
+                        <div id="meals-list" class="space-y-2 pt-1"></div>
+                    </div>
+
+                    <div class="xl:col-span-4 pro-card p-6 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i data-lucide="droplets" class="w-5 h-5 text-cyan-400"></i> Hydratation
+                            </h3>
+                            <p class="text-xs text-slate-400 mt-1">Objectif quotidien : 3.00 Litres</p>
+
+                            <div class="my-8 text-center">
+                                <div class="inline-flex items-baseline gap-1.5">
+                                    <span id="water-amount" class="text-5xl font-extrabold font-mono text-cyan-400">0.00</span>
+                                    <span class="text-lg font-mono text-slate-400">L</span>
+                                </div>
+                                <div class="w-full h-2.5 bg-slate-800 rounded-full mt-5 overflow-hidden">
+                                    <div id="water-bar" class="h-full bg-gradient-to-r from-cyan-400 to-emerald-400 transition-all duration-300" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="addWater(0.25)" class="py-2.5 bg-cyan-500/10 hover:bg-cyan-400 text-cyan-300 hover:text-slate-950 border border-cyan-500/25 font-mono font-bold text-xs rounded-xl transition">+250ml</button>
+                            <button onclick="addWater(0.50)" class="py-2.5 bg-cyan-500/10 hover:bg-cyan-400 text-cyan-300 hover:text-slate-950 border border-cyan-500/25 font-mono font-bold text-xs rounded-xl transition">+500ml</button>
+                            <button onclick="resetWater()" class="py-2.5 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-slate-300 font-semibold text-xs rounded-xl transition">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== TAB 5: TÂCHES & HABITUDES ==================== -->
+            <section id="tab-tasks" class="tab-content hidden p-6 space-y-6 max-w-7xl mx-auto w-full">
+                <div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
+                    <div class="xl:col-span-8 pro-card p-6 rounded-2xl space-y-4">
+                        <h3 class="text-lg font-bold text-white">Plan d'Action Quotidien</h3>
+                        <div class="flex flex-wrap sm:flex-nowrap gap-2">
+                            <input type="text" id="new-task-input" placeholder="Nouvelle tâche à accomplir..." onkeypress="if(event.key==='Enter') addTask()" class="flex-1 min-w-0 bg-obsidian border border-white/[0.1] rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-400">
+                            <select id="new-task-tag" class="bg-obsidian border border-white/[0.1] rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none">
+                                <option value="Sport">Sport</option>
+                                <option value="Travail">Travail</option>
+                                <option value="Perso">Perso</option>
+                            </select>
+                            <button onclick="addTask()" class="px-5 py-2.5 bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-extrabold text-xs rounded-xl transition shrink-0">Ajouter</button>
+                        </div>
+                        <div id="tasks-list" class="space-y-2 pt-1"></div>
+                    </div>
+
+                    <div class="xl:col-span-4 pro-card p-6 rounded-2xl space-y-4">
+                        <div>
+                            <h3 class="text-lg font-bold text-white">Habitudes Clés</h3>
+                            <p class="text-xs text-slate-400 mt-0.5">Rituels quotidiens de récupération et discipline.</p>
+                        </div>
+                        <div id="habits-list" class="space-y-2 pt-1"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== TAB 6: DEEP FOCUS ==================== -->
+            <section id="tab-focus" class="tab-content hidden p-6 max-w-3xl mx-auto w-full">
+                <div class="pro-card p-8 sm:p-10 rounded-3xl text-center space-y-6">
+                    <div class="inline-flex p-1 bg-obsidian rounded-xl border border-white/[0.08]">
+                        <button onclick="setFocusMode(25, 'Deep Work')" class="px-4 py-1.5 rounded-lg text-xs font-bold bg-violet-500 text-white">Deep Work (25m)</button>
+                        <button onclick="setFocusMode(50, 'Ultra Focus')" class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition">Ultra Focus (50m)</button>
+                        <button onclick="setFocusMode(5, 'Pause')" class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition">Pause (5m)</button>
+                    </div>
+
                     <div>
-                        <h3 class="text-lg font-bold text-white">Habitudes Clés</h3>
-                        <p class="text-xs text-slate-400 mt-0.5">Rituels quotidiens de récupération et discipline.</p>
+                        <span id="focus-label" class="text-xs font-mono uppercase tracking-widest text-violet-400">SESSION DEEP WORK</span>
+                        <div id="focus-timer-display" class="text-7xl sm:text-8xl font-extrabold font-mono text-white my-4 tracking-tight">25:00</div>
+                        <p class="text-xs font-mono text-slate-400">Sessions validées aujourd'hui : <strong id="focus-completed-count" class="text-violet-400">0</strong></p>
                     </div>
-                    <div id="habits-list" class="space-y-2 pt-1"></div>
-                </div>
-            </div>
-        </section>
 
-        <!-- ==================== TAB 5: DEEP FOCUS ==================== -->
-        <section id="tab-focus" class="tab-content hidden p-6 max-w-3xl mx-auto w-full">
-            <div class="pro-card p-8 sm:p-10 rounded-3xl text-center space-y-6">
-                <div class="inline-flex p-1 bg-obsidian rounded-xl border border-white/[0.08]">
-                    <button onclick="setFocusMode(25, 'Deep Work')" class="px-4 py-1.5 rounded-lg text-xs font-bold bg-violet-500 text-white">Deep Work (25m)</button>
-                    <button onclick="setFocusMode(50, 'Ultra Focus')" class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition">Ultra Focus (50m)</button>
-                    <button onclick="setFocusMode(5, 'Pause')" class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition">Pause (5m)</button>
+                    <div class="flex justify-center gap-3">
+                        <button onclick="toggleFocusTimer()" id="focus-start-btn" class="px-8 py-3 bg-violet-500 hover:bg-violet-400 text-white font-bold rounded-xl text-sm transition shadow-lg shadow-violet-500/20">
+                            Démarrer
+                        </button>
+                        <button onclick="resetFocusTimer()" class="px-6 py-3 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.09] text-slate-200 font-semibold rounded-xl text-sm transition">
+                            Réinitialiser
+                        </button>
+                    </div>
                 </div>
+            </section>
 
-                <div>
-                    <span id="focus-label" class="text-xs font-mono uppercase tracking-widest text-violet-400">SESSION DEEP WORK</span>
-                    <div id="focus-timer-display" class="text-7xl sm:text-8xl font-extrabold font-mono text-white my-4 tracking-tight">25:00</div>
-                    <p class="text-xs font-mono text-slate-400">Sessions validées aujourd'hui : <strong id="focus-completed-count" class="text-violet-400">0</strong></p>
-                </div>
-
-                <div class="flex justify-center gap-3">
-                    <button onclick="toggleFocusTimer()" id="focus-start-btn" class="px-8 py-3 bg-violet-500 hover:bg-violet-400 text-white font-bold rounded-xl text-sm transition shadow-lg shadow-violet-500/20">
-                        Démarrer
-                    </button>
-                    <button onclick="resetFocusTimer()" class="px-6 py-3 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.09] text-slate-200 font-semibold rounded-xl text-sm transition">
-                        Réinitialiser
-                    </button>
-                </div>
-            </div>
-        </section>
-
+        </div>
     </main>
 
     <!-- MODAL: 1RM CALCULATOR & PLATE CALCULATOR -->
@@ -701,6 +837,37 @@
             } catch (e) {}
         }
 
+        // VOICE COACH ENGINE (Web Speech API)
+        let voiceEnabled = true;
+        function toggleVoiceCoach(enabled) {
+            voiceEnabled = enabled;
+            if (!enabled && 'speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+            showToast(enabled ? "Coach vocal activé" : "Coach vocal coupé");
+        }
+
+        function speakCoach(text) {
+            if (!voiceEnabled || !('speechSynthesis' in window)) return;
+            try {
+                window.speechSynthesis.cancel();
+                const utter = new SpeechSynthesisUtterance(text);
+                utter.lang = 'fr-FR';
+                utter.rate = 1.03;
+                utter.pitch = 1.0;
+                const voices = window.speechSynthesis.getVoices();
+                const frVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith('fr'));
+                if (frVoice) utter.voice = frVoice;
+
+                const ind = document.getElementById('coach-speaking-indicator');
+                utter.onstart = () => { if (ind) ind.classList.remove('hidden'); };
+                utter.onend = () => { if (ind) ind.classList.add('hidden'); };
+                utter.onerror = () => { if (ind) ind.classList.add('hidden'); };
+
+                window.speechSynthesis.speak(utter);
+            } catch (e) {}
+        }
+
         const defaultState = {
             bodyWeight: 78.5,
             sleepHours: 7.5,
@@ -763,7 +930,7 @@
                 { id: 101, name: "Omelette 4 Œufs + Flocons d'Avoine", cal: 540, prot: 34, carbs: 48, fats: 22 }
             ],
             tasks: [
-                { id: 1, text: "Valider la séance Push en respectant le Tempo & RIR", tag: "Sport", done: false },
+                { id: 1, text: "Valider un défi avec le Coach Vocal", tag: "Sport", done: false },
                 { id: 2, text: "Atteindre l'objectif protéines et 3.0L d'hydratation", tag: "Sport", done: false },
                 { id: 3, text: "Session Deep Focus de 50 minutes", tag: "Travail", done: true }
             ],
@@ -775,12 +942,12 @@
             ]
         };
 
-        let state = JSON.parse(localStorage.getItem('apex_studio_v6_state')) || JSON.parse(localStorage.getItem('apex_studio_v5_state')) || defaultState;
+        let state = JSON.parse(localStorage.getItem('apex_studio_v7_state')) || JSON.parse(localStorage.getItem('apex_studio_v6_state')) || defaultState;
         if (!state.weeklySchedule) state.weeklySchedule = { ...defaultState.weeklySchedule };
         let volumeChartInstance = null;
 
         function saveState() {
-            localStorage.setItem('apex_studio_v6_state', JSON.stringify(state));
+            localStorage.setItem('apex_studio_v7_state', JSON.stringify(state));
             updateDashboard();
             renderVolumeChart();
         }
@@ -797,14 +964,22 @@
         const tabTitles = {
             dashboard: "Centre de Pilotage",
             sport: "Sport & Entraînement Pro",
+            challenges: "Défis & Coach Vocal",
             nutrition: "Nutrition & Macros",
             tasks: "Exécution & Habitudes",
             focus: "Deep Focus"
         };
 
+        let currentTab = 'dashboard';
+
+        // INSTANT DIRECT SWITCH ON CLICK (No swipe required)
         function switchTab(tabId) {
+            if (!tabTitles[tabId]) return;
+            currentTab = tabId;
+
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            const targetSec = document.getElementById('tab-' + tabId);
+            targetSec.classList.remove('hidden');
 
             document.querySelectorAll('.nav-item').forEach(btn => {
                 btn.classList.remove('active');
@@ -814,10 +989,369 @@
             if (activeBtn) {
                 activeBtn.classList.add('active');
                 activeBtn.classList.remove('text-slate-400');
+                activeBtn.scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'center' });
             }
             document.getElementById('page-title').innerText = tabTitles[tabId];
-            if (tabId === 'dashboard') {
-                renderVolumeChart();
+            window.scrollTo({ top: 0, behavior: 'auto' });
+
+            if (tabId === 'dashboard') renderVolumeChart();
+            if (tabId === 'sport') renderExerciseFocus();
+            if (tabId === 'challenges') renderChallengeUI(false);
+        }
+
+        // DIRECT EXERCISE SELECTION ON CLICK
+        let activeExIndex = 0;
+        function selectExerciseIndex(idx) {
+            if (!state.exercises.length) return;
+            activeExIndex = Math.max(0, Math.min(state.exercises.length - 1, idx));
+            renderExerciseFocus();
+        }
+
+        function renderExerciseFocus() {
+            const pillsEl = document.getElementById('exercise-selector-pills');
+            const deck = document.getElementById('exercise-focus-deck');
+            const counter = document.getElementById('exercise-carousel-counter');
+            if (!pillsEl || !deck || !counter) return;
+
+            if (!state.exercises.length) {
+                counter.innerText = "0 / 0";
+                pillsEl.innerHTML = "";
+                deck.innerHTML = `<p class="text-xs text-slate-400 text-center py-4">Ajoutez ou chargez un protocole pour sélectionner un exercice en un clic.</p>`;
+                return;
+            }
+
+            if (activeExIndex >= state.exercises.length) activeExIndex = 0;
+            const ex = state.exercises[activeExIndex];
+            counter.innerText = `${activeExIndex + 1} / ${state.exercises.length}`;
+
+            pillsEl.innerHTML = state.exercises.map((item, idx) => {
+                const isSel = idx === activeExIndex;
+                return `
+                <button onclick="selectExerciseIndex(${idx})" class="px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition border ${isSel ? 'bg-emerald-400 text-slate-950 border-emerald-300' : 'bg-obsidian text-slate-300 hover:text-white border-white/[0.08]'}">
+                    ${idx + 1}. ${item.name}
+                </button>`;
+            }).join('');
+
+            const doneCount = ex.sets.filter(s => s.done).length;
+            const nextSetIdx = ex.sets.findIndex(s => !s.done);
+            const targetIdx = nextSetIdx >= 0 ? nextSetIdx : ex.sets.length - 1;
+            const targetSet = ex.sets[targetIdx];
+
+            deck.innerHTML = `
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <div>
+                        <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">${ex.muscle}</span>
+                        <h4 class="text-base font-extrabold text-white mt-1">${ex.name}</h4>
+                    </div>
+                    <div class="text-right font-mono text-xs">
+                        <div class="text-slate-400">Tempo <strong class="text-cyan-300">${ex.tempo || '3-1-1-0'}</strong></div>
+                        <div class="text-slate-400">Validées <strong class="text-emerald-400">${doneCount}/${ex.sets.length}</strong></div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between bg-surface/90 border border-white/[0.08] rounded-xl p-3">
+                    <div class="font-mono text-xs">
+                        <span class="text-slate-400">Prochaine série #${targetIdx + 1} :</span>
+                        <strong class="text-white text-sm ml-1">${targetSet.weight} kg × ${targetSet.reps} reps</strong>
+                        <span class="text-amber-300 ml-2">RPE ${targetSet.rpe}</span>
+                    </div>
+                    <button onclick="toggleSetDone(${ex.id}, ${targetIdx}); renderExerciseFocus();" class="px-3.5 py-1.5 rounded-lg text-xs font-extrabold transition ${targetSet.done ? 'bg-emerald-400 text-slate-950' : 'bg-emerald-500/20 hover:bg-emerald-400 text-emerald-300 hover:text-slate-950 border border-emerald-500/35'}">
+                        ${targetSet.done ? '✓ Validée' : 'Valider série'}
+                    </button>
+                </div>
+            `;
+        }
+
+        // VARIED CHALLENGES + VOICE COACH
+        const challengesData = {
+            inferno: {
+                title: "Inferno Circuit",
+                rounds: 2,
+                restSec: 20,
+                steps: [
+                    {
+                        name: "Burpees Contrôlés",
+                        muscle: "Cardio & Corps Entier",
+                        duration: 40,
+                        explain: "Placez les mains au sol largeur d'épaules, envoyez les pieds en planche gainée, descendez la poitrine sans creuser le dos, poussez fort et sautez en extension."
+                    },
+                    {
+                        name: "Mountain Climbers Rapides",
+                        muscle: "Abdominaux & Cardio",
+                        duration: 40,
+                        explain: "Gardez les épaules au-dessus des poignets et le bassin bas. Ramenez les genoux vers la poitrine en alternance avec un rythme fluide et explosif."
+                    },
+                    {
+                        name: "Jump Squats Athlétiques",
+                        muscle: "Quadriceps & Puissance",
+                        duration: 40,
+                        explain: "Descendez en squat complet en poussant les hanches vers l'arrière, genoux alignés avec les pointes de pieds, puis propulsez-vous vers le haut en amortissant en souplesse."
+                    },
+                    {
+                        name: "Planche Tap Épaules",
+                        muscle: "Gainage Anti-Rotation",
+                        duration: 40,
+                        explain: "Écartez légèrement les pieds pour stabiliser le bassin. Touchez l'épaule opposée lentement sans balancer les hanches de gauche à droite."
+                    },
+                    {
+                        name: "Pompes Diamant / Serrées",
+                        muscle: "Triceps & Pectoraux Internes",
+                        duration: 40,
+                        explain: "Rapprochez les mains sous le sternum, gardez les coudes près du corps et expirez en poussant vers le haut."
+                    }
+                ]
+            },
+            spartan: {
+                title: "Spartan Core & Push",
+                rounds: 2,
+                restSec: 20,
+                steps: [
+                    {
+                        name: "Fentes Sautées Alternées",
+                        muscle: "Jambes & Équilibre",
+                        duration: 40,
+                        explain: "Faites une fente arrière contrôlée, le genou avant reste au-dessus de la cheville, puis changez de jambe dans les airs en gardant le buste droit."
+                    },
+                    {
+                        name: "Hollow Body Hold",
+                        muscle: "Sangle Abdominale Profonde",
+                        duration: 35,
+                        explain: "Collez le bas du dos au sol, décollez légèrement les omoplates et les jambes tendues. Respirez court et gardez la tension abdominale."
+                    },
+                    {
+                        name: "Pompes Déclinées",
+                        muscle: "Faisceau Claviculaire & Épaules",
+                        duration: 40,
+                        explain: "Surélevez les pieds sur un support stable. Descendez le buste vers le sol de façon maîtrisée et repoussez en verrouillant les abdos."
+                    },
+                    {
+                        name: "Superman Dos & Lombaires",
+                        muscle: "Chaîne Postérieure",
+                        duration: 35,
+                        explain: "Allongé sur le ventre, décollez simultanément la poitrine, les bras et les jambes, marquez une seconde de contraction en haut puis redescendez."
+                    },
+                    {
+                        name: "Chaise Murale Isométrique",
+                        muscle: "Quadriceps & Mental",
+                        duration: 45,
+                        explain: "Dos plat contre le mur, cuisses parallèles au sol à 90 degrés. Gardez les mains hors des genoux et respirez calmement."
+                    }
+                ]
+            },
+            flow: {
+                title: "Athletic Flow & Reflex",
+                rounds: 2,
+                restSec: 20,
+                steps: [
+                    {
+                        name: "Skaters Latéraux",
+                        muscle: "Moyens Fessiers & Appuis",
+                        duration: 40,
+                        explain: "Bondissez latéralement d'un pied sur l'autre en freinant avec les fessiers et en envoyant le bras opposé pour l'équilibre."
+                    },
+                    {
+                        name: "Cossack Squats Alternés",
+                        muscle: "Adducteurs & Mobilité Hanche",
+                        duration: 40,
+                        explain: "Prenez un large appui latéral, descendez sur une jambe pendant que l'autre reste tendue avec le talon au sol, puis revenez au centre."
+                    },
+                    {
+                        name: "Bear Crawl Avance / Recul",
+                        muscle: "Épaules, Abdos & Coordination",
+                        duration: 40,
+                        explain: "À quatre pattes, genoux décollés de quelques centimètres du sol. Avancez main droite et pied gauche ensemble en gardant le dos neutre."
+                    },
+                    {
+                        name: "Gainage Latéral + Rotation",
+                        muscle: "Obliques & Stabilité",
+                        duration: 35,
+                        explain: "En appui sur l'avant-bras, hanche haute, passez le bras libre sous le buste puis ouvrez vers le plafond."
+                    },
+                    {
+                        name: "Thrusters Poids du Corps",
+                        muscle: "Conditioning Complet",
+                        duration: 40,
+                        explain: "Enchaînez un squat profond suivi d'une extension complète des hanches et des bras tendus au-dessus de la tête."
+                    }
+                ]
+            }
+        };
+
+        let activeChallengeKey = 'inferno';
+        let chStepIdx = 0;
+        let chRound = 1;
+        let chIsRest = false;
+        let chTimeLeft = 40;
+        let chRunning = false;
+        let chInterval = null;
+        let chCompletedCount = 0;
+
+        function selectChallenge(key) {
+            stopChallengeRunner();
+            activeChallengeKey = key;
+            chStepIdx = 0;
+            chRound = 1;
+            chIsRest = false;
+            const ch = challengesData[key];
+            chTimeLeft = ch.steps[0].duration;
+
+            ['inferno', 'spartan', 'flow'].forEach(k => {
+                const btn = document.getElementById('btn-ch-' + k);
+                if (!btn) return;
+                if (k === key) {
+                    btn.className = "p-4 rounded-xl bg-rose-500/10 border border-rose-500/45 text-left transition";
+                } else {
+                    btn.className = "p-4 rounded-xl bg-obsidian/80 hover:bg-white/[0.04] border border-white/[0.08] text-left transition";
+                }
+            });
+
+            renderChallengeUI(true);
+        }
+
+        function coachSpeakCurrentStep(force = false) {
+            const ch = challengesData[activeChallengeKey];
+            const step = ch.steps[chStepIdx];
+            if (!step) return;
+
+            if (chIsRest) {
+                const nextStep = ch.steps[(chStepIdx + 1) % ch.steps.length];
+                speakCoach(`Récupération active. Prochain exercice : ${nextStep.name}. ${nextStep.explain}`);
+            } else if (force || voiceEnabled) {
+                speakCoach(`${step.name}, pendant ${step.duration} secondes. ${step.explain}`);
+            }
+        }
+
+        function renderChallengeUI(speakNow = false) {
+            const ch = challengesData[activeChallengeKey];
+            const step = ch.steps[chStepIdx];
+            if (!step) return;
+
+            document.getElementById('coach-step-badge').innerText = `EXERCICE ${chStepIdx + 1} / ${ch.steps.length}`;
+            document.getElementById('coach-round-badge').innerText = `Tour ${chRound} / ${ch.rounds}`;
+            document.getElementById('coach-exercise-title').innerText = chIsRest ? `Repos avant : ${ch.steps[(chStepIdx + 1) % ch.steps.length].name}` : step.name;
+            document.getElementById('coach-exercise-muscle').innerText = `${step.muscle} • ${step.duration}s d'effort`;
+            document.getElementById('coach-explanation-text').innerText = step.explain;
+
+            const phaseEl = document.getElementById('coach-phase-label');
+            if (chIsRest) {
+                phaseEl.innerText = "RÉCUPÉRATION";
+                phaseEl.className = "text-xs font-mono font-bold uppercase text-amber-400";
+            } else if (chRunning) {
+                phaseEl.innerText = "EN COURS • COACH ACTIF";
+                phaseEl.className = "text-xs font-mono font-bold uppercase text-emerald-400";
+            } else {
+                phaseEl.innerText = "PRÊT À DÉMARRER";
+                phaseEl.className = "text-xs font-mono font-bold uppercase text-cyan-400";
+            }
+
+            const m = String(Math.floor(chTimeLeft / 60)).padStart(2, '0');
+            const s = String(chTimeLeft % 60).padStart(2, '0');
+            document.getElementById('coach-countdown-display').innerText = `${m}:${s}`;
+            document.getElementById('challenge-completed-count').innerText = `${chCompletedCount} validé${chCompletedCount > 1 ? 's' : ''}`;
+
+            document.getElementById('challenge-series-list').innerHTML = ch.steps.map((st, idx) => {
+                const isCurrent = idx === chStepIdx;
+                return `
+                <div onclick="jumpToChallengeStep(${idx})" class="p-3.5 rounded-xl border cursor-pointer transition flex items-center justify-between gap-3 ${isCurrent ? 'bg-emerald-500/10 border-emerald-400/50' : 'bg-obsidian/80 border-white/[0.07] hover:border-white/[0.15]'}">
+                    <div class="min-w-0">
+                        <div class="text-xs font-bold text-white truncate">${idx + 1}. ${st.name}</div>
+                        <div class="text-[11px] text-slate-400 truncate">${st.muscle}</div>
+                    </div>
+                    <span class="text-xs font-mono font-bold px-2 py-0.5 rounded ${isCurrent ? 'bg-emerald-400 text-slate-950' : 'bg-white/[0.05] text-slate-300'}">${st.duration}s</span>
+                </div>`;
+            }).join('');
+
+            lucide.createIcons();
+            if (speakNow) coachSpeakCurrentStep(true);
+        }
+
+        function jumpToChallengeStep(idx) {
+            const ch = challengesData[activeChallengeKey];
+            chStepIdx = idx;
+            chIsRest = false;
+            chTimeLeft = ch.steps[chStepIdx].duration;
+            renderChallengeUI(true);
+        }
+
+        function prevChallengeStep() {
+            const ch = challengesData[activeChallengeKey];
+            chStepIdx = (chStepIdx - 1 + ch.steps.length) % ch.steps.length;
+            chIsRest = false;
+            chTimeLeft = ch.steps[chStepIdx].duration;
+            renderChallengeUI(true);
+        }
+
+        function nextChallengeStep(speakAfter = true) {
+            const ch = challengesData[activeChallengeKey];
+            if (chStepIdx < ch.steps.length - 1) {
+                chStepIdx++;
+                chIsRest = false;
+                chTimeLeft = ch.steps[chStepIdx].duration;
+            } else if (chRound < ch.rounds) {
+                chRound++;
+                chStepIdx = 0;
+                chIsRest = false;
+                chTimeLeft = ch.steps[0].duration;
+            } else {
+                stopChallengeRunner();
+                chCompletedCount++;
+                saveState();
+                playBeep(1046, 0.35);
+                speakCoach(`Défi ${ch.title} terminé ! Bravo pour l'intensité et la régularité.`);
+                showToast("Défi terminé !");
+                renderChallengeUI(false);
+                return;
+            }
+            renderChallengeUI(speakAfter);
+        }
+
+        function toggleChallengeRunner() {
+            const btn = document.getElementById('coach-run-btn');
+            if (chRunning) {
+                clearInterval(chInterval);
+                chRunning = false;
+                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+                btn.innerHTML = `<i data-lucide="play" class="w-4 h-4"></i> Reprendre`;
+                renderChallengeUI(false);
+                lucide.createIcons();
+                return;
+            }
+
+            chRunning = true;
+            btn.innerHTML = `<i data-lucide="pause" class="w-4 h-4"></i> Pause`;
+            renderChallengeUI(true);
+            lucide.createIcons();
+
+            clearInterval(chInterval);
+            chInterval = setInterval(() => {
+                chTimeLeft--;
+                if (chTimeLeft <= 0) {
+                    const ch = challengesData[activeChallengeKey];
+                    if (!chIsRest) {
+                        chCompletedCount++;
+                        playBeep(780, 0.2);
+                        chIsRest = true;
+                        chTimeLeft = ch.restSec;
+                        renderChallengeUI(true);
+                    } else {
+                        playBeep(920, 0.2);
+                        nextChallengeStep(true);
+                    }
+                } else {
+                    const m = String(Math.floor(chTimeLeft / 60)).padStart(2, '0');
+                    const s = String(chTimeLeft % 60).padStart(2, '0');
+                    document.getElementById('coach-countdown-display').innerText = `${m}:${s}`;
+                }
+            }, 1000);
+        }
+
+        function stopChallengeRunner() {
+            clearInterval(chInterval);
+            chRunning = false;
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            const btn = document.getElementById('coach-run-btn');
+            if (btn) {
+                btn.innerHTML = `<i data-lucide="play" class="w-4 h-4"></i> Lancer Défi`;
+                lucide.createIcons();
             }
         }
 
@@ -829,9 +1363,7 @@
             const labels = chronological.map((w, idx) => `${w.date} (#${idx + 1})`);
             const volumes = chronological.map(w => w.volume);
 
-            if (volumeChartInstance) {
-                volumeChartInstance.destroy();
-            }
+            if (volumeChartInstance) volumeChartInstance.destroy();
 
             volumeChartInstance = new Chart(ctx, {
                 type: 'line',
@@ -906,13 +1438,7 @@
             }
         };
 
-        const scheduleLabels = {
-            push: "Push",
-            pull: "Pull",
-            legs: "Legs & Core",
-            fullbody: "Full Body",
-            rest: "Récupération"
-        };
+        const scheduleLabels = { push: "Push", pull: "Pull", legs: "Legs & Core", fullbody: "Full Body", rest: "Récupération" };
 
         function getTodayDayKey() {
             const keys = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
@@ -974,19 +1500,23 @@
         function loadPresetWorkout(key) {
             const p = presets[key];
             if (!p) return;
+            activeExIndex = 0;
             state.workoutName = p.name;
             state.exercises = JSON.parse(JSON.stringify(p.exercises));
             document.getElementById('workout-name-input').value = state.workoutName;
             saveState();
             renderExercises();
+            renderExerciseFocus();
             switchTab('sport');
             showToast(`Protocole "${p.name}" activé`);
         }
 
         function clearCurrentWorkout() {
             state.exercises = [];
+            activeExIndex = 0;
             saveState();
             renderExercises();
+            renderExerciseFocus();
             showToast("Séance réinitialisée");
         }
 
@@ -1007,6 +1537,7 @@
             nameInput.value = '';
             saveState();
             renderExercises();
+            renderExerciseFocus();
             showToast("Exercice ajouté");
         }
 
@@ -1014,6 +1545,7 @@
             state.exercises = state.exercises.filter(e => e.id !== exId);
             saveState();
             renderExercises();
+            renderExerciseFocus();
         }
 
         function moveExercise(exId, dir) {
@@ -1023,6 +1555,7 @@
             [state.exercises[idx], state.exercises[target]] = [state.exercises[target], state.exercises[idx]];
             saveState();
             renderExercises();
+            renderExerciseFocus();
         }
 
         function updateExerciseMeta(exId, field, val) {
@@ -1039,6 +1572,7 @@
             ex.sets.push({ weight: last.weight, reps: last.reps, rir: last.rir ?? 2, rpe: last.rpe, type: last.type || "N", done: false });
             saveState();
             renderExercises();
+            renderExerciseFocus();
         }
 
         function removeSet(exId, setIdx) {
@@ -1047,6 +1581,7 @@
             ex.sets.splice(setIdx, 1);
             saveState();
             renderExercises();
+            renderExerciseFocus();
         }
 
         function stepSetField(exId, setIdx, field, delta) {
@@ -1056,6 +1591,7 @@
             ex.sets[setIdx][field] = Math.max(0, +(val + delta).toFixed(1));
             saveState();
             renderExercises();
+            renderExerciseFocus();
         }
 
         function updateSetField(exId, setIdx, field, value) {
@@ -1094,6 +1630,7 @@
             }
             saveState();
             renderExercises();
+            renderExerciseFocus();
         }
 
         function getSetBadge(type) {
@@ -1159,7 +1696,7 @@
                                 ${ex.sets.map((s, idx) => `
                                     <tr class="${s.done ? 'bg-emerald-500/[0.06] text-emerald-100' : 'text-white'} transition">
                                         <td class="py-2.5 px-2">
-                                            <button onclick="cycleSetType(${ex.id}, ${idx})" class="flex items-center gap-1.5 font-bold text-slate-300 hover:opacity-80" title="Type : Normale / Warm-up / Drop / Échec">
+                                            <button onclick="cycleSetType(${ex.id}, ${idx})" class="flex items-center gap-1.5 font-bold text-slate-300 hover:opacity-80">
                                                 <span>#${idx + 1}</span>
                                                 ${getSetBadge(s.type)}
                                             </button>
@@ -1312,7 +1849,7 @@
             }
         }
 
-        // Timers
+        // Rest & Stopwatch Timers
         let restInterval = null, restSeconds = 90;
         function startRestTimer(sec) {
             clearInterval(restInterval);
@@ -1703,7 +2240,7 @@
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
             const a = document.createElement('a');
             a.setAttribute("href", dataStr);
-            a.setAttribute("download", "apex_studio_v6_backup.json");
+            a.setAttribute("download", "apex_studio_v7_backup.json");
             document.body.appendChild(a);
             a.click();
             a.remove();
@@ -1721,6 +2258,7 @@
                     saveState();
                     renderWeeklyPlanner();
                     renderExercises();
+                    renderExerciseFocus();
                     renderHistory();
                     renderNutrition();
                     renderTasksAndHabits();
@@ -1734,7 +2272,7 @@
 
         function resetAllData() {
             if (confirm("Réinitialiser toutes les données ?")) {
-                localStorage.removeItem('apex_studio_v6_state');
+                localStorage.removeItem('apex_studio_v7_state');
                 location.reload();
             }
         }
@@ -1743,14 +2281,17 @@
             const now = new Date();
             document.getElementById('current-date').innerText = now.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
             document.getElementById('workout-name-input').value = state.workoutName || "Séance Entraînement";
+            if ('speechSynthesis' in window) window.speechSynthesis.getVoices();
 
             renderWeeklyPlanner();
             renderExercises();
+            renderExerciseFocus();
             renderHistory();
             renderNutrition();
             renderTasksAndHabits();
             updateDashboard();
             renderVolumeChart();
+            renderChallengeUI(false);
             lucide.createIcons();
         });
     </script>
