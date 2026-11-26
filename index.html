@@ -3193,31 +3193,39 @@
         }
       });
 
-      refreshConnectionUI();
-      setLanguage('fr');
-      renderCaa();
-      renderWater();
-      renderShop();
-      renderMeds();
-      renderPlaces();
-      renderIce();
-      renderOddGame();
-      initPairsGame();
-      renderTf();
-      updateClockUI();
-      updateFalcStats(document.getElementById('falcInput').value);
-      renderExitCheck();
-      renderRoutine();
-      renderAppts();
-      renderPainEnergy();
-      syncQuickSms();
-      updateShareGpsUI();
-      renderContacts();
-      renderClues();
-      renderBudget();
-      renderMeals();
-      renderSportUI();
-      startCoachAnimation();
+      function runSafely(name, fn) {
+        try {
+          fn();
+        } catch (err) {
+          console.warn('HandiVie+ init warning [' + name + ']:', err);
+        }
+      }
+
+      runSafely('connection', refreshConnectionUI);
+      runSafely('lang', function () { setLanguage('fr'); });
+      runSafely('caa', renderCaa);
+      runSafely('water', renderWater);
+      runSafely('shop', renderShop);
+      runSafely('meds', renderMeds);
+      runSafely('places', renderPlaces);
+      runSafely('ice', renderIce);
+      runSafely('oddGame', renderOddGame);
+      runSafely('pairsGame', initPairsGame);
+      runSafely('tfGame', renderTf);
+      runSafely('clock', updateClockUI);
+      runSafely('falcStats', function () { updateFalcStats(document.getElementById('falcInput').value); });
+      runSafely('exitCheck', renderExitCheck);
+      runSafely('routine', renderRoutine);
+      runSafely('appts', renderAppts);
+      runSafely('painEnergy', renderPainEnergy);
+      runSafely('quickSms', syncQuickSms);
+      runSafely('shareGps', updateShareGpsUI);
+      runSafely('contacts', renderContacts);
+      runSafely('clues', renderClues);
+      runSafely('budget', renderBudget);
+      runSafely('meals', renderMeals);
+      runSafely('sportUI', renderSportUI);
+      runSafely('coachAnim', startCoachAnimation);
     })();
   </script>
 </body>
