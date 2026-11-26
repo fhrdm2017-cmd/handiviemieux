@@ -12,55 +12,49 @@
   <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Naskh+Arabic:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg-page: #f1f5f9;
-      --bg-solid: #f1f5f9;
+      --bg-page: #f4f6f9;
+      --bg-solid: #f4f6f9;
       --surface: #ffffff;
       --surface-2: #f8fafc;
-      --surface-3: #eef2ff;
-      --text: #0f172a;
-      --muted: #475569;
+      --surface-3: #eef2f6;
+      --text: #111827;
+      --muted: #4b5563;
       --primary: #1e3a8a;
-      --primary-hover: #1e40af;
       --primary-dark: #172554;
-      --primary-soft: #dbeafe;
-      --accent: #0f766e;
-      --accent-soft: #ccfbf1;
+      --primary-soft: #e2e8f0;
       --danger: #b91c1c;
       --danger-dark: #991b1b;
       --danger-soft: #fef2f2;
       --border: #cbd5e1;
       --border-strong: #94a3b8;
-      --radius-xl: 24px;
-      --radius-lg: 18px;
-      --radius-md: 14px;
+      --radius-xl: 20px;
+      --radius-lg: 16px;
+      --radius-md: 12px;
       --font-size: 18px;
-      --line-height: 1.62;
+      --line-height: 1.6;
       --letter-spacing: 0px;
       --word-spacing: 0px;
       --font-main: 'Plus Jakarta Sans', 'Noto Naskh Arabic', system-ui, -apple-system, sans-serif;
-      --shadow-lg: 0 12px 30px -8px rgba(15, 23, 42, 0.08), 0 4px 10px -4px rgba(15, 23, 42, 0.04);
-      --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.05);
+      --shadow-lg: 0 6px 18px rgba(15, 23, 42, 0.05);
+      --shadow-sm: 0 2px 6px rgba(15, 23, 42, 0.04);
     }
 
     body.mode-contrast {
       --bg-page: #000000;
       --bg-solid: #000000;
-      --surface: #090d16;
-      --surface-2: #111827;
+      --surface: #0c0f14;
+      --surface-2: #141923;
       --surface-3: #1e293b;
       --text: #ffffff;
-      --muted: #f1f5f9;
+      --muted: #e2e8f0;
       --primary: #93c5fd;
-      --primary-hover: #bfdbfe;
-      --primary-dark: #ffffff;
-      --primary-soft: #172554;
-      --accent: #5eead4;
-      --accent-soft: #134e4a;
-      --danger: #fca5a5;
-      --danger-dark: #ffffff;
-      --danger-soft: #450a0a;
-      --border: #e2e8f0;
-      --border-strong: #ffffff;
+      --primary-dark: #60a5fa;
+      --primary-soft: #1e293b;
+      --danger: #f87171;
+      --danger-dark: #dc2626;
+      --danger-soft: #2a0c0c;
+      --border: #94a3b8;
+      --border-strong: #e2e8f0;
       --shadow-lg: none;
       --shadow-sm: none;
     }
@@ -78,10 +72,7 @@
     body {
       margin: 0;
       min-height: 100vh;
-      background:
-        radial-gradient(circle at 12% 0%, rgba(30, 58, 138, 0.07), transparent 42%),
-        radial-gradient(circle at 88% 8%, rgba(15, 118, 110, 0.06), transparent 38%),
-        var(--bg-page);
+      background: var(--bg-page);
       background-color: var(--bg-solid);
       color: var(--text);
       font-family: var(--font-main);
@@ -89,26 +80,6 @@
       line-height: var(--line-height);
       letter-spacing: var(--letter-spacing);
       word-spacing: var(--word-spacing);
-    }
-
-    body.mode-contrast {
-      background: #000000;
-    }
-
-    .ico {
-      width: 19px;
-      height: 19px;
-      flex: 0 0 auto;
-      stroke: currentColor;
-      stroke-width: 2.1;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      fill: none;
-    }
-
-    .ico-lg {
-      width: 24px;
-      height: 24px;
     }
 
     button, input, select, textarea {
@@ -130,36 +101,13 @@
       gap: 8px;
       text-decoration: none;
       touch-action: manipulation;
-      transition: transform 0.14s ease, background-color 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
-    }
-
-    button:hover, .ext-link:hover {
-      box-shadow: var(--shadow-sm);
+      transition: transform 0.12s ease, background-color 0.15s ease, border-color 0.15s ease;
     }
 
     button:active, .ext-link:active { transform: scale(0.98); }
     button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, a:focus-visible {
       outline: 3px solid var(--primary);
       outline-offset: 2px;
-    }
-
-    body.mode-contrast button,
-    body.mode-contrast .ext-link,
-    body.mode-contrast input,
-    body.mode-contrast select.std-select,
-    body.mode-contrast .lang-picker,
-    body.mode-contrast textarea {
-      border-width: 2px;
-      border-color: var(--border);
-    }
-
-    body.mode-contrast button.on,
-    body.mode-contrast .profile-pill.active,
-    body.mode-contrast .module-tab.active,
-    body.mode-contrast .btn-blue,
-    body.mode-contrast .btn-green {
-      outline: 2px solid #ffffff;
-      outline-offset: -4px;
     }
 
     .scan-active {
@@ -195,23 +143,13 @@
       position: sticky;
       top: 0;
       z-index: 450;
-      background: color-mix(in srgb, var(--surface) 88%, transparent);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background: var(--surface);
       border-bottom: 1.5px solid var(--border);
       padding: 10px 14px;
     }
 
-    body.mode-contrast .topbar {
-      background: var(--surface);
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      border-bottom-width: 2px;
-      border-bottom-color: var(--border-strong);
-    }
-
     .topbar-inner {
-      max-width: 1180px;
+      max-width: 1160px;
       margin: 0 auto;
       display: flex;
       flex-wrap: wrap;
@@ -233,11 +171,11 @@
       min-height: 42px;
       padding: 6px 11px;
       font-size: 0.86em;
-      border-radius: 11px;
+      border-radius: 10px;
     }
     .chip-btn.on {
       background: var(--primary);
-      border-color: var(--primary-dark);
+      border-color: var(--primary);
       color: #ffffff;
     }
     body.mode-contrast .chip-btn.on { color: #000000; }
@@ -245,7 +183,7 @@
     .lang-picker {
       background: var(--surface-2);
       border: 1.5px solid var(--border);
-      border-radius: 11px;
+      border-radius: 10px;
       padding: 6px 11px;
       min-height: 42px;
       font-weight: 700;
@@ -255,13 +193,12 @@
 
     .btn-pro-badge {
       background: var(--surface-3);
-      color: var(--primary);
+      color: var(--text);
       border: 1.5px solid var(--border-strong);
       min-height: 42px;
       padding: 7px 13px;
       font-size: 0.88em;
     }
-    body.mode-contrast .btn-pro-badge { color: var(--primary); }
 
     .btn-ice-badge {
       background: var(--danger);
@@ -271,19 +208,18 @@
       padding: 7px 13px;
       font-size: 0.88em;
     }
-    body.mode-contrast .btn-ice-badge { color: #000000; }
 
     .shell {
-      max-width: 1180px;
+      max-width: 1160px;
       margin: 0 auto;
-      padding: 20px 14px 100px;
+      padding: 18px 14px 96px;
     }
 
     .hero-banner {
       background: var(--surface);
       border: 1.5px solid var(--border);
       border-radius: var(--radius-xl);
-      padding: 22px 24px;
+      padding: 20px 22px;
       box-shadow: var(--shadow-lg);
       margin-bottom: 16px;
     }
@@ -296,35 +232,10 @@
       gap: 12px;
     }
 
-    .hero-brand-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .brand-mark {
-      width: 48px;
-      height: 48px;
-      border-radius: 15px;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      color: #ffffff;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex: 0 0 auto;
-      box-shadow: var(--shadow-sm);
-    }
-    body.mode-contrast .brand-mark {
-      background: var(--primary);
-      color: #000000;
-      border: 2px solid #ffffff;
-    }
-
     .hero-title {
       margin: 0;
       font-size: 1.65em;
       font-weight: 800;
-      letter-spacing: -0.02em;
     }
 
     .hero-sub {
@@ -345,12 +256,9 @@
       color: var(--text);
       border: 1px solid var(--border);
     }
-    .tag-free { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
-    body.mode-contrast .tag-free { background: var(--surface-3); color: var(--accent); border-color: var(--accent); }
-    .tag-pro { background: var(--primary-soft); color: var(--primary); border-color: transparent; }
-    body.mode-contrast .tag-pro { background: var(--surface-3); color: var(--primary); border-color: var(--primary); }
+    .tag-free { background: var(--surface-3); color: var(--text); }
+    .tag-pro { background: var(--surface-2); color: var(--muted); }
     .tag-warn { background: var(--danger-soft); color: var(--danger-dark); border-color: var(--danger); }
-    body.mode-contrast .tag-warn { background: var(--danger-soft); color: var(--danger); border-color: var(--danger); }
 
     .hero-footer {
       margin-top: 14px;
@@ -364,49 +272,11 @@
       font-size: 0.9em;
     }
 
-    .profiles-bar {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 16px;
-      background: var(--surface-2);
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 10px 14px;
-    }
-
     .profiles-strip {
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
       gap: 8px;
-    }
-
-    .profile-meta {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.86em;
-    }
-
-    .active-profile-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 12px;
-      border-radius: 999px;
-      font-weight: 800;
-      background: var(--primary-soft);
-      color: var(--primary);
-      border: 1.5px solid var(--primary);
-    }
-    body.mode-contrast .active-profile-badge {
-      background: var(--primary);
-      color: #000000;
-      border-color: #ffffff;
+      margin-bottom: 16px;
     }
 
     .profile-pill {
@@ -420,30 +290,16 @@
     }
     .profile-pill.active {
       background: var(--primary);
-      border-color: var(--primary-dark);
+      border-color: var(--primary);
       color: #ffffff;
     }
     body.mode-contrast .profile-pill.active { color: #000000; }
 
     .module-nav {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(126px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
       gap: 8px;
       margin-bottom: 18px;
-    }
-
-    @media (max-width: 640px) {
-      .module-nav {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x proximity;
-        padding-bottom: 6px;
-        scrollbar-width: thin;
-      }
-      .module-tab {
-        flex: 0 0 132px;
-        scroll-snap-align: start;
-      }
     }
 
     .module-tab {
@@ -451,12 +307,11 @@
       border: 1.5px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 12px 10px;
-      min-height: 74px;
+      min-height: 66px;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
       text-align: center;
       box-shadow: var(--shadow-sm);
-      font-size: 0.9em;
     }
     .module-tab.active {
       background: var(--primary);
@@ -465,54 +320,31 @@
     }
     body.mode-contrast .module-tab.active { color: #000000; }
 
-    .tab-state-tag {
-      font-size: 0.72em;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      padding: 1px 7px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.22);
-    }
-    body.mode-contrast .module-tab.active .tab-state-tag {
-      background: rgba(0, 0, 0, 0.18);
-      color: #000000;
-    }
-
     .module-panel {
       display: none;
       background: var(--surface);
       border: 1.5px solid var(--border);
       border-radius: var(--radius-xl);
-      padding: 24px;
+      padding: 22px;
       box-shadow: var(--shadow-lg);
     }
-    .module-panel.active {
-      display: block;
-      animation: panelFade 0.18s ease-out;
-    }
+    .module-panel.active { display: block; }
 
-    @keyframes panelFade {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .panel-title { margin: 0 0 6px; font-size: 1.38em; font-weight: 800; letter-spacing: -0.015em; }
-    .panel-sub { margin: 0 0 18px; color: var(--muted); }
+    .panel-title { margin: 0 0 6px; font-size: 1.35em; font-weight: 800; }
+    .panel-sub { margin: 0 0 16px; color: var(--muted); }
 
     .btn-blue { background: var(--primary); color: #ffffff; border-color: var(--primary-dark); }
-    .btn-blue:hover { background: var(--primary-hover); }
     body.mode-contrast .btn-blue { color: #000000; }
-    .btn-green { background: var(--accent); color: #ffffff; border-color: var(--accent); }
+    .btn-green { background: var(--primary); color: #ffffff; border-color: var(--primary-dark); }
     body.mode-contrast .btn-green { color: #000000; }
-    .btn-amber { background: var(--surface-3); color: var(--primary); border-color: var(--border-strong); }
-    body.mode-contrast .btn-amber { color: var(--text); }
+    .btn-amber { background: var(--surface-3); color: var(--text); border-color: var(--border-strong); }
     .btn-soft { background: var(--surface-2); border: 1.5px solid var(--border); }
 
     .stage-box {
       background: var(--surface-2);
       border: 1.5px solid var(--border-strong);
       border-radius: var(--radius-lg);
-      padding: 18px;
+      padding: 16px;
       margin-bottom: 14px;
     }
 
@@ -542,7 +374,7 @@
 
     .caa-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
       gap: 10px;
       margin-top: 12px;
     }
@@ -551,20 +383,20 @@
       background: var(--surface-2);
       border: 1.5px solid var(--border);
       border-radius: var(--radius-lg);
-      padding: 14px 12px;
-      min-height: 118px;
+      padding: 14px 10px;
+      min-height: 112px;
       flex-direction: column;
       text-align: center;
-      gap: 8px;
+      gap: 6px;
     }
-    .caa-tile:hover { border-color: var(--primary); background: var(--surface-3); }
+    .caa-tile:hover { border-color: var(--primary); }
 
     .priority-card {
       background: var(--surface-2);
       color: var(--text);
       border: 2px solid var(--primary);
       border-radius: var(--radius-xl);
-      padding: 24px;
+      padding: 22px;
       text-align: center;
       margin-bottom: 16px;
     }
@@ -573,13 +405,13 @@
       background: var(--surface-2);
       border: 1.5px solid var(--border);
       border-radius: var(--radius-lg);
-      padding: 18px;
+      padding: 16px;
       margin-bottom: 14px;
     }
 
     .grid-2 {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(285px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 14px;
     }
 
@@ -597,7 +429,7 @@
     }
 
     .bar-bg {
-      height: 12px;
+      height: 10px;
       background: var(--border);
       border-radius: 999px;
       overflow: hidden;
@@ -615,7 +447,7 @@
       height: 144px;
       border-radius: 50%;
       margin: 14px auto;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
+      background: var(--primary);
       color: #ffffff;
       font-weight: 800;
       display: flex;
@@ -625,95 +457,7 @@
       padding: 12px;
       transition: transform 3.8s ease-in-out;
     }
-    body.mode-contrast .orb-breath { background: var(--primary); color: #000000; }
-
-    /* Module Sport Adapté & Coach */
-    .coach-banner {
-      background: linear-gradient(135deg, var(--primary-soft), var(--accent-soft));
-      border: 2px solid var(--primary);
-      border-radius: var(--radius-xl);
-      padding: 20px;
-      margin-bottom: 16px;
-    }
-    body.mode-contrast .coach-banner {
-      background: var(--surface-2);
-      border-color: var(--primary);
-    }
-
-    .disability-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
-    .sport-pill {
-      background: var(--surface);
-      border: 1.5px solid var(--border-strong);
-      border-radius: 999px;
-      min-height: 44px;
-      padding: 8px 15px;
-      font-size: 0.9em;
-    }
-    .sport-pill.active {
-      background: var(--primary);
-      border-color: var(--primary-dark);
-      color: #ffffff;
-    }
-    body.mode-contrast .sport-pill.active { color: #000000; }
-
-    .category-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
-    .cat-btn {
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      min-height: 44px;
-      padding: 8px 14px;
-      font-size: 0.88em;
-    }
-    .cat-btn.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #ffffff;
-    }
-    body.mode-contrast .cat-btn.active { color: #000000; }
-
-    .exercise-card {
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 16px;
-      margin-bottom: 12px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .exercise-card.done {
-      border-color: var(--accent);
-      background: var(--surface-2);
-    }
-
-    .coach-stage {
-      background: var(--surface);
-      border: 2px solid var(--border-strong);
-      border-radius: var(--radius-lg);
-      padding: 16px;
-      margin-top: 12px;
-    }
-
-    .coach-counter {
-      font-size: 2.2em;
-      font-weight: 800;
-      color: var(--primary);
-      line-height: 1.1;
-    }
+    body.mode-contrast .orb-breath { color: #000000; }
 
     .simon-grid {
       display: grid;
@@ -777,7 +521,7 @@
       background: var(--danger);
       color: #ffffff;
       border-radius: var(--radius-lg);
-      padding: 22px;
+      padding: 20px;
       margin-bottom: 16px;
     }
 
@@ -817,7 +561,7 @@
       width: 100%;
       max-height: 90vh;
       overflow-y: auto;
-      padding: 24px;
+      padding: 22px;
     }
 
     .toast-msg {
@@ -825,7 +569,7 @@
       bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
-      background: #0f172a;
+      background: #111827;
       color: #ffffff;
       padding: 10px 18px;
       border-radius: 999px;
@@ -835,12 +579,6 @@
       display: none;
       max-width: 92vw;
       text-align: center;
-      box-shadow: var(--shadow-lg);
-    }
-    body.mode-contrast .toast-msg {
-      background: #ffffff;
-      color: #000000;
-      border: 2px solid #000000;
     }
     .toast-msg.show { display: block; }
   </style>
@@ -853,32 +591,13 @@
   <header class="topbar" aria-label="Outils d'accessibilité et langue">
     <div class="topbar-inner">
       <div class="cluster">
-        <button type="button" class="chip-btn" id="btnFontDown" title="Réduire la taille du texte">A-</button>
-        <button type="button" class="chip-btn" id="btnFontUp" title="Augmenter la taille du texte">A+</button>
-        <button type="button" class="chip-btn" id="btnContrast">
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 3a9 9 0 0 0 0 18V3z" fill="currentColor"></path></svg>
-          <span>Contraste</span>
-        </button>
-        <button type="button" class="chip-btn" id="btnDys">
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h12M4 17h14"></path></svg>
-          <span>DYS</span>
-        </button>
-        <button type="button" class="chip-btn" id="btnRuler">
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="8" rx="2"></rect><path d="M7 8v3M12 8v4M17 8v3"></path></svg>
-          <span>Règle</span>
-        </button>
-        <button type="button" class="chip-btn" id="btnScan">
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"></path><circle cx="12" cy="12" r="3"></circle></svg>
-          <span>Balayage</span>
-        </button>
-        <button type="button" class="chip-btn" id="btnReadScreen">
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path></svg>
-          <span>Lire</span>
-        </button>
-        <button type="button" class="chip-btn" id="btnResetA11y" title="Réinitialiser les réglages d'accessibilité">
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"></path><path d="M3 3v5h5"></path></svg>
-          <span id="uiResetA11yLabel">Réinit.</span>
-        </button>
+        <button type="button" class="chip-btn" id="btnFontDown">A-</button>
+        <button type="button" class="chip-btn" id="btnFontUp">A+</button>
+        <button type="button" class="chip-btn" id="btnContrast">Contraste</button>
+        <button type="button" class="chip-btn" id="btnDys">DYS</button>
+        <button type="button" class="chip-btn" id="btnRuler">Règle</button>
+        <button type="button" class="chip-btn" id="btnScan">Balayage</button>
+        <button type="button" class="chip-btn" id="btnReadScreen">Lire</button>
       </div>
 
       <div class="cluster">
@@ -891,10 +610,7 @@
           <option value="it">Italiano</option>
         </select>
         <button type="button" class="btn-pro-badge" id="btnOpenSub">1,00 €/mois</button>
-        <button type="button" class="btn-ice-badge" id="btnTopIce">
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M12 8v5M12 16h.01"></path></svg>
-          <span>Urgence ICE</span>
-        </button>
+        <button type="button" class="btn-ice-badge" id="btnTopIce">Urgence ICE</button>
       </div>
     </div>
   </header>
@@ -902,14 +618,9 @@
   <main class="shell">
     <section class="hero-banner">
       <div class="hero-header">
-        <div class="hero-brand-row">
-          <div class="brand-mark" aria-hidden="true">
-            <svg class="ico ico-lg" viewBox="0 0 24 24"><path d="M12 21s-7-4.35-9.33-8.28C.9 9.7 2.55 5.5 6.5 5.5c2.1 0 3.7 1.1 5.5 3 1.8-1.9 3.4-3 5.5-3 3.95 0 5.6 4.2 3.83 7.22C19 16.65 12 21 12 21z"></path></svg>
-          </div>
-          <div>
-            <h1 class="hero-title" id="uiAppTitle">HandiVie+</h1>
-            <p class="hero-sub" id="uiAppSub">Suite complète d'autonomie, communication, santé, sport adapté, loisirs et accès prioritaire</p>
-          </div>
+        <div>
+          <h1 class="hero-title" id="uiAppTitle">HandiVie+</h1>
+          <p class="hero-sub" id="uiAppSub">Suite complète d'autonomie, communication, santé, loisirs adaptés et accès prioritaire</p>
         </div>
         <span class="pill-tag tag-free" id="uiFreeBadge">Urgence ICE 100 % gratuite</span>
       </div>
@@ -921,71 +632,24 @@
       </div>
     </section>
 
-    <div class="profiles-bar">
-      <div class="profiles-strip" aria-label="Profils rapides">
-        <button type="button" class="profile-pill" data-prof="vision">Handicap Visuel</button>
-        <button type="button" class="profile-pill" data-prof="motor">Handicap Moteur</button>
-        <button type="button" class="profile-pill" data-prof="hearing">Handicap Auditif</button>
-        <button type="button" class="profile-pill" data-prof="cognitive">Cognitif / DYS</button>
-        <button type="button" class="profile-pill active" data-prof="reset">Standard</button>
-      </div>
-      <div class="profile-meta">
-        <span class="active-profile-badge" id="uiActiveProfileBadge">Profil actif : Standard</span>
-        <button type="button" class="chip-btn" id="btnResetPrefs" title="Réinitialiser taille texte, contraste, DYS, règle et profil">Réinitialiser préférences</button>
-      </div>
+    <div class="profiles-strip" aria-label="Profils rapides">
+      <button type="button" class="profile-pill" data-prof="vision">Handicap Visuel</button>
+      <button type="button" class="profile-pill" data-prof="motor">Handicap Moteur</button>
+      <button type="button" class="profile-pill" data-prof="hearing">Handicap Auditif</button>
+      <button type="button" class="profile-pill" data-prof="cognitive">Cognitif / DYS</button>
+      <button type="button" class="profile-pill" data-prof="reset">Standard</button>
     </div>
 
     <nav class="module-nav" aria-label="Navigation principale">
-      <button type="button" class="module-tab active" data-tab="speak" id="navSpeak">
-        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-        <span class="tab-label">Parler & Écouter</span>
-        <span class="tab-state-tag" id="tag-speak">• ACTIF</span>
-      </button>
-      <button type="button" class="module-tab" data-tab="priority" id="navPriority">
-        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"></rect><path d="M2 10h20"></path></svg>
-        <span class="tab-label">Pass Prioritaire</span>
-        <span class="tab-state-tag" id="tag-priority" hidden></span>
-      </button>
-      <button type="button" class="module-tab" data-tab="health" id="navHealth">
-        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
-        <span class="tab-label">Pilulier & Jour</span>
-        <span class="tab-state-tag" id="tag-health" hidden></span>
-      </button>
-      <button type="button" class="module-tab" data-tab="falc" id="navFalc">
-        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6M8 13h8M8 17h6"></path></svg>
-        <span class="tab-label">Lecteur FALC</span>
-        <span class="tab-state-tag" id="tag-falc" hidden></span>
-      </button>
-      <button type="button" class="module-tab" data-tab="calm" id="navCalm">
-        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
-        <span class="tab-label">Calme & Temps</span>
-        <span class="tab-state-tag" id="tag-calm" hidden></span>
-      </button>
-      <button type="button" class="module-tab" data-tab="sport" id="navSport">
-        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5h11M6.5 17.5h11M4 9v6M20 9v6M6.5 7v10M17.5 7v10M9 12h6"></path></svg>
-        <span class="tab-label">Sport & Coach</span>
-        <span class="tab-state-tag" id="tag-sport" hidden></span>
-      </button>
-      <button type="button" class="module-tab" data-tab="games" id="navGames">
-        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="4"></rect><path d="M8 12h4M10 10v4M15 11h.01M17 13h.01"></path></svg>
-        <span class="tab-label">Loisirs & Jeux</span>
-        <span class="tab-state-tag" id="tag-games" hidden></span>
-      </button>
-      <button type="button" class="module-tab" data-tab="aids20" id="navAids20">
-        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
-        <span class="tab-label">20 Aides</span>
-        <span class="tab-state-tag" id="tag-aids20" hidden></span>
-      </button>
-      <button type="button" class="module-tab" data-tab="places" id="navPlaces">
-        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-        <span class="tab-label">GPS & Lieux PMR</span>
-        <span class="tab-state-tag" id="tag-places" hidden></span>
-      </button>
-      <button type="button" class="module-tab" data-tab="ice" id="navIce">
-        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M12 8v5M12 16h.01"></path></svg>
-        <span class="tab-label">Urgence ICE</span>
-        <span class="tab-state-tag" id="tag-ice" hidden></span>
-      </button>
+      <button type="button" class="module-tab active" data-tab="speak" id="navSpeak"><span>Parler & Écouter</span></button>
+      <button type="button" class="module-tab" data-tab="priority" id="navPriority"><span>Pass Prioritaire</span></button>
+      <button type="button" class="module-tab" data-tab="health" id="navHealth"><span>Pilulier & Jour</span></button>
+      <button type="button" class="module-tab" data-tab="falc" id="navFalc"><span>Lecteur FALC</span></button>
+      <button type="button" class="module-tab" data-tab="calm" id="navCalm"><span>Calme & Temps</span></button>
+      <button type="button" class="module-tab" data-tab="games" id="navGames"><span>Loisirs & Jeux</span></button>
+      <button type="button" class="module-tab" data-tab="aids20" id="navAids20"><span>20 Aides</span></button>
+      <button type="button" class="module-tab" data-tab="places" id="navPlaces"><span>GPS & Lieux PMR</span></button>
+      <button type="button" class="module-tab" data-tab="ice" id="navIce"><span>Urgence ICE</span></button>
     </nav>
 
     <section class="module-panel active" id="panel-speak">
@@ -995,26 +659,11 @@
       <div class="stage-box">
         <div class="stage-text" id="phraseDisplay" aria-live="polite">Bonjour, j'ai besoin d'aide s'il vous plaît.</div>
         <div class="row-flex" style="margin-bottom:0;">
-          <button type="button" class="btn-blue" id="btnSpeakNow">
-            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"></path></svg>
-            <span>Parler</span>
-          </button>
-          <button type="button" class="btn-green" id="btnLiveCaptions">
-            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8"></path></svg>
-            <span>Sous-titrer</span>
-          </button>
-          <button type="button" class="btn-amber" id="btnFullscreenText">
-            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
-            <span>Écran Géant</span>
-          </button>
-          <button type="button" class="btn-soft" id="btnCopyPhrase">
-            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-            <span>Copier</span>
-          </button>
-          <button type="button" class="btn-soft" id="btnClearText">
-            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"></path></svg>
-            <span>Effacer</span>
-          </button>
+          <button type="button" class="btn-blue" id="btnSpeakNow">Parler</button>
+          <button type="button" class="btn-green" id="btnLiveCaptions">Sous-titrer</button>
+          <button type="button" class="btn-amber" id="btnFullscreenText">Écran Géant</button>
+          <button type="button" class="btn-soft" id="btnCopyPhrase">Copier</button>
+          <button type="button" class="btn-soft" id="btnClearText">Effacer</button>
           <select class="std-select" id="speechRate" aria-label="Vitesse vocale" style="max-width:175px;">
             <option value="0.75">Voix lente</option>
             <option value="1" selected>Voix normale</option>
@@ -1025,10 +674,7 @@
 
       <div class="row-flex">
         <input type="text" id="customInput" placeholder="Écrire une phrase personnalisée..." />
-        <button type="button" class="btn-blue" id="btnAddSpeak">
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path></svg>
-          <span>Dire</span>
-        </button>
+        <button type="button" class="btn-blue" id="btnAddSpeak">Dire</button>
       </div>
 
       <div class="caa-grid" id="caaContainer"></div>
@@ -1045,18 +691,9 @@
           Je suis titulaire d'une carte de priorité / mobilité inclusion. Merci de me faciliter le passage ou de m'accorder un accueil adapté.
         </p>
         <div class="row-flex" style="justify-content:center;margin-bottom:0;">
-          <button type="button" class="btn-blue" id="btnTriggerSignal">
-            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path></svg>
-            <span>Signal Visuel & Vocal</span>
-          </button>
-          <button type="button" class="btn-amber" id="btnQuickAlarm">
-            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
-            <span>Alerte Visuelle</span>
-          </button>
-          <button type="button" class="btn-soft" id="btnShowPrioFull">
-            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
-            <span>Montrer en Plein Écran</span>
-          </button>
+          <button type="button" class="btn-blue" id="btnTriggerSignal">Signal Visuel & Vocal</button>
+          <button type="button" class="btn-amber" id="btnQuickAlarm">Alerte Visuelle</button>
+          <button type="button" class="btn-soft" id="btnShowPrioFull">Montrer en Plein Écran</button>
         </div>
       </div>
 
@@ -1083,10 +720,7 @@
             <strong>Hydratation du jour :</strong> <span id="waterCountText">0 verre(s)</span>
           </div>
           <div class="cluster">
-            <button type="button" class="btn-blue" id="btnAddWater">
-              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
-              <span>+1 Verre d'eau</span>
-            </button>
+            <button type="button" class="btn-blue" id="btnAddWater">+1 Verre d'eau</button>
             <button type="button" class="btn-soft" id="btnResetWater">Réinitialiser</button>
           </div>
         </div>
@@ -1139,10 +773,7 @@
             <button type="button" class="btn-soft" data-min="15">15 min</button>
           </div>
           <div class="row-flex" style="justify-content:center;margin-bottom:0;">
-            <button type="button" class="btn-blue" id="btnTimerRun">
-              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-              <span>Démarrer / Pause</span>
-            </button>
+            <button type="button" class="btn-blue" id="btnTimerRun">Démarrer / Pause</button>
             <button type="button" class="btn-soft" id="btnTimerZero">Réinitialiser</button>
           </div>
         </div>
@@ -1152,80 +783,9 @@
           <div class="orb-breath" id="breathCircle">Inspirez</div>
           <div id="breathCycles" style="font-weight:700;margin-bottom:10px;color:var(--muted);">Cycles complétés : 0</div>
           <div class="row-flex" style="justify-content:center;margin-bottom:0;">
-            <button type="button" class="btn-green" id="btnBreathStart">
-              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M8 14s1.5 2 4 2 4-2 4-2"></path></svg>
-              <span>Lancer / Arrêter</span>
-            </button>
+            <button type="button" class="btn-green" id="btnBreathStart">Lancer / Arrêter</button>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section class="module-panel" id="panel-sport">
-      <h2 class="panel-title" id="sportHead">Sport Adapté, Coach Guidé & Défis (Musculation, Fitness, Santé)</h2>
-      <p class="panel-sub" id="sportLead">Programmes sécurisés et motivants adaptés à chaque type de handicap, avec coach interactif et défis quotidiens.</p>
-
-      <div class="coach-banner">
-        <div class="row-flex" style="justify-content:space-between;margin-bottom:8px;">
-          <span class="pill-tag tag-pro" id="sportCoachBadge">COACH SPORTIF ADAPTÉ</span>
-          <span class="pill-tag tag-free" id="sportChallengeBadge">Défis validés : 0</span>
-        </div>
-
-        <div class="disability-chips" role="group" aria-label="Type de handicap pour le sport adapté">
-          <button type="button" class="sport-pill active" data-dis="motor">Moteur / Fauteuil</button>
-          <button type="button" class="sport-pill" data-dis="vision">Visuel / Basse vision</button>
-          <button type="button" class="sport-pill" data-dis="hearing">Auditif / Visuel</button>
-          <button type="button" class="sport-pill" data-dis="cognitive">Cognitif / DYS / Doux</button>
-          <button type="button" class="sport-pill" data-dis="all">Santé & Tonus Général</button>
-        </div>
-
-        <div class="category-tabs" role="group" aria-label="Discipline sportive">
-          <button type="button" class="cat-btn active" data-cat="strength">Musculation douce</button>
-          <button type="button" class="cat-btn" data-cat="fitness">Fitness & Cardio adapté</button>
-          <button type="button" class="cat-btn" data-cat="health">Mobilité & Santé</button>
-        </div>
-
-        <div class="coach-stage" id="coachStage">
-          <div class="row-flex" style="justify-content:space-between;margin-bottom:6px;">
-            <div>
-              <div style="font-size:0.82em;font-weight:800;color:var(--muted);" id="coachStepLabel">EXERCICE GUIDÉ</div>
-              <h3 id="coachExerciseTitle" style="margin:2px 0 4px;font-size:1.3em;"></h3>
-              <p id="coachExerciseDesc" style="margin:0;color:var(--muted);"></p>
-            </div>
-            <div style="text-align:center;min-width:96px;">
-              <div class="coach-counter" id="coachTimerDisplay">30s</div>
-              <div style="font-size:0.8em;font-weight:700;color:var(--muted);" id="coachRepsLabel">8–12 répétitions</div>
-            </div>
-          </div>
-
-          <div class="bar-bg"><div class="bar-fill" id="coachProgressBar" style="width:100%;"></div></div>
-
-          <div class="row-flex" style="margin-bottom:0;">
-            <button type="button" class="btn-blue" id="btnCoachStart">
-              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-              <span>Démarrer la série</span>
-            </button>
-            <button type="button" class="btn-soft" id="btnCoachSpeak">
-              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path></svg>
-              <span>Consigne vocale</span>
-            </button>
-            <button type="button" class="btn-soft" id="btnCoachNext">Exercice suivant</button>
-          </div>
-        </div>
-      </div>
-
-      <h3 style="margin:18px 0 10px;">Séances & Défis du Jour</h3>
-      <div class="grid-2" id="sportExercisesGrid"></div>
-
-      <div class="box-card" style="margin-top:16px;">
-        <div class="row-flex" style="justify-content:space-between;margin-bottom:8px;">
-          <div>
-            <h3 style="margin:0;">Défis Santé & Régularité</h3>
-            <p id="sportStreakText" style="margin:4px 0 0;color:var(--muted);">Série active : 1 jour • Objectif : 2 défis / jour</p>
-          </div>
-          <button type="button" class="btn-soft" id="btnResetSportChallenges">Réinitialiser les défis</button>
-        </div>
-        <div id="sportChallengesList"></div>
       </div>
     </section>
 
@@ -1313,7 +873,7 @@
 
     <section class="module-panel" id="panel-aids20">
       <h2 class="panel-title" id="aids20Head">20 Fonctions & Aides du Quotidien</h2>
-      <p class="panel-sub" id="aids20Lead">Les aides réunies pour l'autonomie, la santé, les trajets, les proches et le calme.</p>
+      <p class="panel-sub" id="aids20Lead">Les 6 fonctions de base et les 14 nouvelles aides réunies pour l'autonomie, la santé, les trajets, les proches et le calme.</p>
 
       <div class="box-card">
         <h3 style="margin-top:0;">7. Check-list Avant de Sortir</h3>
@@ -1483,10 +1043,7 @@
       <p class="panel-sub" id="placesLead">La recherche utilise votre position GPS pour trouver uniquement les lieux proches autour de vous.</p>
 
       <div class="row-flex">
-        <button type="button" class="btn-blue" id="btnGpsHere">
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-          <span>Ma position GPS</span>
-        </button>
+        <button type="button" class="btn-blue" id="btnGpsHere">Ma position GPS</button>
         <button type="button" class="btn-soft" id="btnCheckConn">Vérifier Wi-Fi / Données</button>
         <button type="button" class="btn-soft" id="btnCopyCoords">Copier coordonnées</button>
       </div>
@@ -1576,8 +1133,8 @@
         <li>Communication CAA multilingue (6 langues dont l'arabe RTL) + sous-titrage vocal</li>
         <li>Pass Prioritaire CMI visuel et sonore</li>
         <li>Pilulier horodaté, hydratation & bilan + Lecteur FALC / DYS</li>
-        <li>Sport adapté par handicap avec coach & défis + Loisirs & jeux adaptés</li>
-        <li>20 fonctions & aides du quotidien + Recherche GPS & lieux PMR</li>
+        <li>Loisirs & jeux adaptés + 20 fonctions & aides du quotidien</li>
+        <li>Recherche GPS d'endroits proches, carnet PMR, minuteur et respiration</li>
       </ul>
       <div class="row-flex" style="margin-bottom:0;">
         <button type="button" class="btn-blue" id="btnActivateSub">Activer à 1,00 €/mois</button>
@@ -1594,26 +1151,15 @@
         });
       }
 
-      const CAA_ICONS = [
-        '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M12 8v4M12 16h.01"></path>',
-        '<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>',
-        '<path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>',
-        '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle>',
-        '<circle cx="12" cy="12" r="9"></circle><path d="M12 8v4M12 16h.01"></path>',
-        '<path d="M7 13v-2a5 5 0 0 1 10 0v2M5 13h14v7H5z"></path>',
-        '<path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M23 9l-6 6M17 9l6 6"></path>',
-        '<circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path>'
-      ];
-
       const LANGS = {
         fr: {
           dir: 'ltr', voice: 'fr-FR',
           title: 'HandiVie+',
-          sub: "Suite complète d'autonomie, communication, santé, sport adapté, loisirs et accès prioritaire",
+          sub: "Suite complète d'autonomie, communication, santé, loisirs adaptés et accès prioritaire",
           free: 'Urgence ICE 100 % gratuite',
           subOff: 'Option Confort 1,00 €/mois (sans essai)',
           subOn: 'HandiVie+ actif (1,00 €/mois) • ICE toujours gratuit',
-          nav: ['Parler & Écouter', 'Pass Prioritaire', 'Pilulier & Jour', 'Lecteur FALC', 'Calme & Temps', 'Sport & Coach', 'Loisirs & Jeux', '20 Aides', 'GPS & Lieux PMR', 'Urgence ICE'],
+          nav: ['Parler & Écouter', 'Pass Prioritaire', 'Pilulier & Jour', 'Lecteur FALC', 'Calme & Temps', 'Loisirs & Jeux', '20 Aides', 'GPS & Lieux PMR', 'Urgence ICE'],
           defaultMsg: "Bonjour, j'ai besoin d'aide s'il vous plaît.",
           iceVoice: "Urgence médicale. Merci de consulter ma fiche ICE sur l'écran et d'appeler mon contact.",
           caa: [
@@ -1630,11 +1176,11 @@
         ar: {
           dir: 'rtl', voice: 'ar-SA',
           title: 'HandiVie+ — هاندي في بلس',
-          sub: 'منظومة متكاملة للاستقلالية والتواصل والصحة والرياضة الميسرة والألعاب والأولوية',
+          sub: 'منظومة متكاملة للاستقلالية والتواصل والصحة والألعاب الميسرة والأولوية',
           free: 'طوارئ ICE مجانية 100٪',
           subOff: 'خيار الراحة 1,00 € / شهر (بدون فترة تجريبية)',
           subOn: 'اشتراك HandiVie+ مفعّل (1,00 € / شهر) • طوارئ ICE مجانية',
-          nav: ['تحدث واستمع', 'بطاقة الأولوية', 'الأدوية ويومي', 'القارئ السهل', 'الهدوء والوقت', 'رياضة ومدرب', 'ترفيه وألعاب', '20 مساعدة', 'GPS وأماكن PMR', 'طوارئ ICE'],
+          nav: ['تحدث واستمع', 'بطاقة الأولوية', 'الأدوية ويومي', 'القارئ السهل', 'الهدوء والوقت', 'ترفيه وألعاب', '20 مساعدة', 'GPS وأماكن PMR', 'طوارئ ICE'],
           defaultMsg: 'مرحبًا، أحتاج إلى مساعدة من فضلك.',
           iceVoice: 'حالة طوارئ. يرجى قراءة بطاقة الطوارئ على الشاشة والاتصال بجهة الاتصال.',
           caa: [
@@ -1651,11 +1197,11 @@
         en: {
           dir: 'ltr', voice: 'en-US',
           title: 'HandiVie+',
-          sub: 'Complete autonomy, communication, health, adapted sport, games, and priority suite',
+          sub: 'Complete autonomy, communication, health, adapted games, and priority suite',
           free: 'ICE Emergency 100% free',
           subOff: 'Comfort Option €1.00 / month (no trial)',
           subOn: 'HandiVie+ active (€1.00/mo) • ICE always free',
-          nav: ['Speak & Listen', 'Priority Pass', 'Meds & Day', 'Easy Reader', 'Calm & Time', 'Sport & Coach', 'Leisure & Games', '20 Aids', 'GPS & Places', 'ICE Emergency'],
+          nav: ['Speak & Listen', 'Priority Pass', 'Meds & Day', 'Easy Reader', 'Calm & Time', 'Leisure & Games', '20 Aids', 'GPS & Places', 'ICE Emergency'],
           defaultMsg: 'Hello, I need help please.',
           iceVoice: 'Medical emergency. Please read my ICE card on screen and call my emergency contact.',
           caa: [
@@ -1672,11 +1218,11 @@
         es: {
           dir: 'ltr', voice: 'es-ES',
           title: 'HandiVie+',
-          sub: 'Suite completa de autonomía, comunicación, salud, deporte adaptado, juegos y prioridad',
+          sub: 'Suite completa de autonomía, comunicación, salud, juegos adaptados y prioridad',
           free: 'Emergencia ICE 100 % gratuita',
           subOff: 'Opción Confort 1,00 € / mes (sin prueba)',
           subOn: 'HandiVie+ activo (1,00 €/mes) • ICE siempre gratis',
-          nav: ['Hablar y Escuchar', 'Pase Prioritario', 'Medicación y Día', 'Lector Fácil', 'Calma y Tiempo', 'Deporte y Coach', 'Ocio y Juegos', '20 Ayudas', 'GPS y Lugares', 'Emergencia ICE'],
+          nav: ['Hablar y Escuchar', 'Pase Prioritario', 'Medicación y Día', 'Lector Fácil', 'Calma y Tiempo', 'Ocio y Juegos', '20 Ayudas', 'GPS y Lugares', 'Emergencia ICE'],
           defaultMsg: 'Hola, necesito ayuda por favor.',
           iceVoice: 'Emergencia médica. Por favor lea mi ficha ICE en pantalla y llame a mi contacto.',
           caa: [
@@ -1693,11 +1239,11 @@
         de: {
           dir: 'ltr', voice: 'de-DE',
           title: 'HandiVie+',
-          sub: 'Komplette Suite für Selbstständigkeit, Kommunikation, Gesundheit, Sport & Spiele',
+          sub: 'Komplette Suite für Selbstständigkeit, Kommunikation, Gesundheit & Spiele',
           free: 'ICE-Notfall 100 % kostenlos',
           subOff: 'Komfort-Option 1,00 € / Monat (ohne Testphase)',
           subOn: 'HandiVie+ aktiv (1,00 €/Monat) • ICE kostenlos',
-          nav: ['Sprechen & Hören', 'Vorrang-Pass', 'Medikamente', 'Leichtes Lesen', 'Ruhe & Zeit', 'Sport & Coach', 'Freizeit & Spiele', '20 Hilfen', 'GPS & Orte', 'ICE-Notfall'],
+          nav: ['Sprechen & Hören', 'Vorrang-Pass', 'Medikamente', 'Leichtes Lesen', 'Ruhe & Zeit', 'Freizeit & Spiele', '20 Hilfen', 'GPS & Orte', 'ICE-Notfall'],
           defaultMsg: 'Hallo, ich brauche bitte Hilfe.',
           iceVoice: 'Medizinischer Notfall. Bitte lesen Sie meine ICE-Karte und rufen Sie meinen Kontakt an.',
           caa: [
@@ -1714,11 +1260,11 @@
         it: {
           dir: 'ltr', voice: 'it-IT',
           title: 'HandiVie+',
-          sub: 'Suite completa per autonomia, comunicazione, salute, sport adattato, giochi e priorità',
+          sub: 'Suite completa per autonomia, comunicazione, salute, giochi e accesso prioritario',
           free: 'Emergenza ICE 100% gratuita',
           subOff: 'Opzione Comfort 1,00 € / mese (senza prova)',
           subOn: 'HandiVie+ attivo (1,00 €/mese) • ICE sempre gratuito',
-          nav: ['Parla e Ascolta', 'Pass Prioritario', 'Farmaci e Giorno', 'Lettura Facile', 'Calma e Tempo', 'Sport e Coach', 'Svago e Giochi', '20 Aiuti', 'GPS e Luoghi', 'Emergenza ICE'],
+          nav: ['Parla e Ascolta', 'Pass Prioritario', 'Farmaci e Giorno', 'Lettura Facile', 'Calma e Tempo', 'Svago e Giochi', '20 Aiuti', 'GPS e Luoghi', 'Emergenza ICE'],
           defaultMsg: 'Ciao, ho bisogno di aiuto per favore.',
           iceVoice: 'Emergenza medica. Leggi la mia scheda ICE sullo schermo e chiama il mio contatto.',
           caa: [
@@ -1732,14 +1278,6 @@
             { e: '8', t: 'Parla lentamente e chiaramente' }
           ]
         }
-      };
-
-      const PROFILE_LABELS = {
-        vision: 'Handicap Visuel',
-        motor: 'Handicap Moteur',
-        hearing: 'Handicap Auditif',
-        cognitive: 'Cognitif / DYS',
-        reset: 'Standard'
       };
 
       function safeGet(key, fallback) {
@@ -1758,7 +1296,6 @@
       const store = {
         lang: 'fr',
         fontSize: 18,
-        profile: 'reset',
         coords: null,
         water: safeGet('hv5_water', 0),
         shop: safeGet('hv5_shop', ['Clés & Téléphone', 'Eau']),
@@ -1767,7 +1304,7 @@
         ice: safeGet('hv5_ice', { name: '', contact: '', phone: '114', blood: '', needs: '' }),
         subscribed: safeGet('hv5_sub', false) === true,
         exitCheck: safeGet('hv20_exit', ['Téléphone chargé', 'Clés', 'Carte priorité / mobilité', 'Eau']),
-        routine: safeGet('hv20_routine', ['Matin : Verre d'eau & étirements', 'Soir : Préparer affaires du lendemain']),
+        routine: safeGet('hv20_routine', ['Matin : Verre d\'eau & étirements', 'Soir : Préparer affaires du lendemain']),
         appts: safeGet('hv20_appts', [{ date: '', time: '10:00', label: 'Suivi médical' }]),
         pain: safeGet('hv20_pain', 0),
         energy: safeGet('hv20_energy', 5),
@@ -1776,10 +1313,6 @@
         budget: safeGet('hv20_budget', []),
         meals: safeGet('hv20_meals', [{ slot: 'Petit-déjeuner', text: 'Pain, boisson chaude' }]),
         journal: safeGet('hv20_journal', ''),
-        sportDis: safeGet('hv_sport_dis', 'motor'),
-        sportCat: safeGet('hv_sport_cat', 'strength'),
-        sportDoneIds: safeGet('hv_sport_done', []),
-        sportChallengesDone: safeGet('hv_sport_chal', []),
         timerTotal: 300,
         timerLeft: 300,
         timerId: null,
@@ -1858,54 +1391,9 @@
         showToast(text);
       }
 
-      function syncChipMarks() {
-        const map = [
-          ['btnContrast', document.body.classList.contains('mode-contrast'), 'Contraste'],
-          ['btnDys', document.body.classList.contains('mode-dys'), 'DYS'],
-          ['btnRuler', document.body.classList.contains('ruler-on'), 'Règle'],
-          ['btnScan', document.getElementById('btnScan').classList.contains('on'), 'Balayage']
-        ];
-        map.forEach(function (item) {
-          const btn = document.getElementById(item[0]);
-          const span = btn ? btn.querySelector('span') : null;
-          if (btn) btn.classList.toggle('on', item[1]);
-          if (span) span.textContent = (item[1] ? '✓ ' : '') + item[2];
-        });
-      }
-
-      function updateProfileBadge() {
-        const badge = document.getElementById('uiActiveProfileBadge');
-        if (badge) {
-          badge.textContent = 'Profil actif : ' + (PROFILE_LABELS[store.profile] || 'Standard');
-        }
-      }
-
-      function resetAccessibilitySettings(toastText) {
-        stopCoachTimer();
-        document.body.classList.remove('mode-contrast', 'mode-dys', 'ruler-on');
-        document.getElementById('btnScan').classList.remove('on');
-        clearInterval(store.scanId);
-        document.querySelectorAll('.scan-active').forEach(function (el) { el.classList.remove('scan-active'); });
-        store.fontSize = 18;
-        document.body.style.fontSize = '18px';
-        store.profile = 'reset';
-        document.querySelectorAll('.profile-pill').forEach(function (x) {
-          x.classList.toggle('active', x.dataset.prof === 'reset');
-        });
-        updateProfileBadge();
-        syncChipMarks();
-        showToast(toastText || 'Accessibilité réinitialisée');
-      }
-
       function openTab(key) {
         document.querySelectorAll('.module-tab').forEach(function (b) {
-          const isAct = b.dataset.tab === key;
-          b.classList.toggle('active', isAct);
-          const tag = b.querySelector('.tab-state-tag');
-          if (tag) {
-            tag.hidden = !isAct;
-            tag.textContent = isAct ? '• ACTIF' : '';
-          }
+          b.classList.toggle('active', b.dataset.tab === key);
         });
         document.querySelectorAll('.module-panel').forEach(function (p) {
           p.classList.toggle('active', p.id === 'panel-' + key);
@@ -1916,322 +1404,15 @@
         const wrap = document.getElementById('caaContainer');
         if (!wrap) return;
         wrap.innerHTML = '';
-        LANGS[store.lang].caa.forEach(function (c, i) {
+        LANGS[store.lang].caa.forEach(function (c) {
           const b = document.createElement('button');
           b.type = 'button';
           b.className = 'caa-tile';
-          const svgPath = CAA_ICONS[i % CAA_ICONS.length];
-          b.innerHTML =
-            '<span style="display:inline-flex;align-items:center;gap:6px;font-weight:800;color:var(--primary);">' +
-            '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">' + svgPath + '</svg>' +
-            '<span>#' + escapeHtml(c.e) + '</span></span>' +
-            '<span>' + escapeHtml(c.t) + '</span>';
+          b.innerHTML = '<span style="font-weight:800;color:var(--primary);">#' + escapeHtml(c.e) + '</span><span>' + escapeHtml(c.t) + '</span>';
           b.addEventListener('click', function () { speak(c.t); });
           wrap.appendChild(b);
         });
       }
-
-      // --- MODULE SPORT ADAPTÉ & COACH ---
-      const SPORT_PROGRAMS = {
-        motor: {
-          label: 'Moteur / Fauteuil',
-          strength: [
-            { id: 'm-str-1', title: 'Développé assis bras & épaules', desc: 'Freins bloqués, dos droit. Poussez doucement les mains ou bouteilles vers le haut sans bloquer la respiration.', reps: '10–12 répétitions', sec: 35 },
-            { id: 'm-str-2', title: 'Tirage omoplates & posture', desc: 'Bras devant vous, ramenez les coudes vers l’arrière en resserrant les omoplates pour ouvrir la cage thoracique.', reps: '12 répétitions', sec: 30 }
-          ],
-          fitness: [
-            { id: 'm-fit-1', title: 'Boxe douce assise rythmée', desc: 'Enchaînez des directs souples devant vous à votre rythme, en gardant le tronc stable.', reps: 'Rythme fluide', sec: 40 },
-            { id: 'm-fit-2', title: 'Rotation buste & bras amples', desc: 'Tournez doucement le buste d’un côté puis de l’autre avec de grands mouvements de bras contrôlés.', reps: '10 par côté', sec: 35 }
-          ],
-          health: [
-            { id: 'm-hea-1', title: 'Étirement nuque & trapèzes', desc: 'Relâchez les épaules loin des oreilles, inclinez doucement l’oreille vers l’épaule et respirez profondément.', reps: '20s par côté', sec: 30 },
-            { id: 'm-hea-2', title: 'Mobilité poignets & ouverture thoracique', desc: 'Cercles doux des poignets puis grande inspiration en ouvrant les bras sur les côtés.', reps: '8 cycles lents', sec: 30 }
-          ]
-        },
-        vision: {
-          label: 'Visuel / Basse vision',
-          strength: [
-            { id: 'v-str-1', title: 'Squats guidés avec repère stable', desc: 'Placez une chaise ferme ou un mur à portée de main. Descendez lentement les hanches puis remontez en appui stable.', reps: '8–12 répétitions', sec: 35 },
-            { id: 'v-str-2', title: 'Gainage debout ou assis contrôlé', desc: 'Engagez doucement la sangle abdominale et grandissez-vous en maintenant une posture sûre.', reps: '20s x 2 séries', sec: 30 }
-          ],
-          fitness: [
-            { id: 'v-fit-1', title: 'Marche sur place repère sonore', desc: 'Levez les genoux à hauteur confortable sur place en gardant un espace dégagé autour de vous.', reps: 'Cadence régulière', sec: 45 },
-            { id: 'v-fit-2', title: 'Montées de bras & talons synchronisées', desc: 'Levez les bras et décollez légèrement les talons en suivant le rythme du coach.', reps: '12 répétitions', sec: 35 }
-          ],
-          health: [
-            { id: 'v-hea-1', title: 'Décompression cervicale & épaules', desc: 'Abaissez les épaules, menton légèrement rentré, expirez longuement pour relâcher les tensions.', reps: '6 respirations', sec: 30 },
-            { id: 'v-hea-2', title: 'Équilibre pied-à-pied sécurisé', desc: 'Gardez une main proche d’un support stable et transférez le poids d’un pied à l’autre calmement.', reps: '30s guidées', sec: 30 }
-          ]
-        },
-        hearing: {
-          label: 'Auditif / Visuel',
-          strength: [
-            { id: 'h-str-1', title: 'Pompes inclinées (mur ou table solide)', desc: 'Mains appuyées à hauteur de poitrine, fléchissez les coudes puis poussez de façon fluide.', reps: '10 répétitions', sec: 35 },
-            { id: 'h-str-2', title: 'Fentes arrière courtes & stables', desc: 'Reculez un pied d’un petit pas en gardant le buste droit, puis revenez au centre.', reps: '8 par jambe', sec: 35 }
-          ],
-          fitness: [
-            { id: 'h-fit-1', title: 'Circuit visuel 4 temps', desc: 'Suivez le chronomètre visuel : 1) Montée genoux, 2) Ouverture bras, 3) Pas chassé court, 4) Souffle.', reps: '4 temps visuels', sec: 40 },
-            { id: 'h-fit-2', title: 'Cardio doux bras + jambes', desc: 'Enchaînez des mouvements complets et visibles à intensité modérée, sans impact brusque.', reps: 'Séance continue', sec: 40 }
-          ],
-          health: [
-            { id: 'h-hea-1', title: 'Ouverture poitrine & posture d’écran', desc: 'Joignez les mains dans le dos ou ouvrez les paumes vers l’avant pour corriger l’arrondi du dos.', reps: '25s tenues', sec: 30 },
-            { id: 'h-hea-2', title: 'Mobilité hanches & bas du dos', desc: 'Mains sur les hanches, dessinez de grands cercles doux dans les deux sens.', reps: '8 cercles / sens', sec: 30 }
-          ]
-        },
-        cognitive: {
-          label: 'Cognitif / DYS / Doux',
-          strength: [
-            { id: 'c-str-1', title: '1 seul mouvement : Pousser & Tirer', desc: 'Étape unique : poussez les deux mains devant vous, puis ramenez-les doucement vers la poitrine.', reps: '8 répétitions simples', sec: 30 },
-            { id: 'c-str-2', title: 'Assis-Debout calme sur chaise', desc: 'Levez-vous doucement de la chaise puis asseyez-vous sans vous précipiter.', reps: '6 à 10 levées', sec: 35 }
-          ],
-          fitness: [
-            { id: 'c-fit-1', title: 'Pas réguliers & balancier naturel', desc: 'Marchez tranquillement sur place en balançant les bras naturellement, sans comptage complexe.', reps: 'Rythme apaisant', sec: 40 },
-            { id: 'c-fit-2', title: 'Réveil musculaire en 2 gestes', desc: 'Levez les bras au-dessus de la tête, puis redescendez lentement en soufflant.', reps: '8 cycles', sec: 30 }
-          ],
-          health: [
-            { id: 'c-hea-1', title: 'Respiration & relâchement des épaules', desc: 'Haussez les épaules sur l’inspiration, puis laissez-les retomber d’un coup sur l’expiration.', reps: '5 fois', sec: 30 },
-            { id: 'c-hea-2', title: 'Ancrage pieds au sol', desc: 'Sentez bien l’appui de vos pieds au sol, détendez la mâchoire et gardez un rythme calme.', reps: '30s calmes', sec: 30 }
-          ]
-        },
-        all: {
-          label: 'Santé & Tonus Général',
-          strength: [
-            { id: 'a-str-1', title: 'Renforcement tronc & bras polyvalent', desc: 'Travaillez le haut du corps et le maintien postural avec un contrôle lent à la descente.', reps: '10–12 répétitions', sec: 35 },
-            { id: 'a-str-2', title: 'Chaise / Demi-squat & mollets', desc: 'Renforcez les jambes et le retour veineux avec des montées sur pointes ou demi-flexions contrôlées.', reps: '12 répétitions', sec: 35 }
-          ],
-          fitness: [
-            { id: 'a-fit-1', title: 'Vitalité cardio modérée', desc: 'Activez le cœur en douceur avec des mouvements fluides, adaptables assis ou debout.', reps: 'Intensité modérée', sec: 40 },
-            { id: 'a-fit-2', title: 'Coordination & réveil articulaire', desc: 'Coordonnez bras et jambes sur un tempo régulier pour dynamiser la journée.', reps: '40s actives', sec: 40 }
-          ],
-          health: [
-            { id: 'a-hea-1', title: 'Mobilité complète & souplesse', desc: 'Étirez doucement le dos, les épaules et les hanches sans forcer ni provoquer de douleur.', reps: '30s guidées', sec: 30 },
-            { id: 'a-hea-2', title: 'Retour au calme & récupération', desc: 'Ralentissez le mouvement, allongez l’expiration et préparez l’hydratation.', reps: '30s récupération', sec: 30 }
-          ]
-        }
-      };
-
-      const SPORT_CHALLENGES = [
-        { id: 'chal-1', title: 'Défi Coach : 1 exercice guidé complété', pts: 'Vitalité' },
-        { id: 'chal-2', title: 'Défi Santé : 1 minute d’étirement ou mobilité douce', pts: 'Souplesse' },
-        { id: 'chal-3', title: 'Défi Hydratation : Boire 1 verre d’eau après l’effort', pts: 'Récupération' }
-      ];
-
-      let coachActiveIdx = 0;
-      let coachTimerId = null;
-      let coachRemaining = 30;
-
-      function getCurrentExercises() {
-        const grp = SPORT_PROGRAMS[store.sportDis] || SPORT_PROGRAMS.motor;
-        return grp[store.sportCat] || grp.strength;
-      }
-
-      function stopCoachTimer() {
-        if (coachTimerId) {
-          clearInterval(coachTimerId);
-          coachTimerId = null;
-        }
-      }
-
-      function renderCoachStage() {
-        const list = getCurrentExercises();
-        if (!list.length) return;
-        coachActiveIdx = coachActiveIdx % list.length;
-        const ex = list[coachActiveIdx];
-        if (!coachTimerId) {
-          coachRemaining = ex.sec;
-        }
-        document.getElementById('coachStepLabel').textContent =
-          'COACH • ' + (SPORT_PROGRAMS[store.sportDis]?.label || '').toUpperCase();
-        document.getElementById('coachExerciseTitle').textContent = ex.title;
-        document.getElementById('coachExerciseDesc').textContent = ex.desc;
-        document.getElementById('coachRepsLabel').textContent = ex.reps;
-        document.getElementById('coachTimerDisplay').textContent = coachRemaining + 's';
-        document.getElementById('coachProgressBar').style.width =
-          Math.max(0, Math.min(100, (coachRemaining / ex.sec) * 100)) + '%';
-      }
-
-      function renderSportModule() {
-        document.querySelectorAll('.sport-pill').forEach(function (b) {
-          b.classList.toggle('active', b.dataset.dis === store.sportDis);
-        });
-        document.querySelectorAll('.cat-btn').forEach(function (b) {
-          b.classList.toggle('active', b.dataset.cat === store.sportCat);
-        });
-
-        renderCoachStage();
-
-        const grid = document.getElementById('sportExercisesGrid');
-        const list = getCurrentExercises();
-        grid.innerHTML = '';
-
-        list.forEach(function (ex, idx) {
-          const isDone = store.sportDoneIds.indexOf(ex.id) !== -1;
-          const card = document.createElement('div');
-          card.className = 'exercise-card' + (isDone ? ' done' : '');
-          card.innerHTML =
-            '<div>' +
-              '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;">' +
-                '<span class="pill-tag tag-pro">' + escapeHtml(ex.reps) + '</span>' +
-                (isDone ? '<span class="pill-tag tag-free">✓ Fait</span>' : '<span class="pill-tag">' + ex.sec + 's</span>') +
-              '</div>' +
-              '<h4 style="margin:0 0 6px;font-size:1.1em;">' + escapeHtml(ex.title) + '</h4>' +
-              '<p style="margin:0;color:var(--muted);font-size:0.94em;">' + escapeHtml(ex.desc) + '</p>' +
-            '</div>';
-
-          const actions = document.createElement('div');
-          actions.className = 'row-flex';
-          actions.style.marginBottom = '0';
-
-          const btnLoad = document.createElement('button');
-          btnLoad.type = 'button';
-          btnLoad.className = 'btn-blue';
-          btnLoad.textContent = 'Charger au coach';
-          btnLoad.addEventListener('click', function () {
-            stopCoachTimer();
-            coachActiveIdx = idx;
-            coachRemaining = ex.sec;
-            renderCoachStage();
-            speak(ex.title + '. ' + ex.desc);
-          });
-
-          const btnDone = document.createElement('button');
-          btnDone.type = 'button';
-          btnDone.className = isDone ? 'btn-soft' : 'btn-green';
-          btnDone.textContent = isDone ? 'Annuler' : 'Valider';
-          btnDone.addEventListener('click', function () {
-            const pos = store.sportDoneIds.indexOf(ex.id);
-            if (pos === -1) {
-              store.sportDoneIds.push(ex.id);
-              showToast('Exercice validé : ' + ex.title);
-            } else {
-              store.sportDoneIds.splice(pos, 1);
-            }
-            safeSet('hv_sport_done', store.sportDoneIds);
-            renderSportModule();
-          });
-
-          actions.append(btnLoad, btnDone);
-          card.appendChild(actions);
-          grid.appendChild(card);
-        });
-
-        const chalBox = document.getElementById('sportChallengesList');
-        chalBox.innerHTML = '';
-        SPORT_CHALLENGES.forEach(function (ch) {
-          const done = store.sportChallengesDone.indexOf(ch.id) !== -1;
-          const row = document.createElement('div');
-          row.className = 'item-strip';
-          row.innerHTML =
-            '<div><strong>' + escapeHtml(ch.title) + '</strong> ' +
-            '<span class="pill-tag tag-pro" style="margin-inline-start:6px;">' + escapeHtml(ch.pts) + '</span></div>';
-
-          const btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = done ? 'btn-soft' : 'btn-green';
-          btn.textContent = done ? '✓ Défi réussi' : 'Relever le défi';
-          btn.addEventListener('click', function () {
-            const i = store.sportChallengesDone.indexOf(ch.id);
-            if (i === -1) {
-              store.sportChallengesDone.push(ch.id);
-              playTone(523.25, 0.35);
-              showToast('Défi relevé !');
-            } else {
-              store.sportChallengesDone.splice(i, 1);
-            }
-            safeSet('hv_sport_chal', store.sportChallengesDone);
-            renderSportModule();
-          });
-          row.appendChild(btn);
-          chalBox.appendChild(row);
-        });
-
-        const totalDone = store.sportDoneIds.length + store.sportChallengesDone.length;
-        document.getElementById('sportChallengeBadge').textContent = 'Défis & séances : ' + totalDone;
-        document.getElementById('sportStreakText').textContent =
-          'Défis réussis : ' + store.sportChallengesDone.length + ' / ' + SPORT_CHALLENGES.length +
-          ' • Séances validées : ' + store.sportDoneIds.length;
-      }
-
-      document.querySelectorAll('.sport-pill').forEach(function (b) {
-        b.addEventListener('click', function () {
-          stopCoachTimer();
-          store.sportDis = b.dataset.dis;
-          coachActiveIdx = 0;
-          coachRemaining = 30;
-          safeSet('hv_sport_dis', store.sportDis);
-          renderSportModule();
-          showToast('Programme : ' + (SPORT_PROGRAMS[store.sportDis]?.label || ''));
-        });
-      });
-
-      document.querySelectorAll('.cat-btn').forEach(function (b) {
-        b.addEventListener('click', function () {
-          stopCoachTimer();
-          store.sportCat = b.dataset.cat;
-          coachActiveIdx = 0;
-          coachRemaining = 30;
-          safeSet('hv_sport_cat', store.sportCat);
-          renderSportModule();
-        });
-      });
-
-      document.getElementById('btnCoachSpeak').addEventListener('click', function () {
-        const list = getCurrentExercises();
-        const ex = list[coachActiveIdx % list.length];
-        if (ex) speak(ex.title + '. ' + ex.desc + '. ' + ex.reps);
-      });
-
-      document.getElementById('btnCoachNext').addEventListener('click', function () {
-        stopCoachTimer();
-        const list = getCurrentExercises();
-        coachActiveIdx = (coachActiveIdx + 1) % list.length;
-        coachRemaining = list[coachActiveIdx].sec;
-        renderCoachStage();
-      });
-
-      document.getElementById('btnCoachStart').addEventListener('click', function () {
-        const list = getCurrentExercises();
-        const ex = list[coachActiveIdx % list.length];
-        if (!ex) return;
-
-        if (coachTimerId) {
-          stopCoachTimer();
-          showToast('Coach en pause');
-          return;
-        }
-
-        if (coachRemaining <= 0) coachRemaining = ex.sec;
-        speak('C’est parti pour ' + ex.title);
-        showToast('Coach actif : ' + ex.title);
-
-        coachTimerId = setInterval(function () {
-          if (coachRemaining > 1) {
-            coachRemaining--;
-            renderCoachStage();
-          } else {
-            stopCoachTimer();
-            coachRemaining = ex.sec;
-            renderCoachStage();
-            if (store.sportDoneIds.indexOf(ex.id) === -1) {
-              store.sportDoneIds.push(ex.id);
-              safeSet('hv_sport_done', store.sportDoneIds);
-            }
-            playTone(587.33, 0.45);
-            speak('Série terminée. Bravo et pensez à respirer.');
-            renderSportModule();
-          }
-        }, 1000);
-      });
-
-      document.getElementById('btnResetSportChallenges').addEventListener('click', function () {
-        stopCoachTimer();
-        store.sportDoneIds = [];
-        store.sportChallengesDone = [];
-        safeSet('hv_sport_done', []);
-        safeSet('hv_sport_chal', []);
-        renderSportModule();
-        showToast('Défis sport réinitialisés');
-      });
 
       function renderWater() {
         const el = document.getElementById('waterCountText');
@@ -2346,11 +1527,10 @@
         document.getElementById('uiFreeBadge').textContent = l.free;
         document.getElementById('uiSubStatus').textContent = store.subscribed ? l.subOn : l.subOff;
 
-        const tabIds = ['navSpeak', 'navPriority', 'navHealth', 'navFalc', 'navCalm', 'navSport', 'navGames', 'navAids20', 'navPlaces', 'navIce'];
+        const tabIds = ['navSpeak', 'navPriority', 'navHealth', 'navFalc', 'navCalm', 'navGames', 'navAids20', 'navPlaces', 'navIce'];
         tabIds.forEach(function (id, i) {
           const el = document.getElementById(id);
-          const lbl = el ? el.querySelector('.tab-label') : null;
-          if (lbl) lbl.textContent = l.nav[i];
+          if (el) el.innerHTML = '<span>' + l.nav[i] + '</span>';
         });
 
         document.getElementById('phraseDisplay').textContent = l.defaultMsg;
@@ -2947,7 +2127,7 @@
       });
       document.getElementById('btnCopyShareGps').addEventListener('click', function () {
         if (!store.coords) {
-          showToast('Actualisez d'abord votre position');
+          showToast('Actualisez d\'abord votre position');
           return;
         }
         const link = 'https://www.google.com/maps/search/?api=1&query=' + store.coords.lat.toFixed(5) + ',' + store.coords.lon.toFixed(5);
@@ -3152,17 +2332,17 @@
       });
       document.getElementById('btnContrast').addEventListener('click', function () {
         document.body.classList.toggle('mode-contrast');
-        syncChipMarks();
+        this.classList.toggle('on');
         showToast('Contraste mis à jour');
       });
       document.getElementById('btnDys').addEventListener('click', function () {
         document.body.classList.toggle('mode-dys');
-        syncChipMarks();
+        this.classList.toggle('on');
         showToast('Mode DYS mis à jour');
       });
       document.getElementById('btnRuler').addEventListener('click', function () {
         document.body.classList.toggle('ruler-on');
-        syncChipMarks();
+        this.classList.toggle('on');
         showToast('Règle de lecture mise à jour');
       });
       document.addEventListener('pointermove', function (e) {
@@ -3172,9 +2352,8 @@
       });
 
       document.getElementById('btnScan').addEventListener('click', function () {
-        const isOn = !this.classList.contains('on');
-        this.classList.toggle('on', isOn);
-        if (isOn) {
+        this.classList.toggle('on');
+        if (this.classList.contains('on')) {
           const targets = Array.from(document.querySelectorAll('button:not(#btnScan), a.ext-link'));
           store.scanIdx = 0;
           store.scanId = setInterval(function () {
@@ -3184,12 +2363,10 @@
               store.scanIdx++;
             }
           }, 1500);
-          syncChipMarks();
           showToast('Balayage actif');
         } else {
           clearInterval(store.scanId);
           document.querySelectorAll('.scan-active').forEach(function (el) { el.classList.remove('scan-active'); });
-          syncChipMarks();
           showToast('Balayage arrêté');
         }
       });
@@ -3205,23 +2382,19 @@
         if (active) speak(active.innerText.slice(0, 260));
       });
 
-      document.getElementById('btnResetA11y').addEventListener('click', function () {
-        resetAccessibilitySettings('Accessibilité réinitialisée');
-      });
-      document.getElementById('btnResetPrefs').addEventListener('click', function () {
-        resetAccessibilitySettings('Préférences réinitialisées');
-      });
-
       document.querySelectorAll('.profile-pill').forEach(function (p) {
         p.addEventListener('click', function () {
           document.querySelectorAll('.profile-pill').forEach(function (x) { x.classList.remove('active'); });
           p.classList.add('active');
           const mode = p.dataset.prof;
-          store.profile = mode;
           document.body.classList.remove('mode-contrast', 'mode-dys', 'ruler-on');
+          document.getElementById('btnContrast').classList.remove('on');
+          document.getElementById('btnDys').classList.remove('on');
+          document.getElementById('btnRuler').classList.remove('on');
 
           if (mode === 'vision') {
             document.body.classList.add('mode-contrast');
+            document.getElementById('btnContrast').classList.add('on');
             store.fontSize = 24;
           } else if (mode === 'motor') {
             store.fontSize = 22;
@@ -3230,14 +2403,14 @@
             openTab('speak');
           } else if (mode === 'cognitive') {
             document.body.classList.add('mode-dys', 'ruler-on');
+            document.getElementById('btnDys').classList.add('on');
+            document.getElementById('btnRuler').classList.add('on');
             store.fontSize = 20;
           } else {
             store.fontSize = 18;
           }
           document.body.style.fontSize = store.fontSize + 'px';
-          updateProfileBadge();
-          syncChipMarks();
-          showToast('Profil : ' + (PROFILE_LABELS[mode] || 'Standard'));
+          showToast('Profil appliqué');
         });
       });
 
@@ -3323,12 +2496,10 @@
         showToast('Élément ajouté');
       });
       document.getElementById('btnShareLog').addEventListener('click', function () {
-        const summary = 'Bilan HandiVie+ (Hydratation : ' + store.water + ' verre(s)) :
-' +
+        const summary = 'Bilan HandiVie+ (Hydratation : ' + store.water + ' verre(s)) :\n' +
           store.meds.map(function (m) {
             return '- ' + m.time + ' : ' + m.name + (m.takenAt ? ' (Validé à ' + m.takenAt + ')' : ' (À faire)');
-          }).join('
-');
+          }).join('\n');
         copyText(summary, 'Bilan copié');
       });
 
@@ -3533,9 +2704,6 @@
 
       refreshConnectionUI();
       setLanguage('fr');
-      updateProfileBadge();
-      syncChipMarks();
-      renderSportModule();
       renderWater();
       renderShop();
       renderMeds();
