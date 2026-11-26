@@ -328,7 +328,7 @@ gap: 10px;
 margin-bottom: 14px;
 align-items: center;
 }
-​input[type="text"], input[type="time"], input[type="tel"], input[type="date"], textarea, select.std-select {
+​input[type="text"], input[type="number"], input[type="time"], input[type="tel"], input[type="date"], textarea, select.std-select {
 background: var(--surface-2);
 border: 1.5px solid var(--border);
 border-radius: var(--radius-md);
@@ -662,7 +662,7 @@ text-align: center;
 <div class="hero-header">
 <div>
 <h1 class="hero-title" id="uiAppTitle">HandiVie+</h1>
-<p class="hero-sub" id="uiAppSub">Suite complète d'autonomie, communication, santé, loisirs adaptés et accès prioritaire</p>
+<p class="hero-sub" id="uiAppSub">Suite complète d'autonomie, communication, santé, sport adapté, loisirs et accès prioritaire</p>
 </div>
 <span class="pill-tag tag-free" id="uiFreeBadge">Urgence ICE 100 % gratuite</span>
 </div>
@@ -679,7 +679,7 @@ text-align: center;
 <button type="button" class="profile-pill" data-prof="cognitive">Cognitif / DYS</button>
 <button type="button" class="profile-pill" data-prof="reset">Standard</button>
 </div>
-​<nav class="module-nav" aria-label="Navigation principale">
+​<nav class="module-nav" id="mainModuleNav" aria-label="Navigation principale">
 <button type="button" class="module-tab active" data-tab="speak" id="navSpeak"><span>Parler & Écouter</span></button>
 <button type="button" class="module-tab" data-tab="priority" id="navPriority"><span>Pass Prioritaire</span></button>
 <button type="button" class="module-tab" data-tab="health" id="navHealth"><span>Pilulier & Jour</span></button>
@@ -811,7 +811,7 @@ Je suis titulaire d'une carte de priorité / mobilité inclusion. Merci de me fa
 </div>
 </div>
 </section>
-​<!-- NOUVEAU MODULE : SPORT, MUSCULATION, FITNESS & SANTÉ ADAPTÉ -->
+​<!-- MODULE SPORT, MUSCULATION, FITNESS & SANTÉ ADAPTÉ -->
 <section class="module-panel" id="panel-sport">
 <h2 class="panel-title" id="sportHead">Sport, Musculation, Fitness & Santé Adaptée</h2>
 <p class="panel-sub" id="sportLead">Programmes progressifs adaptés à chaque type de handicap, défis de 30 à 365 jours, coach animé, chronomètre vocal et compte à rebours sur les 5 dernières secondes.</p>
@@ -856,7 +856,7 @@ Je suis titulaire d'une carte de priorité / mobilité inclusion. Merci de me fa
 <div class="row-flex" style="margin-bottom:0;">
 <label for="sportDayInput" style="font-weight:700;">Jour actuel du défi :</label>
 <input type="number" id="sportDayInput" min="1" max="365" value="1" style="max-width:110px;" />
-<span id="sportChallengeInfo" class="pill-tag tag-free">Défi 30 jours • Jour 1 / 30 • Niveau 1 (Débutant)</span>
+<span id="sportChallengeInfo" class="pill-tag tag-free">Défi 30 jours • Jour 1 / 30 • Niveau 1 (Débutant progressif)</span>
 <button type="button" class="btn-soft" id="btnMarkDayDone">Valider le jour</button>
 </div>
 </div>
@@ -884,15 +884,15 @@ Je suis titulaire d'une carte de priorité / mobilité inclusion. Merci de me fa
 <circle cx="96" cy="128" r="10" fill="none" stroke="var(--text)" stroke-width="3" />
 </g>
 </svg>
-<div style="font-weight:800;color:var(--primary);" id="coachNameLabel">Coach Léo — Mouvement Guidé</div>
-<div style="font-size:0.86em;color:var(--muted);" id="coachCueText">Gardez une respiration fluide et régulière.</div>
+<div style="font-weight:800;color:var(--primary);" id="coachNameLabel">Coach Léo — Adaptation Fauteuil & Assise</div>
+<div style="font-size:0.86em;color:var(--muted);" id="coachCueText">Freins bloqués sur le fauteuil, dos droit, épaules détendues.</div>
 </div>
 ​<div>
 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;">
 <span class="pill-tag tag-free" id="sportSeriesBadge">Exercice 1 / 4 • Série 1 / 2</span>
 <span class="pill-tag tag-warn" id="sportVoiceState">Voix & Compte à rebours 5s actifs</span>
 </div>
-​<h3 id="sportExTitle" style="margin:8px 0 4px;font-size:1.35em;">Élévation contrôlée des bras</h3>
+​<h3 id="sportExTitle" style="margin:8px 0 4px;font-size:1.35em;">Développé des bras vers le haut</h3>
 <p id="sportExDesc" style="margin:0 0 10px;color:var(--muted);"></p>
 ​<div class="chrono-big" id="sportChronoDisplay">00:30</div>
 <div class="bar-bg" style="margin:8px 0 12px;"><div class="bar-fill" id="sportChronoBar"></div></div>
