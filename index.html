@@ -427,14 +427,15 @@
 
     /* === MODULE SPORT & FITNESS ADAPTÉ ULTRA-MODERNE === */
     .sport-hero {
-      background: radial-gradient(circle at 85% 15%, rgba(56, 189, 248, 0.28), transparent 45%),
-                  linear-gradient(135deg, #090d16 0%, #172554 55%, #1e3a8a 100%);
+      background: radial-gradient(circle at 88% 15%, rgba(34, 211, 238, 0.28), transparent 45%),
+                  radial-gradient(circle at 12% 85%, rgba(16, 185, 129, 0.22), transparent 45%),
+                  linear-gradient(135deg, #060913 0%, #0f172a 48%, #1e3a8a 100%);
       color: #ffffff;
       border-radius: var(--radius-xl);
       padding: 24px;
       margin-bottom: 18px;
-      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.22);
-      border: 1px solid rgba(148, 163, 184, 0.25);
+      box-shadow: 0 16px 36px rgba(6, 9, 19, 0.28);
+      border: 1px solid rgba(125, 211, 252, 0.25);
       position: relative;
       overflow: hidden;
     }
@@ -449,7 +450,7 @@
     }
     .sport-stat-box {
       background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.14);
       border-radius: var(--radius-md);
       padding: 11px 12px;
@@ -458,7 +459,29 @@
     .sport-stat-val { font-size: 1.28em; font-weight: 800; display: block; color: #ffffff; }
     .sport-stat-lbl { font-size: 0.78em; color: #cbd5e1; }
 
-    /* Filtres Objectif & Catégorie */
+    .sport-format-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .sport-fmt-card {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 12px;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      gap: 4px;
+      min-height: 78px;
+    }
+    .sport-fmt-card.active {
+      border-color: #0ea5e9;
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.14), rgba(37, 99, 235, 0.14));
+      box-shadow: 0 6px 16px rgba(14, 165, 233, 0.18);
+    }
+
     .sport-goal-tabs {
       display: flex;
       flex-wrap: wrap;
@@ -498,14 +521,13 @@
       box-shadow: var(--shadow-sm);
     }
     .sport-h-card.active {
-      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      background: linear-gradient(135deg, #1e3a8a, #0284c7);
       color: #ffffff;
-      border-color: #1d4ed8;
-      box-shadow: 0 8px 18px rgba(37, 99, 235, 0.28);
+      border-color: #0369a1;
+      box-shadow: 0 8px 18px rgba(2, 132, 199, 0.28);
     }
     body.mode-contrast .sport-h-card.active { background: var(--primary); color: #000000; }
 
-    /* Frise des phases progressives (4 semaines / paliers) */
     .prog-phases-bar {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -548,29 +570,99 @@
       border-color: #047857;
     }
 
-    /* Coach Arena Moderne */
+    /* Sélecteur rapide des jours du défi sélectionné */
+    .day-pills-scroller {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 6px 2px 10px;
+      margin-bottom: 10px;
+      scrollbar-width: thin;
+    }
+    .day-pill-btn {
+      min-height: 40px;
+      min-width: 68px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      font-size: 0.82em;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .day-pill-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary-dark);
+    }
+    body.mode-contrast .day-pill-btn.active { color: #000000; }
+    .day-pill-btn.day-done {
+      border-color: #10b981;
+      box-shadow: inset 0 0 0 1px #10b981;
+    }
+
+    /* Carte récapitulative du programme quotidien */
+    .day-plan-banner {
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(16, 185, 129, 0.08));
+      border: 1.5px solid #0ea5e9;
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .day-queue-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .queue-chip {
+      font-size: 0.78em;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .queue-chip.is-current {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #0369a1;
+    }
+    .queue-chip.is-done {
+      background: #dcfce7;
+      color: #166534;
+      border-color: #86efac;
+    }
+
+    /* Arène Coach Virtuel Moderne */
     .coach-arena {
-      background: radial-gradient(circle at 20% 20%, rgba(30, 58, 138, 0.45), transparent 55%),
-                  linear-gradient(180deg, #090d16 0%, #111827 100%);
+      background: radial-gradient(circle at 20% 20%, rgba(14, 165, 233, 0.35), transparent 55%),
+                  linear-gradient(180deg, #060913 0%, #0f172a 100%);
       color: #f8fafc;
       border-radius: var(--radius-xl);
       padding: 22px;
       margin-bottom: 16px;
       border: 2px solid #1e293b;
-      box-shadow: 0 16px 36px rgba(15, 23, 42, 0.25);
+      box-shadow: 0 18px 38px rgba(6, 9, 19, 0.3);
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 22px;
       align-items: center;
     }
     .coach-arena.rest-mode {
-      background: radial-gradient(circle at 20% 20%, rgba(16, 185, 129, 0.3), transparent 55%),
-                  linear-gradient(180deg, #042f2e 0%, #090d16 100%);
+      background: radial-gradient(circle at 20% 20%, rgba(16, 185, 129, 0.32), transparent 55%),
+                  linear-gradient(180deg, #042f2e 0%, #060913 100%);
       border-color: #10b981;
     }
     .coach-stage-canvas {
-      background: radial-gradient(circle at 50% 45%, rgba(56, 189, 248, 0.2), rgba(9, 13, 22, 0.95));
-      border: 1.5px solid rgba(148, 163, 184, 0.25);
+      background: radial-gradient(circle at 50% 45%, rgba(34, 211, 238, 0.22), rgba(6, 9, 19, 0.96));
+      border: 1.5px solid rgba(148, 163, 184, 0.28);
       border-radius: var(--radius-lg);
       padding: 14px;
       text-align: center;
@@ -584,16 +676,16 @@
       align-items: center;
       gap: 16px;
       background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(6px);
+      backdrop-filter: blur(8px);
       padding: 14px 16px;
       border-radius: var(--radius-lg);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.14);
     }
     .chrono-circle {
       width: 98px;
       height: 98px;
       border-radius: 50%;
-      background: conic-gradient(#38bdf8 var(--prog, 100%), rgba(255,255,255,0.12) 0);
+      background: conic-gradient(#22d3ee var(--prog, 100%), rgba(255,255,255,0.12) 0);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -612,7 +704,7 @@
       width: 80px;
       height: 80px;
       border-radius: 50%;
-      background: #090d16;
+      background: #060913;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -639,10 +731,10 @@
       height: 14px;
       border-radius: 50%;
       background: rgba(255,255,255,0.18);
-      border: 1.5px solid #38bdf8;
+      border: 1.5px solid #22d3ee;
     }
     .set-dot.done { background: #10b981; border-color: #10b981; }
-    .set-dot.current { background: #38bdf8; transform: scale(1.22); }
+    .set-dot.current { background: #22d3ee; transform: scale(1.22); }
     .ex-badge-type {
       display: inline-block;
       font-size: 0.75em;
@@ -653,6 +745,17 @@
       color: var(--primary-dark);
       margin-inline-start: 6px;
     }
+    .ex-badge-style {
+      display: inline-block;
+      font-size: 0.74em;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: rgba(14, 165, 233, 0.14);
+      color: #0369a1;
+      margin-inline-start: 4px;
+    }
+    body.mode-contrast .ex-badge-style { color: #7dd3fc; }
   </style>
 </head>
 <body>
@@ -926,19 +1029,19 @@
       </div>
     </section>
 
-    <!-- MODULE 7: SPORT, FITNESS & SANTÉ ADAPTÉ (VERSION MODERNE & PROGRESSIVE VARIÉE) -->
+    <!-- MODULE 7: SPORT, FITNESS & SANTÉ ADAPTÉ (ULTRA-MODERNE & ENCHAÎNEMENT MULTI-EXERCICES) -->
     <section class="module-panel" id="panel-sport">
       <div class="sport-hero">
         <div class="row-flex" style="justify-content:space-between;margin-bottom:8px;">
-          <span class="pill-tag" style="background:rgba(56,189,248,0.2);color:#7dd3fc;border-color:#38bdf8;">STUDIO SPORT ADAPTÉ • PROGRESSIF & VARIÉ</span>
+          <span class="pill-tag" style="background:rgba(34,211,238,0.2);color:#67e8f9;border-color:#22d3ee;">STUDIO SPORT MODERNE • ENCHAÎNEMENT MULTI-EXERCICES</span>
           <span id="sportStreakBadge" class="pill-tag" style="background:#10b981;color:#ffffff;border:none;">Jour 1 • Phase 1 : Éveil</span>
         </div>
-        <h2 class="panel-title" style="color:#ffffff;margin-bottom:6px;font-size:1.5em;">Coach Sport, Mobilité & Vitalité Adaptée</h2>
-        <p style="margin:0;color:#e2e8f0;font-size:0.96em;">Séries variées qui évoluent automatiquement selon votre jour (Éveil, Renforcement, Endurance, Maîtrise), avec coach animé, métronome sonore doux et adaptation intelligente à votre forme.</p>
+        <h2 class="panel-title" style="color:#ffffff;margin-bottom:6px;font-size:1.52em;">Coach Sport, Flow Articulé & Vitalité Adaptée</h2>
+        <p style="margin:0;color:#e2e8f0;font-size:0.96em;">Chaque jour du défi propose une vraie série d'exercices variés qui s'enchaînent automatiquement avec temps de repos, coach animé, métronome doux et suivi de vitalité.</p>
         <div class="sport-stats-ribbon">
           <div class="sport-stat-box">
             <span class="sport-stat-val" id="sportStatSessions">0</span>
-            <span class="sport-stat-lbl">Séries validées</span>
+            <span class="sport-stat-lbl">Exercices validés</span>
           </div>
           <div class="sport-stat-box">
             <span class="sport-stat-val" id="sportStatMinutes">0 min</span>
@@ -955,13 +1058,13 @@
         </div>
       </div>
 
-      <!-- ÉTAPE 1 : PROFIL & OBJECTIF DU JOUR -->
+      <!-- ÉTAPE 1 : PROFIL, FORMAT MODERNE & OPTIONS -->
       <div class="box-card">
         <div class="row-flex" style="justify-content:space-between;margin-bottom:10px;">
-          <h3 style="margin:0;">1. Votre profil & objectif de séance</h3>
+          <h3 style="margin:0;">1. Profil adapté, format moderne & options</h3>
           <div class="cluster">
             <label style="font-size:0.86em;font-weight:700;display:inline-flex;align-items:center;gap:6px;cursor:pointer;">
-              <input type="checkbox" id="sportAutoNextChk" checked style="width:20px;height:20px;" /> Enchaîner auto
+              <input type="checkbox" id="sportAutoNextChk" checked style="width:20px;height:20px;" /> Enchaîner auto tout le jour
             </label>
             <label style="font-size:0.86em;font-weight:700;display:inline-flex;align-items:center;gap:6px;cursor:pointer;">
               <input type="checkbox" id="sportMetronomeChk" style="width:20px;height:20px;" /> Métronome doux
@@ -996,9 +1099,29 @@
           </button>
         </div>
 
-        <div style="margin-bottom:8px;font-weight:700;font-size:0.9em;">Variante de séance (rotation automatique chaque jour ou choix libre) :</div>
+        <div style="margin-bottom:8px;font-weight:700;font-size:0.9em;">Format moderne de séries :</div>
+        <div class="sport-format-strip" id="sportFormatStrip">
+          <button type="button" class="sport-fmt-card active" data-fmt="progressive">
+            <strong>Flow Progressif</strong>
+            <span style="font-size:0.78em;color:var(--muted);">Séries équilibrées & évolutives</span>
+          </button>
+          <button type="button" class="sport-fmt-card" data-fmt="hiit_doux">
+            <strong>HIIT Doux Adapté</strong>
+            <span style="font-size:0.78em;color:var(--muted);">Intervalles courts + repos actif</span>
+          </button>
+          <button type="button" class="sport-fmt-card" data-fmt="endurance_series">
+            <strong>Séries Longues (4x)</strong>
+            <span style="font-size:0.78em;color:var(--muted);">Volume accru pour progresser</span>
+          </button>
+          <button type="button" class="sport-fmt-card" data-fmt="zen_mobilite">
+            <strong>Mobilité & Souffle</strong>
+            <span style="font-size:0.78em;color:var(--muted);">Amplitude fluide & anti-raideur</span>
+          </button>
+        </div>
+
+        <div style="margin-bottom:8px;font-weight:700;font-size:0.9em;">Filtre musculaire / énergie :</div>
         <div class="sport-goal-tabs" id="sportVariantTabs">
-          <button type="button" class="sport-goal-btn active" data-var="auto">Rotation Progressive (Auto)</button>
+          <button type="button" class="sport-goal-btn active" data-var="auto">Programme du Jour (Multi-exercices)</button>
           <button type="button" class="sport-goal-btn" data-var="mobilite">Mobilité & Souplesse</button>
           <button type="button" class="sport-goal-btn" data-var="force">Tonus & Renforcement</button>
           <button type="button" class="sport-goal-btn" data-var="cardio">Cardio Doux & Souffle</button>
@@ -1014,10 +1137,10 @@
         </div>
       </div>
 
-      <!-- ÉTAPE 2 : PROGRESSION MULTI-PALIERS -->
+      <!-- ÉTAPE 2 : DÉFIS 30 À 365 JOURS & SÉLECTION DU JOUR -->
       <div class="box-card">
         <div class="row-flex" style="justify-content:space-between;margin-bottom:10px;">
-          <h3 style="margin:0;">2. Parcours Progressif (30 à 365 jours)</h3>
+          <h3 style="margin:0;">2. Défi Multi-Jours (30 à 365 jours) & Séries Quotidiennes</h3>
           <div class="cluster">
             <button type="button" class="btn-soft" id="btnSportDayPrev" style="min-height:40px;padding:6px 12px;">◀ Jour -</button>
             <strong id="sportDayLabel" style="padding:0 6px;">Jour 1 / 30</strong>
@@ -1033,33 +1156,47 @@
         </div>
 
         <div class="sport-challenges-grid" id="sportChallengesGrid"></div>
+
+        <!-- Barre horizontale cliquable de tous les jours du défi (ex: Jour 1 à Jour 30) -->
+        <div style="font-size:0.84em;font-weight:700;color:var(--muted);margin-bottom:4px;">Choisir un jour précis du défi :</div>
+        <div class="day-pills-scroller" id="sportDayScroller"></div>
+
         <div class="bar-bg" style="margin:6px 0;"><div class="bar-fill" id="sportProgBar" style="width:3%;"></div></div>
         <div id="sportProgInfo" style="font-size:0.88em;color:var(--muted);font-weight:700;"></div>
+
+        <!-- Résumé clair des exercices du jour sélectionné + bouton Démarrer la séance complète -->
+        <div class="day-plan-banner" id="dayPlanBanner">
+          <div style="flex:1 1 280px;">
+            <strong id="dayPlanTitle" style="font-size:1.05em;">Programme du Jour 1 : 4 exercices enchaînés</strong>
+            <div class="day-queue-chips" id="dayQueueChips"></div>
+          </div>
+          <button type="button" class="btn-green" id="btnStartFullDaySession">▶ Démarrer la séance du jour</button>
+        </div>
       </div>
 
       <!-- ZONE FÉLICITATIONS & RESSENTI RPE -->
       <div class="sport-celebration" id="sportCelebrationBox">
-        <h3 style="margin:0 0 6px;font-size:1.35em;" id="sportCelebTitle">Félicitations ! Exercice terminé !</h3>
+        <h3 style="margin:0 0 6px;font-size:1.35em;" id="sportCelebTitle">Félicitations ! Séance du jour terminée !</h3>
         <p style="margin:0 0 10px;" id="sportCelebMsg">Super travail ! Comment ressentez-vous l'effort ?</p>
         <div class="row-flex" style="justify-content:center;margin-bottom:12px;">
           <button type="button" class="btn-soft rpe-btn" data-rpe="Facile" style="background:rgba(255,255,255,0.92);color:#065f46;min-height:40px;">Facile (+ intensité)</button>
           <button type="button" class="btn-soft rpe-btn" data-rpe="Idéal" style="background:rgba(255,255,255,0.92);color:#065f46;min-height:40px;">Idéal (parfait)</button>
           <button type="button" class="btn-soft rpe-btn" data-rpe="Intense" style="background:rgba(255,255,255,0.92);color:#065f46;min-height:40px;">Intense (alléger)</button>
         </div>
-        <button type="button" class="btn-soft" style="background:#ffffff;color:#047857;" id="btnSportNextSeries">Passer à l'exercice suivant</button>
+        <button type="button" class="btn-soft" style="background:#ffffff;color:#047857;" id="btnSportNextSeries">Passer au jour suivant</button>
       </div>
 
-      <!-- ARÈNE DU COACH VIRTUEL -->
+      <!-- ARÈNE DU COACH VIRTUEL MODERNE -->
       <div class="coach-arena" id="coachArenaBox">
         <div class="coach-stage-canvas">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:0.82em;color:#94a3b8;font-weight:700;">
-            <span id="coachPoseBadge">COACH VIRTUEL • DÉMO LIVE</span>
-            <span id="coachPhaseBadge" style="color:#38bdf8;">PRÊT</span>
+            <span id="coachPoseBadge">STUDIO COACH • DÉMO LIVE</span>
+            <span id="coachPhaseBadge" style="color:#22d3ee;">PRÊT</span>
           </div>
           <svg class="coach-svg" id="coachSvg" viewBox="0 0 240 240" aria-label="Démonstration animée du coach">
             <defs>
               <linearGradient id="coachTorsoGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#38bdf8"/>
+                <stop offset="0%" stop-color="#22d3ee"/>
                 <stop offset="100%" stop-color="#2563eb"/>
               </linearGradient>
               <linearGradient id="coachSkinGrad" x1="0" y1="0" x2="0" y2="1">
@@ -1067,8 +1204,8 @@
                 <stop offset="100%" stop-color="#f59e0b"/>
               </linearGradient>
               <radialGradient id="floorGlow" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="rgba(56,189,248,0.38)"/>
-                <stop offset="100%" stop-color="rgba(56,189,248,0)"/>
+                <stop offset="0%" stop-color="rgba(34,211,238,0.38)"/>
+                <stop offset="100%" stop-color="rgba(34,211,238,0)"/>
               </radialGradient>
             </defs>
             <ellipse cx="120" cy="216" rx="78" ry="14" fill="url(#floorGlow)"/>
@@ -1077,26 +1214,26 @@
               <rect x="84" y="96" width="8" height="46" rx="4" fill="#64748b"/>
               <circle cx="120" cy="172" r="34" fill="none" stroke="#94a3b8" stroke-width="5"/>
               <circle cx="120" cy="172" r="24" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="6 4"/>
-              <circle cx="120" cy="172" r="6" fill="#38bdf8"/>
+              <circle cx="120" cy="172" r="6" fill="#22d3ee"/>
             </g>
             <g id="coachLegs">
               <path id="legLeft" d="M108 140 L102 178 L98 212" stroke="#1e293b" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
               <path id="legRight" d="M132 140 L138 178 L142 212" stroke="#0f172a" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-              <ellipse id="shoeLeft" cx="95" cy="214" rx="10" ry="5" fill="#38bdf8"/>
-              <ellipse id="shoeRight" cx="145" cy="214" rx="10" ry="5" fill="#38bdf8"/>
+              <ellipse id="shoeLeft" cx="95" cy="214" rx="10" ry="5" fill="#22d3ee"/>
+              <ellipse id="shoeRight" cx="145" cy="214" rx="10" ry="5" fill="#22d3ee"/>
             </g>
             <g id="coachUpperBody" transform="rotate(0 120 138)">
               <rect x="98" y="84" width="44" height="58" rx="18" fill="url(#coachTorsoGrad)"/>
               <path d="M102 104 L138 104" stroke="rgba(255,255,255,0.45)" stroke-width="3" stroke-linecap="round"/>
               <g id="coachHead" transform="rotate(0 120 62)">
                 <circle cx="120" cy="60" r="20" fill="url(#coachSkinGrad)"/>
-                <path d="M101 53 Q120 47 139 53" stroke="#ef4444" stroke-width="5" stroke-linecap="round" fill="none"/>
+                <path d="M101 53 Q120 47 139 53" stroke="#10b981" stroke-width="5" stroke-linecap="round" fill="none"/>
                 <circle cx="113" cy="60" r="2.3" fill="#0f172a"/>
                 <circle cx="127" cy="60" r="2.3" fill="#0f172a"/>
                 <path d="M114 68 Q120 73 126 68" stroke="#0f172a" stroke-width="2.3" stroke-linecap="round" fill="none"/>
               </g>
               <g id="coachArmLeft" transform="rotate(0 98 92)">
-                <path d="M98 92 L76 116 L66 138" stroke="#38bdf8" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <path d="M98 92 L76 116 L66 138" stroke="#22d3ee" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
                 <circle cx="66" cy="138" r="6.5" fill="url(#coachSkinGrad)"/>
               </g>
               <g id="coachArmRight" transform="rotate(0 142 92)">
@@ -1111,7 +1248,7 @@
         <div class="coach-hud">
           <div>
             <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;">
-              <span class="pill-tag" style="background:rgba(56,189,248,0.2);color:#7dd3fc;border-color:#38bdf8;" id="sportExCounter">Exercice 1 / 6</span>
+              <span class="pill-tag" style="background:rgba(34,211,238,0.18);color:#67e8f9;border-color:#22d3ee;" id="sportExCounter">Exercice 1 / 4</span>
               <div class="sets-dots" id="sportSetsDots" aria-label="Progression des séries"></div>
             </div>
             <h3 id="sportExTitle" style="margin:8px 0 6px;font-size:1.4em;color:#ffffff;">Élévations frontales des bras</h3>
@@ -1126,22 +1263,22 @@
             </div>
             <div>
               <div style="font-weight:800;font-size:1.05em;color:#ffffff;" id="sportRepsInfo">Durée : 25 sec • Série 1 / 3</div>
-              <div style="font-size:0.88em;color:#94a3b8;margin-top:3px;" id="sportVoiceHint">Repos actif de 10s entre chaque série • Décompte vocal 5s</div>
+              <div style="font-size:0.88em;color:#94a3b8;margin-top:3px;" id="sportVoiceHint">Enchaînement automatique des exercices & séries • Décompte 5s</div>
             </div>
           </div>
           <div class="row-flex" style="margin-bottom:0;">
-            <button type="button" class="btn-blue" id="btnSportStart" style="background:#10b981;border-color:#059669;color:#ffffff;">Démarrer l'exercice</button>
+            <button type="button" class="btn-blue" id="btnSportStart" style="background:#10b981;border-color:#059669;color:#ffffff;">Démarrer / Pause</button>
             <button type="button" class="btn-soft" id="btnSportExplain" style="background:rgba(255,255,255,0.12);color:#ffffff;border-color:rgba(255,255,255,0.25);">Expliquer (Voix)</button>
-            <button type="button" class="btn-soft" id="btnSportSkipPhase" style="background:rgba(255,255,255,0.12);color:#ffffff;border-color:rgba(255,255,255,0.25);">Passer</button>
+            <button type="button" class="btn-soft" id="btnSportSkipPhase" style="background:rgba(255,255,255,0.12);color:#ffffff;border-color:rgba(255,255,255,0.25);">Exercice / Série suiv.</button>
             <button type="button" class="btn-soft" id="btnSportResetEx" style="background:rgba(255,255,255,0.12);color:#ffffff;border-color:rgba(255,255,255,0.25);">Recommencer</button>
           </div>
         </div>
       </div>
 
-      <!-- LISTE DES EXERCICES DU JOUR -->
+      <!-- LISTE DÉTAILLÉE DES SÉRIES D'EXERCICES DU JOUR SÉLECTIONNÉ -->
       <div class="box-card">
         <div class="row-flex" style="justify-content:space-between;margin-bottom:10px;">
-          <h3 style="margin:0;">Séries progressives du jour (cliquez pour lancer)</h3>
+          <h3 style="margin:0;" id="sportExercisesListHeading">Séries d'exercices du Jour 1</h3>
           <div class="cluster">
             <button type="button" class="btn-soft" id="btnSportShuffleEx" style="min-height:40px;padding:6px 12px;">Varier l'ordre</button>
             <button type="button" class="btn-soft" id="btnSportShareReport" style="min-height:40px;padding:6px 12px;">Copier bilan sport</button>
@@ -2712,83 +2849,75 @@
       document.getElementById('iceNeeds').value = store.ice.needs || '';
       document.getElementById('journalInput').value = store.journal || '';
 
-      /* === LOGIQUE MODERNE & PROGRESSIVE DU MODULE SPORT ADAPTÉ === */
+      /* === LOGIQUE SPORT MODERNE AVEC ENCHAÎNEMENT MULTI-EXERCICES PAR JOUR === */
       const SPORT_CHALLENGES = [30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 365];
       const SPORT_PROGRAMS = {
         fauteuil: {
           label: 'Fauteuil / Assise',
           wheelchair: true,
           exercises: [
-            { name: 'Élévations frontales des bras', type: 'mobilite', pose: 'arms_front', baseSec: 25, sets: 3, desc: 'Assis bien droit, levez lentement les deux bras tendus devant vous jusqu’à hauteur d’épaules en inspirant, puis redescendez doucement.', cue: 'Bras devant • Épaules basses' },
-            { name: 'Ouverture thoracique & omoplates', type: 'mobilite', pose: 'arms_open', baseSec: 25, sets: 3, desc: 'Ouvrez grand les bras sur les côtés en rapprochant les omoplates pour ouvrir la cage thoracique, puis revenez au centre.', cue: 'Poitrine ouverte • Souffle profond' },
-            { name: 'Poussée verticale alternée (Boxe douce)', type: 'cardio', pose: 'arms_up', baseSec: 30, sets: 3, desc: 'Poussez un bras vers le plafond puis l’autre à un rythme régulier pour renforcer les épaules et le cardio.', cue: 'Extension vers le haut • Rythme fluide' },
-            { name: 'Rotation douce du buste & respiration', type: 'mobilite', pose: 'twist', baseSec: 25, sets: 2, desc: 'Mains sur les épaules, tournez lentement le haut du buste à droite puis à gauche sans forcer sur le dos.', cue: 'Torsion lente • Gainage doux' },
-            { name: 'Gainage assis & auto-grandissement', type: 'force', pose: 'arms_up', baseSec: 20, sets: 3, desc: 'Poussez le sommet du crâne vers le ciel en rentrant légèrement le nombril et en gardant les bras allongés.', cue: 'Dos long • Abdos engagés' },
-            { name: 'Rameur assis & tirage dorsal', type: 'force', pose: 'arms_open', baseSec: 25, sets: 3, desc: 'Tendez les bras devant vous puis tirez les coudes vers l’arrière comme pour ramer, en serrant le haut du dos.', cue: 'Coudes en arrière • Dos solide' },
-            { name: 'Sprint de bras rapide (Cardio assis)', type: 'cardio', pose: 'arms_front', baseSec: 20, sets: 3, desc: 'Alternez rapidement les mouvements de bras devant vous pendant 20 secondes pour stimuler le cœur en sécurité.', cue: 'Cadence dynamique • Souffle régulier' },
-            { name: 'Inclinaison latérale & étirement des côtes', type: 'mobilite', pose: 'twist', baseSec: 25, sets: 2, desc: 'Inclinez doucement le buste à droite en levant le bras gauche, puis inversez lentement.', cue: 'Étirement latéral • Sans à-coup' }
+            { name: 'Flow Bras Croisés & Ouverture', styleTag: 'Flow Articulé', type: 'mobilite', pose: 'arms_open', baseSec: 25, sets: 3, desc: 'Croisez doucement les avant-bras devant la poitrine puis ouvrez grand en inspirant, épaules basses.', cue: 'Flow fluide • Ouverture thoracique' },
+            { name: 'HIIT Assis : Punch & Rotation', styleTag: 'HIIT Doux', type: 'cardio', pose: 'twist', baseSec: 22, sets: 3, desc: 'Enchaînez des poussées dynamiques de bras avec une légère rotation du tronc, puis récupérez.', cue: 'Intervalles dynamiques • Gainage' },
+            { name: 'Tirage Rameur & Rétraction Scapulaire', styleTag: 'Force Ciblée', type: 'force', pose: 'arms_front', baseSec: 28, sets: 3, desc: 'Tendez les bras vers l’avant puis ramenez les coudes en arrière en serrant les omoplates.', cue: 'Dos fort • Contrôle du retour' },
+            { name: 'Presse Épaules Alternée (Tempo)', styleTag: 'Tonus Haut du Corps', type: 'force', pose: 'arms_up', baseSec: 25, sets: 3, desc: 'Montez un bras vers le plafond pendant que l’autre descend, à un rythme régulier et maîtrisé.', cue: 'Tempo régulier • Épaules stables' },
+            { name: 'Cardio Rythmé : Mouvement de Pagayage', styleTag: 'Cardio Assise', type: 'cardio', pose: 'arms_open', baseSec: 25, sets: 3, desc: 'Dessinez de grands mouvements de pagaie sur les côtés pour activer l’endurance cardio-respiratoire.', cue: 'Pagayage actif • Souffle fluide' },
+            { name: 'Étirement Latéral & Respiration Côtes', styleTag: 'Mobilité Zen', type: 'mobilite', pose: 'twist', baseSec: 25, sets: 2, desc: 'Inclinez lentement le buste d’un côté pour étirer les flancs, revenez au centre et changez de côté.', cue: 'Allongement latéral • Calme' }
           ]
         },
         moteur: {
           label: 'Mobilité Réduite',
           wheelchair: false,
           exercises: [
-            { name: 'Élévation latérale des bras', type: 'mobilite', pose: 'arms_open', baseSec: 25, sets: 3, desc: 'Debout ou assis avec appui stable, montez les bras sur les côtés jusqu’à l’horizontale puis redescendez avec contrôle.', cue: 'Contrôle lent • Stabilité' },
-            { name: 'Flexion légère des genoux (Mini-squat)', type: 'force', pose: 'squat', baseSec: 25, sets: 3, desc: 'Pieds écartés largeur du bassin, fléchissez légèrement les genoux en gardant le dos droit puis remontez.', cue: 'Dos droit • Appui sur les talons' },
-            { name: 'Montée sur demi-pointes', type: 'force', pose: 'arms_up', baseSec: 25, sets: 3, desc: 'Décollez doucement les talons du sol pendant deux secondes pour activer la circulation des mollets, puis reposez.', cue: 'Équilibre • Mollets actifs' },
-            { name: 'Étirement latéral du buste', type: 'mobilite', pose: 'twist', baseSec: 25, sets: 2, desc: 'Inclinez doucement le buste d’un côté puis de l’autre en gardant les hanches stables.', cue: 'Allongement doux • Sans à-coup' },
-            { name: 'Marche sur place lente & balancier', type: 'cardio', pose: 'arms_front', baseSec: 30, sets: 3, desc: 'Levez alternativement un genou puis l’autre tout en accompagnant avec le balancier souple des bras.', cue: 'Coordination • Cadence posée' },
-            { name: 'Transfert d’appui gauche / droite', type: 'mobilite', pose: 'twist', baseSec: 25, sets: 2, desc: 'Transférez doucement le poids du corps d’une jambe sur l’autre pour travailler l’équilibre en toute sécurité.', cue: 'Stabilité • Regard loin devant' },
-            { name: 'Squat maintenu (Isométrie douce)', type: 'force', pose: 'squat', baseSec: 20, sets: 3, desc: 'Descendez légèrement sur vos appuis et maintenez la position sans bloquer la respiration.', cue: 'Cuisses toniques • Souffle calme' },
-            { name: 'Ouverture bras & montée de genou', type: 'cardio', pose: 'arms_open', baseSec: 25, sets: 3, desc: 'Ouvrez les bras en levant un genou à hauteur confortable, alternez gauche et droite.', cue: 'Rythme fluide • Coordination' }
+            { name: 'Mini-Squat Flow & Bras Avant', styleTag: 'Bas du Corps', type: 'force', pose: 'squat', baseSec: 25, sets: 3, desc: 'Fléchissez légèrement les genoux en tendant les bras devant vous pour équilibrer, puis remontez avec contrôle.', cue: 'Équilibre avant • Genoux alignés' },
+            { name: 'HIIT Doux : Pas Chassés / Appuis', styleTag: 'HIIT Doux', type: 'cardio', pose: 'twist', baseSec: 22, sets: 3, desc: 'Transférez l’appui d’un côté à l’autre avec un léger balancier des bras, à votre vitesse.', cue: 'Appuis réactifs • Sécurité' },
+            { name: 'Élévation Mollets & Bras au Zénith', styleTag: 'Équilibre & Tonus', type: 'force', pose: 'arms_up', baseSec: 25, sets: 3, desc: 'Décollez les talons en montant les bras pour grandir la posture, puis reposez doucement.', cue: 'Auto-grandissement • Mollets' },
+            { name: 'Rotation Bustier & Ouverture Bras', styleTag: 'Mobilité Articulaire', type: 'mobilite', pose: 'arms_open', baseSec: 25, sets: 2, desc: 'Tournez doucement le buste en ouvrant les bras pour libérer la colonne vertébrale.', cue: 'Mobilité colonne • Douceur' },
+            { name: 'Marche Dynamique & Balancier', styleTag: 'Cardio Adapté', type: 'cardio', pose: 'arms_front', baseSec: 28, sets: 3, desc: 'Marchez sur place ou en appui stable en coordonnant bras et respiration.', cue: 'Coordination • Endurance' },
+            { name: 'Isométrie Douce & Respiration', styleTag: 'Gainage Debout', type: 'force', pose: 'squat', baseSec: 20, sets: 3, desc: 'Maintenez une légère flexion des jambes sur 20 secondes en respirant calmement.', cue: 'Stabilité • Souffle régulier' }
           ]
         },
         visuel: {
           label: 'Handicap Visuel',
           wheelchair: false,
           exercises: [
-            { name: 'Alignement postural & bras au ciel', type: 'mobilite', pose: 'arms_up', baseSec: 30, sets: 3, desc: 'Pieds ancrés au sol, montez les deux mains au-dessus de la tête en suivant votre respiration, puis ramenez le long du corps.', cue: 'Repère vertical • Respiration guidée' },
-            { name: 'Cercles contrôlés des épaules', type: 'mobilite', pose: 'arms_open', baseSec: 25, sets: 3, desc: 'Écartez légèrement les bras et dessinez de grands cercles lents vers l’arrière pour détendre la nuque et le haut du dos.', cue: 'Amplitude régulière • Épaules relâchées' },
-            { name: 'Flexion douce des jambes guidée', type: 'force', pose: 'squat', baseSec: 30, sets: 3, desc: 'Tendez les bras devant vous pour garder votre repère d’équilibre, pliez légèrement les genoux et remontez.', cue: 'Bras devant pour l’équilibre' },
-            { name: 'Inclinaison calme gauche et droite', type: 'mobilite', pose: 'twist', baseSec: 25, sets: 2, desc: 'Glissez la main droite vers le genou droit en expirant, revenez au centre, puis faites la même chose à gauche.', cue: 'Mouvement symétrique • Calme' },
-            { name: 'Ancrage respiratoire & ouverture', type: 'cardio', pose: 'arms_front', baseSec: 25, sets: 2, desc: 'Mains devant le plexus, ouvrez les bras sur 4 secondes d’inspiration puis refermez sur 4 secondes d’expiration.', cue: 'Rythme sonore • Détente' },
-            { name: 'Gainage debout & poussée des paumes', type: 'force', pose: 'arms_front', baseSec: 25, sets: 3, desc: 'Pressez vos deux paumes l’une contre l’autre devant la poitrine pendant 5 secondes puis relâchez.', cue: 'Force pectorale • Repère central' },
-            { name: 'Montée sur pointes avec repère mural', type: 'force', pose: 'arms_up', baseSec: 25, sets: 3, desc: 'Effleurez un mur ou dossier de chaise du bout des doigts et montez sur la pointe des pieds.', cue: 'Repère tactile • Mollets forts' }
+            { name: 'Verticalité Guidée & Bras Montants', styleTag: 'Guidage Vocal', type: 'mobilite', pose: 'arms_up', baseSec: 28, sets: 3, desc: 'Montez les deux mains vers le haut en suivant la voix du coach, puis redescendez le long du corps.', cue: 'Axe vertical • Repère audio' },
+            { name: 'Flow Circulaire des Épaules', styleTag: 'Mobilité Fluide', type: 'mobilite', pose: 'arms_open', baseSec: 25, sets: 3, desc: 'Dessinez des cercles amples et réguliers avec les bras pour dénouer les tensions.', cue: 'Cercles fluides • Détente' },
+            { name: 'Flexion Jambes avec Repère Avant', styleTag: 'Tonus & Équilibre', type: 'force', pose: 'squat', baseSec: 25, sets: 3, desc: 'Gardez les mains devant vous comme repère spatial, pliez doucement les genoux et remontez.', cue: 'Repère avant • Appui stable' },
+            { name: 'HIIT Audio : Rythme 1-2-3-4', styleTag: 'HIIT Doux', type: 'cardio', pose: 'arms_front', baseSec: 22, sets: 3, desc: 'Suivez le décompte et le métronome pour alterner poussées de bras et respiration.', cue: 'Cadence audio • Énergie' },
+            { name: 'Inclinaison Latérale Symétrique', styleTag: 'Souplesse', type: 'mobilite', pose: 'twist', baseSec: 25, sets: 2, desc: 'Inclinez le buste à droite puis à gauche en gardant le bassin stable.', cue: 'Symétrie • Respiration lente' }
           ]
         },
         auditif: {
           label: 'Handicap Auditif',
           wheelchair: false,
           exercises: [
-            { name: 'Ouverture dynamique des bras', type: 'cardio', pose: 'arms_open', baseSec: 30, sets: 3, desc: 'Suivez le tempo visuel du coach : ouvrez les bras sur 2 temps, fermez sur 2 temps. Un flash visuel signale les 5 dernières secondes.', cue: 'Tempo visuel • 2 temps ouvrir / 2 fermer' },
-            { name: 'Squat rythmé avec repère visuel', type: 'force', pose: 'squat', baseSec: 30, sets: 3, desc: 'Descendez en même temps que le coach, maintenez 1 seconde en bas et remontez avec énergie.', cue: 'Synchronisation avec le coach' },
-            { name: 'Extension alternée vers le haut', type: 'cardio', pose: 'arms_up', baseSec: 30, sets: 3, desc: 'Tendez un bras après l’autre vers le plafond en gardant les abdominaux engagés.', cue: 'Cadence régulière • Posture haute' },
-            { name: 'Retour au calme & balancement', type: 'mobilite', pose: 'twist', baseSec: 25, sets: 2, desc: 'Relâchez les bras et tournez doucement le buste de droite à gauche en suivant le mouvement lent du coach.', cue: 'Relâchement progressif' },
-            { name: 'Élévations frontales cadencées', type: 'force', pose: 'arms_front', baseSec: 25, sets: 3, desc: 'Montez et descendez les bras au même rythme que l’animation centrale, épaules détendues.', cue: 'Repère visuel fluide' },
-            { name: 'Fente statique douce & équilibre', type: 'force', pose: 'squat', baseSec: 25, sets: 2, desc: 'Avancez légèrement un pied, fléchissez doucement les genoux au signal visuel puis remontez.', cue: 'Stabilité • Repère visuel' }
+            { name: 'Tempo Visuel : Ouverture & Fermeture', styleTag: 'Signal Visuel', type: 'mobilite', pose: 'arms_open', baseSec: 28, sets: 3, desc: 'Synchronisez vos bras avec l’animation du coach. Un flash lumineux signale les 5 dernières secondes.', cue: 'Repère visuel • Flash fin de série' },
+            { name: 'HIIT Visuel : Squat & Extension', styleTag: 'HIIT Doux', type: 'cardio', pose: 'squat', baseSec: 22, sets: 3, desc: 'Descendez en flexion puis remontez en tendant les bras au rythme visuel du coach.', cue: 'Rythme visuel • Cardio doux' },
+            { name: 'Poussée Haut / Bas Cadencée', styleTag: 'Tonus Visuel', type: 'force', pose: 'arms_up', baseSec: 25, sets: 3, desc: 'Suivez le mouvement d’élévation des bras du coach sur chaque temps.', cue: 'Cadence claire • Posture haute' },
+            { name: 'Twist Doux & Relâchement', styleTag: 'Mobilité', type: 'mobilite', pose: 'twist', baseSec: 25, sets: 2, desc: 'Tournez le buste d’un côté puis de l’autre en suivant le balancier visuel.', cue: 'Mouvement fluide • Calme' },
+            { name: 'Boxe Rythmée Devant Soi', styleTag: 'Cardio Rythmé', type: 'cardio', pose: 'arms_front', baseSec: 25, sets: 3, desc: 'Poussez les mains devant vous à la cadence visuelle de l’avatar.', cue: 'Tempo visuel • Dynamisme' }
           ]
         },
         cognitif: {
           label: 'Cognitif / DYS',
           wheelchair: false,
           exercises: [
-            { name: '1 geste simple : Lever les bras', type: 'mobilite', pose: 'arms_up', baseSec: 20, sets: 3, desc: 'Étape 1 : Je lève les mains vers le ciel. Étape 2 : Je redescends doucement les mains sur mes côtés.', cue: '1 : Monter • 2 : Descendre' },
-            { name: 'Ouvrir et fermer comme un livre', type: 'mobilite', pose: 'arms_open', baseSec: 20, sets: 3, desc: 'J’ouvre grand les bras sur les côtés, puis je ramène mes mains devant moi.', cue: 'Ouvrir grand • Fermer doucement' },
-            { name: 'Plier un peu les genoux', type: 'force', pose: 'squat', baseSec: 20, sets: 3, desc: 'Je plie un tout petit peu les genoux comme pour m’asseoir, puis je me redresse.', cue: 'Plier doucement • Remonter' },
-            { name: 'Tourner doucement à droite et à gauche', type: 'mobilite', pose: 'twist', baseSec: 20, sets: 2, desc: 'Je regarde à droite en tournant les épaules, puis je regarde à gauche tout doucement.', cue: 'À droite • Puis à gauche' },
-            { name: 'Toucher devant puis relâcher', type: 'cardio', pose: 'arms_front', baseSec: 20, sets: 2, desc: 'Je tends les mains devant moi comme pour toucher un nuage, puis je relâche.', cue: 'Tendre devant • Relâcher' },
-            { name: 'Marcher sur place comme un robot calme', type: 'cardio', pose: 'arms_front', baseSec: 20, sets: 2, desc: 'Je lève un pied après l’autre tout doucement en comptant 1, 2, 1, 2.', cue: '1, 2, 1, 2 • Calme' }
+            { name: 'Geste Clair : Lever & Poser', styleTag: '1 Consigne', type: 'mobilite', pose: 'arms_up', baseSec: 20, sets: 3, desc: 'Je lève les bras vers le haut, puis je les repose doucement.', cue: 'Lever • Poser' },
+            { name: 'Grand Soleil : Ouvrir & Fermer', styleTag: '1 Consigne', type: 'mobilite', pose: 'arms_open', baseSec: 20, sets: 3, desc: 'J’ouvre grand les bras, puis je ramène les mains devant moi.', cue: 'Ouvrir • Fermer' },
+            { name: 'Petit Pont : Plier & Tendre', styleTag: 'Tonus Simple', type: 'force', pose: 'squat', baseSec: 20, sets: 3, desc: 'Je plie un peu les genoux, puis je me redresse.', cue: 'Plier • Redresser' },
+            { name: 'Gauche & Droite Tout Doucement', styleTag: 'Coordination', type: 'mobilite', pose: 'twist', baseSec: 20, sets: 2, desc: 'Je tourne les épaules à gauche, puis à droite.', cue: 'Gauche • Droite' },
+            { name: 'Toucher Devant en Rythme', styleTag: 'Cardio Simple', type: 'cardio', pose: 'arms_front', baseSec: 20, sets: 3, desc: 'Je tends les bras devant moi un après l’autre.', cue: 'Devant • Souffle' }
           ]
         },
         fatigue: {
           label: 'Fatigue / Douleur',
           wheelchair: true,
           exercises: [
-            { name: 'Respiration ample avec ouverture des bras', type: 'mobilite', pose: 'arms_open', baseSec: 25, sets: 2, desc: 'Sans forcer, ouvrez légèrement les bras en inspirant par le nez, puis relâchez en expirant longuement.', cue: 'Zéro douleur • Respiration longue' },
-            { name: 'Élévation très douce devant soi', type: 'mobilite', pose: 'arms_front', baseSec: 20, sets: 2, desc: 'Montez les bras uniquement jusqu’à la hauteur qui reste confortable pour vous, puis redescendez.', cue: 'Amplitude confortable uniquement' },
-            { name: 'Détente des épaules & nuque', type: 'mobilite', pose: 'twist', baseSec: 25, sets: 2, desc: 'Relâchez complètement les trapèzes et effectuez de micro-rotations du haut du buste.', cue: 'Relâchement musculaire profond' },
-            { name: 'Étirement doux vers le haut', type: 'force', pose: 'arms_up', baseSec: 20, sets: 2, desc: 'Étirez un bras après l’autre sans tension pour oxygéner le dos et relancer l’énergie.', cue: 'Énergie douce • Oxygénation' },
-            { name: 'Pause régénérante & cohérence', type: 'cardio', pose: 'rest', baseSec: 25, sets: 2, desc: 'Mains posées confortablement, laissez les épaules s’abaisser à chaque expiration lente.', cue: 'Récupération • Douceur' }
+            { name: 'Souffle Ample & Bras Légers', styleTag: 'Douceur Max', type: 'mobilite', pose: 'arms_open', baseSec: 25, sets: 2, desc: 'Ouvrez très légèrement les bras en inspirant, puis relâchez sur une longue expiration.', cue: 'Zéro contrainte • Souffle long' },
+            { name: 'Micro-Élévation Confortable', styleTag: 'Mobilité Douce', type: 'mobilite', pose: 'arms_front', baseSec: 20, sets: 2, desc: 'Montez les bras uniquement sur une amplitude agréable et sans douleur.', cue: 'Confort absolu • Douceur' },
+            { name: 'Détente Nuque & Épaules', styleTag: 'Anti-Tension', type: 'mobilite', pose: 'twist', baseSec: 25, sets: 2, desc: 'Effectuez des rotations très lentes du buste pour relâcher les tensions.', cue: 'Relâchement • Apaisement' },
+            { name: 'Étirement Léger Vers le Haut', styleTag: 'Réveil Doux', type: 'force', pose: 'arms_up', baseSec: 20, sets: 2, desc: 'Étirez un bras puis l’autre sans forcer pour réveiller l’énergie en douceur.', cue: 'Énergie douce • Sans effort' },
+            { name: 'Pause Respiratoire Guidée', styleTag: 'Récupération', type: 'cardio', pose: 'rest', baseSec: 25, sets: 2, desc: 'Laissez le corps se poser et respirez calmement jusqu’à la fin du temps.', cue: 'Repos • Sérénité' }
           ]
         }
       };
@@ -2797,6 +2926,7 @@
 
       const sportState = {
         handicap: safeGet('hv_sport_h', 'fauteuil'),
+        format: safeGet('hv_sport_fmt', 'progressive'),
         variant: safeGet('hv_sport_var', 'auto'),
         challenge: safeGet('hv_sport_chal', 30),
         day: safeGet('hv_sport_day', 1),
@@ -2809,6 +2939,7 @@
         exIdx: 0,
         currentSet: 1,
         isRestPhase: false,
+        pendingNextExIdx: null, // quand un repos sépare deux exercices différents
         specialMode: '', // 'warmup' | 'cooldown' | ''
         running: false,
         timeLeft: 25,
@@ -2821,6 +2952,7 @@
 
       function saveSportState() {
         safeSet('hv_sport_h', sportState.handicap);
+        safeSet('hv_sport_fmt', sportState.format);
         safeSet('hv_sport_var', sportState.variant);
         safeSet('hv_sport_chal', sportState.challenge);
         safeSet('hv_sport_day', sportState.day);
@@ -2830,47 +2962,69 @@
         safeSet('hv_sport_offset', sportState.intensityOffset);
       }
 
-      /* Sélection variée et progressive des séries selon le jour et l'objectif */
+      /* Chaque jour du défi construit une liste variée d'exercices (4 à 6 exercices) adaptée au jour */
       function getActiveExercises() {
         const prog = SPORT_PROGRAMS[sportState.handicap];
-        let list = prog.exercises.slice();
+        const raw = prog.exercises.slice();
 
-        if (sportState.variant !== 'auto') {
-          const filtered = list.filter(function (e) { return e.type === sportState.variant; });
-          if (filtered.length >= 2) list = filtered;
-        } else {
-          // Rotation progressive automatique selon le jour pour varier les séances chaque jour
-          const shift = (sportState.day - 1 + sportState.shuffleSeed) % list.length;
-          list = list.slice(shift).concat(list.slice(0, shift));
-          // Au début (Jours 1 à 5), on propose 4 exercices ciblés ; ensuite 5 à 6 exercices variés
-          const count = sportState.day <= 5 ? Math.min(4, list.length) : (sportState.day <= 15 ? Math.min(5, list.length) : Math.min(6, list.length));
-          list = list.slice(0, count);
+        if (sportState.format === 'zen_mobilite') {
+          const zen = raw.filter(function (e) { return e.type === 'mobilite'; });
+          return zen.length >= 2 ? zen : raw;
         }
-        return list;
+        if (sportState.format === 'hiit_doux') {
+          const hiit = raw.filter(function (e) { return e.type === 'cardio' || e.type === 'force'; });
+          return hiit.length >= 2 ? hiit : raw;
+        }
+        if (sportState.variant !== 'auto') {
+          const filtered = raw.filter(function (e) { return e.type === sportState.variant; });
+          return filtered.length >= 2 ? filtered : raw;
+        }
+
+        // Rotation et sélection variée selon le jour et le seed de mélange
+        const shift = (sportState.day * 2 + sportState.shuffleSeed) % raw.length;
+        const rotated = raw.slice(shift).concat(raw.slice(0, shift));
+        const targetCount = sportState.day <= 5 ? Math.min(4, rotated.length) : (sportState.day <= 15 ? Math.min(5, rotated.length) : rotated.length);
+        return rotated.slice(0, targetCount);
       }
 
       function getCurrentPhaseInfo() {
-        if (sportState.day <= 7) return { num: 1, name: 'Phase 1 : Éveil & Posture', restSec: 12 };
-        if (sportState.day <= 15) return { num: 2, name: 'Phase 2 : Amplitude & Rythme', restSec: 10 };
-        if (sportState.day <= 30) return { num: 3, name: 'Phase 3 : Endurance & Séries +', restSec: 8 };
-        return { num: 4, name: 'Phase 4 : Maîtrise & Vitalité', restSec: 8 };
+        let baseRest = sportState.day <= 7 ? 10 : (sportState.day <= 15 ? 8 : 7);
+        if (sportState.format === 'hiit_doux') baseRest = 8;
+        if (sportState.day <= 7) return { num: 1, name: 'Phase 1 : Éveil & Posture', restSec: baseRest };
+        if (sportState.day <= 15) return { num: 2, name: 'Phase 2 : Amplitude & Rythme', restSec: baseRest };
+        if (sportState.day <= 30) return { num: 3, name: 'Phase 3 : Endurance & Séries +', restSec: baseRest };
+        return { num: 4, name: 'Phase 4 : Maîtrise & Vitalité', restSec: baseRest };
       }
 
       function getProgressiveDuration(baseSec) {
         if (sportState.specialMode) return 30;
-        const dayBonus = Math.min(25, Math.floor((sportState.day - 1) * 0.45));
+        let sec = baseSec;
+        if (sportState.format === 'hiit_doux') sec = 20;
+        if (sportState.format === 'zen_mobilite') sec = Math.max(25, baseSec);
+        const dayBonus = Math.min(20, Math.floor((sportState.day - 1) * 0.4));
         const rpeBonus = sportState.intensityOffset * 5;
         const paceFactor = sportState.pace === 0.7 ? 1.15 : (sportState.pace === 1.35 ? 0.9 : 1);
-        return Math.max(15, Math.round((baseSec + dayBonus + rpeBonus) * paceFactor));
+        return Math.max(15, Math.round((sec + dayBonus + rpeBonus) * paceFactor));
       }
 
       function getProgressiveSets(baseSets) {
         if (sportState.specialMode) return 1;
-        let sets = baseSets;
+        let sets = sportState.format === 'endurance_series' ? Math.max(4, baseSets + 1) : baseSets;
         if (sportState.day >= 16) sets += 1;
         if (sportState.day >= 60) sets += 1;
         if (sportState.intensityOffset < 0 && sets > 2) sets -= 1;
         return Math.min(5, Math.max(2, sets));
+      }
+
+      function isDayCompleted(dayNum) {
+        const prog = SPORT_PROGRAMS[sportState.handicap];
+        const shift = (dayNum * 2) % prog.exercises.length;
+        const rotated = prog.exercises.slice(shift).concat(prog.exercises.slice(0, shift));
+        const cnt = dayNum <= 5 ? Math.min(4, rotated.length) : (dayNum <= 15 ? Math.min(5, rotated.length) : rotated.length);
+        const dayExs = rotated.slice(0, cnt);
+        return dayExs.every(function (ex) {
+          return !!sportState.completed[sportState.handicap + '_' + sportState.challenge + '_d' + dayNum + '_' + ex.name];
+        });
       }
 
       function setCoachPose(poseName, t) {
@@ -2886,7 +3040,6 @@
         const swing = Math.sin(t);
         const sign = swing >= 0 ? 1 : -1;
 
-        // Métronome sonore doux synchronisé avec l'inversion du mouvement
         if (sportState.running && !sportState.isRestPhase && sign !== sportState.lastBeatSign) {
           sportState.lastBeatSign = sign;
           const metroChk = document.getElementById('sportMetronomeChk');
@@ -2962,7 +3115,7 @@
         if (sportState.timerId) { clearInterval(sportState.timerId); sportState.timerId = null; }
         sportState.running = false;
         const btn = document.getElementById('btnSportStart');
-        if (btn) btn.textContent = "Démarrer l'exercice";
+        if (btn) btn.textContent = 'Démarrer / Pause';
         const phase = document.getElementById('coachPhaseBadge');
         if (phase) phase.textContent = 'EN PAUSE / PRÊT';
       }
@@ -3000,6 +3153,9 @@
         document.querySelectorAll('.sport-h-card').forEach(function (card) {
           card.classList.toggle('active', card.dataset.sh === sportState.handicap);
         });
+        document.querySelectorAll('.sport-fmt-card').forEach(function (card) {
+          card.classList.toggle('active', card.dataset.fmt === sportState.format);
+        });
         document.querySelectorAll('.sport-goal-btn').forEach(function (btn) {
           btn.classList.toggle('active', btn.dataset.var === sportState.variant);
         });
@@ -3010,6 +3166,7 @@
           p.classList.toggle('current', Number(p.dataset.phase) === phaseInfo.num);
         });
 
+        // Boutons de défis (30, 60, 90... 365 jours)
         const chalGrid = document.getElementById('sportChallengesGrid');
         if (chalGrid) {
           chalGrid.innerHTML = '';
@@ -3020,17 +3177,47 @@
             b.innerHTML = '<strong>' + days + ' j</strong><span style="font-size:0.76em;opacity:0.85;">Défi</span>';
             b.addEventListener('click', function () {
               stopSportTimer();
+              document.getElementById('sportCelebrationBox').classList.remove('show');
               sportState.specialMode = '';
               sportState.isRestPhase = false;
+              sportState.pendingNextExIdx = null;
               sportState.currentSet = 1;
+              sportState.exIdx = 0;
               sportState.challenge = days;
               if (sportState.day > days) sportState.day = days;
               saveSportState();
               renderSportUI();
-              showToast('Défi ' + days + ' jours sélectionné');
+              showToast('Défi ' + days + ' jours chargé — Jour ' + sportState.day + ' (' + getActiveExercises().length + ' exercices)');
             });
             chalGrid.appendChild(b);
           });
+        }
+
+        // Défilement horizontal de tous les jours du défi sélectionné (Jour 1 à Jour N)
+        const scroller = document.getElementById('sportDayScroller');
+        if (scroller) {
+          scroller.innerHTML = '';
+          for (let d = 1; d <= sportState.challenge; d++) {
+            const pill = document.createElement('button');
+            pill.type = 'button';
+            const doneDay = isDayCompleted(d);
+            pill.className = 'day-pill-btn' + (d === sportState.day ? ' active' : '') + (doneDay ? ' day-done' : '');
+            pill.textContent = 'J' + d + (doneDay ? ' ✓' : '');
+            pill.addEventListener('click', function () {
+              stopSportTimer();
+              document.getElementById('sportCelebrationBox').classList.remove('show');
+              sportState.day = d;
+              sportState.exIdx = 0;
+              sportState.currentSet = 1;
+              sportState.isRestPhase = false;
+              sportState.pendingNextExIdx = null;
+              sportState.specialMode = '';
+              saveSportState();
+              renderSportUI();
+              showToast('Jour ' + d + ' sélectionné (' + getActiveExercises().length + ' exercices)');
+            });
+            scroller.appendChild(pill);
+          }
         }
 
         const doneCount = Object.keys(sportState.completed).length;
@@ -3043,7 +3230,29 @@
         document.getElementById('sportStreakBadge').textContent = 'Jour ' + sportState.day + ' • ' + phaseInfo.name;
         const pctChallenge = Math.min(100, Math.round((sportState.day / sportState.challenge) * 100));
         document.getElementById('sportProgBar').style.width = pctChallenge + '%';
-        document.getElementById('sportProgInfo').textContent = 'Profil : ' + prog.label + ' • ' + phaseInfo.name + ' • Repos entre séries : ' + phaseInfo.restSec + 's';
+        document.getElementById('sportProgInfo').textContent = 'Profil : ' + prog.label + ' • ' + phaseInfo.name + ' • ' + activeExList.length + ' exercices prévus aujourd’hui • Repos : ' + phaseInfo.restSec + 's';
+
+        // Bannière récapitulative de la séance complète du jour
+        const planTitle = document.getElementById('dayPlanTitle');
+        const queueChips = document.getElementById('dayQueueChips');
+        const listHeading = document.getElementById('sportExercisesListHeading');
+        if (planTitle) {
+          planTitle.textContent = 'Séance du Jour ' + sportState.day + ' (' + activeExList.length + ' exercices différents enchaînés)';
+        }
+        if (listHeading) {
+          listHeading.textContent = "Séries d'exercices du Jour " + sportState.day + ' / ' + sportState.challenge;
+        }
+        if (queueChips) {
+          queueChips.innerHTML = '';
+          activeExList.forEach(function (item, idx) {
+            const dKey = sportState.handicap + '_' + sportState.challenge + '_d' + sportState.day + '_' + item.name;
+            const isDone = !!sportState.completed[dKey];
+            const chip = document.createElement('span');
+            chip.className = 'queue-chip' + (idx === sportState.exIdx ? ' is-current' : (isDone ? ' is-done' : ''));
+            chip.textContent = (idx + 1) + '. ' + item.name + (isDone ? ' ✓' : '');
+            queueChips.appendChild(chip);
+          });
+        }
 
         const wc = document.getElementById('coachWheelchair');
         if (wc) wc.style.display = prog.wheelchair ? 'block' : 'none';
@@ -3070,401 +3279,4 @@
         }
 
         if (sportState.specialMode === 'warmup') {
-          document.getElementById('sportExCounter').textContent = 'ÉCHAUFFEMENT ARTICULAIRE';
-          document.getElementById('sportExTitle').textContent = 'Réveil doux des épaules & souffle (30 sec)';
-          document.getElementById('sportExDesc').textContent = 'Ouvrez doucement les bras et roulez les épaules en arrière pour préparer vos articulations sans tension.';
-          document.getElementById('coachCueText').textContent = 'Mobilité lente • Préparation du corps';
-          document.getElementById('sportRepsInfo').textContent = 'Échauffement : 30 sec';
-        } else if (sportState.specialMode === 'cooldown') {
-          document.getElementById('sportExCounter').textContent = 'RETOUR AU CALME';
-          document.getElementById('sportExTitle').textContent = 'Respiration apaisante & relâchement (30 sec)';
-          document.getElementById('sportExDesc').textContent = 'Relâchez complètement les épaules et respirez lentement pour faire redescendre le rythme cardiaque.';
-          document.getElementById('coachCueText').textContent = 'Expiration longue • Détente profonde';
-          document.getElementById('sportRepsInfo').textContent = 'Retour au calme : 30 sec';
-        } else if (sportState.isRestPhase) {
-          document.getElementById('sportExCounter').textContent = 'REPOS ACTIF • Série ' + sportState.currentSet + ' / ' + sets;
-          document.getElementById('sportExTitle').textContent = 'Récupération & hydratation';
-          document.getElementById('sportExDesc').textContent = 'Relâchez les muscles, buvez une gorgée d’eau et préparez-vous pour la série suivante.';
-          document.getElementById('coachCueText').textContent = 'Inspirez par le nez • Expirez lentement';
-          document.getElementById('sportRepsInfo').textContent = 'Repos : ' + phaseInfo.restSec + ' sec avant la série ' + sportState.currentSet;
-        } else {
-          document.getElementById('sportExCounter').textContent = 'Exercice ' + (sportState.exIdx + 1) + ' / ' + activeExList.length + ' • ' + (TYPE_LABELS[ex.type] || 'Adapté');
-          document.getElementById('sportExTitle').textContent = ex.name;
-          document.getElementById('sportExDesc').textContent = ex.desc;
-          document.getElementById('coachCueText').textContent = ex.cue;
-          document.getElementById('sportRepsInfo').textContent = 'Durée : ' + dur + ' sec • Série ' + sportState.currentSet + ' / ' + sets;
-        }
-        updateSportChronoUI();
-
-        const listBox = document.getElementById('sportExercisesList');
-        if (listBox) {
-          listBox.innerHTML = '';
-          activeExList.forEach(function (item, idx) {
-            const dKey = sportState.handicap + '_' + sportState.challenge + '_d' + sportState.day + '_' + item.name;
-            const isDone = !!sportState.completed[dKey];
-            const itemDur = getProgressiveDuration(item.baseSec);
-            const itemSets = getProgressiveSets(item.sets);
-            const row = document.createElement('div');
-            row.className = 'item-strip';
-            if (idx === sportState.exIdx && !sportState.specialMode) {
-              row.style.borderColor = 'var(--primary)';
-              row.style.borderWidth = '2px';
-            }
-            const left = document.createElement('div');
-            left.innerHTML = '<strong>' + (idx + 1) + '. ' + escapeHtml(item.name) + '</strong>' +
-              '<span class="ex-badge-type">' + escapeHtml(TYPE_LABELS[item.type] || 'Adapté') + '</span>' +
-              (isDone ? ' <span class="pill-tag tag-free" style="background:#dcfce7;color:#166534;border-color:#86efac;">Terminé ✓</span>' : '') +
-              '<div style="font-size:0.86em;color:var(--muted);margin-top:3px;">' + itemDur + ' secondes • ' + itemSets + ' séries progressives</div>';
-            const right = document.createElement('div');
-            right.className = 'cluster';
-            const btnChoose = document.createElement('button');
-            btnChoose.type = 'button';
-            btnChoose.className = idx === sportState.exIdx && !sportState.specialMode ? 'btn-blue' : 'btn-soft';
-            btnChoose.textContent = idx === sportState.exIdx && !sportState.specialMode ? 'En cours' : 'Lancer';
-            btnChoose.addEventListener('click', function () {
-              stopSportTimer();
-              document.getElementById('sportCelebrationBox').classList.remove('show');
-              sportState.specialMode = '';
-              sportState.isRestPhase = false;
-              sportState.currentSet = 1;
-              sportState.exIdx = idx;
-              renderSportUI();
-              speak('Exercice sélectionné : ' + item.name + '. ' + item.desc);
-            });
-            right.appendChild(btnChoose);
-            row.append(left, right);
-            listBox.appendChild(row);
-          });
-        }
-      }
-
-      document.querySelectorAll('.sport-h-card').forEach(function (card) {
-        card.addEventListener('click', function () {
-          stopSportTimer();
-          document.getElementById('sportCelebrationBox').classList.remove('show');
-          sportState.handicap = card.dataset.sh;
-          sportState.exIdx = 0;
-          sportState.currentSet = 1;
-          sportState.isRestPhase = false;
-          sportState.specialMode = '';
-          saveSportState();
-          renderSportUI();
-          speak('Programme adapté sélectionné : ' + SPORT_PROGRAMS[sportState.handicap].label);
-        });
-      });
-
-      document.querySelectorAll('.sport-goal-btn').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          stopSportTimer();
-          document.getElementById('sportCelebrationBox').classList.remove('show');
-          sportState.variant = btn.dataset.var;
-          sportState.exIdx = 0;
-          sportState.currentSet = 1;
-          sportState.isRestPhase = false;
-          sportState.specialMode = '';
-          saveSportState();
-          renderSportUI();
-          showToast('Variante : ' + btn.textContent);
-        });
-      });
-
-      document.querySelectorAll('.sport-pace-btn').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          stopSportTimer();
-          sportState.pace = Number(btn.dataset.pace) || 1;
-          renderSportUI();
-          showToast('Cadence coach : ' + btn.textContent);
-        });
-      });
-
-      document.getElementById('btnSportWarmup').addEventListener('click', function () {
-        stopSportTimer();
-        document.getElementById('sportCelebrationBox').classList.remove('show');
-        sportState.specialMode = 'warmup';
-        sportState.isRestPhase = false;
-        sportState.currentSet = 1;
-        renderSportUI();
-        speak('Échauffement articulaire prêt. Appuyez sur Démarrer pour 30 secondes.');
-      });
-
-      document.getElementById('btnSportCooldown').addEventListener('click', function () {
-        stopSportTimer();
-        document.getElementById('sportCelebrationBox').classList.remove('show');
-        sportState.specialMode = 'cooldown';
-        sportState.isRestPhase = false;
-        sportState.currentSet = 1;
-        renderSportUI();
-        speak('Retour au calme prêt. Appuyez sur Démarrer pour 30 secondes de respiration.');
-      });
-
-      document.getElementById('btnSportShuffleEx').addEventListener('click', function () {
-        stopSportTimer();
-        sportState.variant = 'auto';
-        sportState.shuffleSeed++;
-        sportState.exIdx = 0;
-        sportState.currentSet = 1;
-        sportState.isRestPhase = false;
-        sportState.specialMode = '';
-        renderSportUI();
-        showToast('Nouvelle combinaison d’exercices générée');
-      });
-
-      document.getElementById('btnSportDayPrev').addEventListener('click', function () {
-        if (sportState.day > 1) {
-          stopSportTimer();
-          document.getElementById('sportCelebrationBox').classList.remove('show');
-          sportState.day--;
-          sportState.currentSet = 1;
-          sportState.isRestPhase = false;
-          saveSportState();
-          renderSportUI();
-        }
-      });
-      document.getElementById('btnSportDayNext').addEventListener('click', function () {
-        if (sportState.day < sportState.challenge) {
-          stopSportTimer();
-          document.getElementById('sportCelebrationBox').classList.remove('show');
-          sportState.day++;
-          sportState.currentSet = 1;
-          sportState.isRestPhase = false;
-          saveSportState();
-          renderSportUI();
-        }
-      });
-      document.getElementById('btnSportExplain').addEventListener('click', function () {
-        if (sportState.specialMode === 'warmup') {
-          speak('Échauffement articulaire : ouvrez doucement les bras et roulez les épaules pendant 30 secondes.');
-          return;
-        }
-        if (sportState.specialMode === 'cooldown') {
-          speak('Retour au calme : relâchez vos épaules et respirez lentement pendant 30 secondes.');
-          return;
-        }
-        const activeExList = getActiveExercises();
-        const ex = activeExList[sportState.exIdx] || activeExList[0];
-        speak(ex.name + '. ' + ex.desc);
-      });
-      document.getElementById('btnSportResetEx').addEventListener('click', function () {
-        stopSportTimer();
-        document.getElementById('sportCelebrationBox').classList.remove('show');
-        sportState.isRestPhase = false;
-        sportState.currentSet = 1;
-        renderSportUI();
-        showToast('Exercice réinitialisé à la série 1');
-      });
-
-      function completeCurrentSportExercise() {
-        const activeExList = getActiveExercises();
-        const ex = activeExList[sportState.exIdx] || activeExList[0];
-        stopSportTimer();
-        document.getElementById('coachPhaseBadge').textContent = 'TERMINÉ !';
-        if (sportState.specialMode) {
-          const wasWarmup = sportState.specialMode === 'warmup';
-          sportState.specialMode = '';
-          sportState.totalMinutes += 0.5;
-          saveSportState();
-          renderSportUI();
-          playTone(659.25, 0.35);
-          speak(wasWarmup ? 'Échauffement terminé ! Vous êtes prêt pour la séance.' : 'Retour au calme terminé ! Bravo pour votre séance.');
-          return;
-        }
-        const dKey = sportState.handicap + '_' + sportState.challenge + '_d' + sportState.day + '_' + ex.name;
-        sportState.completed[dKey] = true;
-        const dur = getProgressiveDuration(ex.baseSec);
-        const sets = getProgressiveSets(ex.sets);
-        sportState.totalMinutes += Math.round(((dur * sets) / 60) * 10) / 10;
-        sportState.currentSet = 1;
-        sportState.isRestPhase = false;
-        saveSportState();
-        renderSportUI();
-
-        playTone(523.25, 0.25);
-        setTimeout(function () { playTone(659.25, 0.25); }, 200);
-        setTimeout(function () { playTone(783.99, 0.45); }, 400);
-        flashScreen();
-
-        const celebBox = document.getElementById('sportCelebrationBox');
-        document.getElementById('sportCelebTitle').textContent = 'Félicitations ! Exercice terminé !';
-        document.getElementById('sportCelebMsg').textContent = 'Bravo ! Vous avez complété toutes les séries de « ' + ex.name + ' » (Jour ' + sportState.day + ').';
-        celebBox.classList.add('show');
-        speak('Félicitations ! Exercice terminé ! Bravo pour votre régularité.');
-      }
-
-      document.getElementById('btnSportSkipPhase').addEventListener('click', function () {
-        const activeExList = getActiveExercises();
-        const ex = activeExList[sportState.exIdx] || activeExList[0];
-        const sets = getProgressiveSets(ex.sets);
-        if (sportState.isRestPhase) {
-          sportState.isRestPhase = false;
-          sportState.totalTime = getProgressiveDuration(ex.baseSec);
-          sportState.timeLeft = sportState.totalTime;
-          updateSportChronoUI();
-          renderSportUI();
-          showToast('Repos passé • Reprise série ' + sportState.currentSet);
-        } else if (sportState.currentSet < sets && !sportState.specialMode) {
-          sportState.currentSet++;
-          sportState.isRestPhase = false;
-          sportState.totalTime = getProgressiveDuration(ex.baseSec);
-          sportState.timeLeft = sportState.totalTime;
-          renderSportUI();
-          showToast('Passage à la série ' + sportState.currentSet);
-        } else {
-          completeCurrentSportExercise();
-        }
-      });
-
-      document.getElementById('btnSportStart').addEventListener('click', function () {
-        if (sportState.running) {
-          stopSportTimer();
-          showToast('Exercice en pause');
-          return;
-        }
-        const phaseInfo = getCurrentPhaseInfo();
-        const activeExList = getActiveExercises();
-        const ex = activeExList[sportState.exIdx] || activeExList[0];
-        const sets = getProgressiveSets(ex.sets);
-        document.getElementById('sportCelebrationBox').classList.remove('show');
-        if (sportState.timeLeft <= 0) {
-          sportState.totalTime = sportState.isRestPhase ? phaseInfo.restSec : getProgressiveDuration(ex.baseSec);
-          sportState.timeLeft = sportState.totalTime;
-        }
-        sportState.running = true;
-        document.getElementById('btnSportStart').textContent = 'Pause';
-        document.getElementById('coachPhaseBadge').textContent = sportState.isRestPhase ? 'REPOS ACTIF' : 'EN COURS';
-        if (sportState.specialMode === 'warmup') {
-          speak('Échauffement articulaire de 30 secondes. Respirez calmement.');
-        } else if (sportState.specialMode === 'cooldown') {
-          speak('Retour au calme de 30 secondes. Relâchez les épaules.');
-        } else if (!sportState.isRestPhase) {
-          speak('Série ' + sportState.currentSet + ' sur ' + sets + ' : ' + ex.name);
-        }
-
-        sportState.timerId = setInterval(function () {
-          if (sportState.timeLeft > 1) {
-            sportState.timeLeft--;
-            updateSportChronoUI();
-            if (sportState.timeLeft <= 5 && sportState.timeLeft >= 1) {
-              playTone(440 + (5 - sportState.timeLeft) * 60, 0.22);
-              if (sportState.handicap === 'auditif') flashScreen();
-              speak(String(sportState.timeLeft));
-            }
-          } else {
-            sportState.timeLeft = 0;
-            updateSportChronoUI();
-            const autoChain = document.getElementById('sportAutoNextChk').checked;
-
-            if (sportState.isRestPhase) {
-              sportState.isRestPhase = false;
-              sportState.totalTime = getProgressiveDuration(ex.baseSec);
-              sportState.timeLeft = sportState.totalTime;
-              playTone(587.33, 0.3);
-              renderSportUI();
-              if (autoChain) {
-                document.getElementById('coachPhaseBadge').textContent = 'EN COURS';
-                speak('Reprise ! Série ' + sportState.currentSet + ' sur ' + sets);
-              } else {
-                stopSportTimer();
-                speak('Repos terminé. Appuyez sur Démarrer pour la série ' + sportState.currentSet);
-              }
-            } else if (!sportState.specialMode && sportState.currentSet < sets) {
-              sportState.currentSet++;
-              sportState.isRestPhase = true;
-              sportState.totalTime = phaseInfo.restSec;
-              sportState.timeLeft = phaseInfo.restSec;
-              playTone(440, 0.35);
-              renderSportUI();
-              if (autoChain) {
-                document.getElementById('coachPhaseBadge').textContent = 'REPOS ACTIF';
-                speak('Série terminée ! ' + phaseInfo.restSec + ' secondes de repos actif.');
-              } else {
-                stopSportTimer();
-                speak('Série terminée ! Prenez un court repos puis appuyez sur Démarrer.');
-              }
-            } else {
-              completeCurrentSportExercise();
-            }
-          }
-        }, 1000);
-      });
-
-      document.querySelectorAll('.rpe-btn').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          const feel = btn.dataset.rpe;
-          sportState.rpeHistory.push({ day: sportState.day, feel: feel });
-          if (feel === 'Intense') {
-            sportState.intensityOffset = Math.max(-2, sportState.intensityOffset - 1);
-            if (sportState.pace > 0.7) sportState.pace = 0.7;
-            renderSportUI();
-            showToast('Séries allégées automatiquement pour votre confort');
-          } else if (feel === 'Facile') {
-            sportState.intensityOffset = Math.min(3, sportState.intensityOffset + 1);
-            renderSportUI();
-            showToast('Super ! Prochaines séries légèrement renforcées (+5s)');
-          } else {
-            showToast('Ressenti « Idéal » enregistré');
-          }
-          saveSportState();
-        });
-      });
-
-      document.getElementById('btnSportNextSeries').addEventListener('click', function () {
-        const activeExList = getActiveExercises();
-        document.getElementById('sportCelebrationBox').classList.remove('show');
-        sportState.currentSet = 1;
-        sportState.isRestPhase = false;
-        if (sportState.exIdx < activeExList.length - 1) {
-          sportState.exIdx++;
-          renderSportUI();
-          const nextEx = activeExList[sportState.exIdx];
-          speak('Exercice suivant : ' + nextEx.name);
-        } else {
-          if (sportState.day < sportState.challenge) {
-            sportState.day++;
-          }
-          sportState.exIdx = 0;
-          saveSportState();
-          renderSportUI();
-          speak('Séance du jour complète ! Passage au Jour ' + sportState.day + '.');
-        }
-      });
-
-      document.getElementById('btnSportShareReport').addEventListener('click', function () {
-        const prog = SPORT_PROGRAMS[sportState.handicap];
-        const doneCount = Object.keys(sportState.completed).length;
-        const summary = 'Bilan Sport HandiVie+ : Profil ' + prog.label + ' • Jour ' + sportState.day + '/' + sportState.challenge + ' • ' + doneCount + ' séries validées • ' + Math.round(sportState.totalMinutes) + ' min d’activité.';
-        copyText(summary, 'Bilan sport copié');
-        speak(summary);
-      });
-
-      function runSafely(name, fn) {
-        try { fn(); } catch (err) { console.warn('HandiVie+ init warning [' + name + ']:', err); }
-      }
-      runSafely('connection', refreshConnectionUI);
-      runSafely('lang', function () { setLanguage('fr', true); });
-      runSafely('caa', renderCaa);
-      runSafely('water', renderWater);
-      runSafely('shop', renderShop);
-      runSafely('meds', renderMeds);
-      runSafely('places', renderPlaces);
-      runSafely('ice', renderIce);
-      runSafely('oddGame', renderOddGame);
-      runSafely('pairsGame', initPairsGame);
-      runSafely('tfGame', renderTf);
-      runSafely('clock', updateClockUI);
-      runSafely('falcStats', function () { updateFalcStats(document.getElementById('falcInput').value); });
-      runSafely('exitCheck', renderExitCheck);
-      runSafely('routine', renderRoutine);
-      runSafely('appts', renderAppts);
-      runSafely('painEnergy', renderPainEnergy);
-      runSafely('quickSms', syncQuickSms);
-      runSafely('shareGps', updateShareGpsUI);
-      runSafely('contacts', renderContacts);
-      runSafely('clues', renderClues);
-      runSafely('budget', renderBudget);
-      runSafely('meals', renderMeals);
-      runSafely('sportUI', renderSportUI);
-      runSafely('coachAnim', startCoachAnimation);
-    })();
-  </script>
-</body>
-</html>
+          document.getElementById('sportEx
