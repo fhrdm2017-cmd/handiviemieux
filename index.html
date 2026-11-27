@@ -1547,7 +1547,9 @@ caa: [
 function safeGet(key, fallback) {
 try {
 const v = localStorage.getItem(key);
-return v === null ? (key in memFallback ? memFallback[key] : fallback) : JSON.parse(v);
+if (v === null) return key in memFallback ? memFallback[key] : fallback;
+const parsed = JSON.parse(v);
+return parsed !== null && parsed !== undefined ? parsed : fallback;
 } catch () {
 return key in memFallback ? memFallback[key] : fallback;
 }
@@ -1560,22 +1562,22 @@ try { localStorage.setItem(key, JSON.stringify(val)); } catch () {}
 lang: 'fr',
 fontSize: 18,
 coords: null,
-water: safeGet('hv5_water', 0),
-shop: safeGet('hv5_shop', ['Clés & Téléphone', 'Eau']),
-meds: safeGet('hv5_meds', [{ time: '08:30', name: 'Traitement du matin', takenAt: '' }]),
-places: safeGet('hv5_places', [{ name: 'Mairie & Accueil', note: 'Rampe douce + toilettes PMR' }]),
-ice: safeGet('hv5_ice', { name: '', contact: '', phone: '114', blood: '', needs: '' }),
+water: Number(safeGet('hv5_water', 0)) || 0,
+shop: Array.isArray(safeGet('hv5_shop', null)) ? safeGet('hv5_shop', []) : ['Clés & Téléphone', 'Eau'],
+meds: Array.isArray(safeGet('hv5_meds', null)) ? safeGet('hv5_meds', []) : [{ time: '08:30', name: 'Traitement du matin', takenAt: '' }],
+places: Array.isArray(safeGet('hv5_places', null)) ? safeGet('hv5_places', []) : [{ name: 'Mairie & Accueil', note: 'Rampe douce + toilettes PMR' }],
+ice: Object.assign({ name: '', contact: '', phone: '114', blood: '', needs: '' }, safeGet('hv5_ice', {}) || {}),
 subscribed: safeGet('hv5_sub', false) === true,
-exitCheck: safeGet('hv20_exit', ['Téléphone chargé', 'Clés', 'Carte priorité / mobilité', 'Eau']),
-routine: safeGet('hv20_routine', ["Matin : Verre d'eau & étirements", 'Soir : Préparer affaires du lendemain']),
-appts: safeGet('hv20_appts', [{ date: '', time: '10:00', label: 'Suivi médical' }]),
-pain: safeGet('hv20_pain', 0),
-energy: safeGet('hv20_energy', 5),
-contacts: safeGet('hv20_contacts', [{ label: 'Urgences accessibles', tel: '114' }]),
-clues: safeGet('hv20_clues', [{ title: 'Repère maison', value: 'Garder le double de clés en sécurité' }]),
-budget: safeGet('hv20_budget', []),
-meals: safeGet('hv20_meals', [{ slot: 'Petit-déjeuner', text: 'Pain, boisson chaude' }]),
-journal: safeGet('hv20_journal', ''),
+exitCheck: Array.isArray(safeGet('hv20_exit', null)) ? safeGet('hv20_exit', []) : ['Téléphone chargé', 'Clés', 'Carte priorité / mobilité', 'Eau'],
+routine: Array.isArray(safeGet('hv20_routine', null)) ? safeGet('hv20_routine', []) : ["Matin : Verre d'eau & étirements", 'Soir : Préparer affaires du lendemain'],
+appts: Array.isArray(safeGet('hv20_appts', null)) ? safeGet('hv20_appts', []) : [{ date: '', time: '10:00', label: 'Suivi médical' }],
+pain: Number(safeGet('hv20_pain', 0)) || 0,
+energy: Number(safeGet('hv20_energy', 5)) || 5,
+contacts: Array.isArray(safeGet('hv20_contacts', null)) ? safeGet('hv20_contacts', []) : [{ label: 'Urgences accessibles', tel: '114' }],
+clues: Array.isArray(safeGet('hv20_clues', null)) ? safeGet('hv20_clues', []) : [{ title: 'Repère maison', value: 'Garder le double de clés en sécurité' }],
+budget: Array.isArray(safeGet('hv20_budget', null)) ? safeGet('hv20_budget', []) : [],
+meals: Array.isArray(safeGet('hv20_meals', null)) ? safeGet('hv20_meals', []) : [{ slot: 'Petit-déjeuner', text: 'Pain, boisson chaude' }],
+journal: String(safeGet('hv20_journal', '') || ''),
 timerTotal: 300,
 timerLeft: 300,
 timerId: null,
@@ -1585,7 +1587,7 @@ scanId: null,
 scanIdx: 0
 };
 ​function escapeHtml(s) {
-return String(s).replace(/[&<>"']/g, function (m) {
+return String(s || '').replace(/[&<>"']/g, function (m) {
 return { '&': '&', '<': '<', '>': '>', '"': '"', "'": ''' }[m];
 });
 }
@@ -1643,7 +1645,7 @@ if ('speechSynthesis' in window) {
 try {
 window.speechSynthesis.cancel();
 const u = new SpeechSynthesisUtterance(text);
-u.lang = LANGS[store.lang].voice;
+u.lang = (LANGS[store.lang] && LANGS[store.lang].voice) || 'fr-FR';
 const rateEl = document.getElementById('speechRate');
 u.rate = rateEl ? parseFloat(rateEl.value || '1') : 1;
 window.speechSynthesis.speak(u);
@@ -1663,7 +1665,7 @@ p.classList.toggle('active', p.id === 'panel-' + key);
 const wrap = document.getElementById('caaContainer');
 if (!wrap) return;
 wrap.innerHTML = '';
-LANGS[store.lang].caa.forEach(function (c) {
+(LANGS[store.lang] ? LANGS[store.lang].caa : LANGS.fr.caa).forEach(function (c) {
 const b = document.createElement('button');
 b.type = 'button';
 b.className = 'caa-tile';
@@ -2766,16 +2768,25 @@ exercises: [
 }
 };
 ​const TYPE_LABELS = { mobilite: 'Mobilité', force: 'Tonus', cardio: 'Cardio doux' };
+​const rawHandicap = safeGet('hv_sport_h', 'fauteuil');
+const rawFormat = safeGet('hv_sport_fmt', 'progressive');
+const rawVariant = safeGet('hv_sport_var', 'auto');
+const rawChallenge = Number(safeGet('hv_sport_chal', 30));
+const rawDay = Number(safeGet('hv_sport_day', 1));
+const rawDone = safeGet('hv_sport_done', {});
+const rawMins = Number(safeGet('hv_sport_mins', 0));
+const rawRpe = safeGet('hv_sport_rpe', []);
+const rawOffset = Number(safeGet('hv_sport_offset', 0));
 ​const sportState = {
-handicap: safeGet('hv_sport_h', 'fauteuil'),
-format: safeGet('hv_sport_fmt', 'progressive'),
-variant: safeGet('hv_sport_var', 'auto'),
-challenge: safeGet('hv_sport_chal', 30),
-day: safeGet('hv_sport_day', 1),
-completed: safeGet('hv_sport_done', {}),
-totalMinutes: safeGet('hv_sport_mins', 0),
-rpeHistory: safeGet('hv_sport_rpe', []),
-intensityOffset: safeGet('hv_sport_offset', 0),
+handicap: SPORT_PROGRAMS[rawHandicap] ? rawHandicap : 'fauteuil',
+format: ['progressive', 'hiit_doux', 'endurance_series', 'zen_mobilite'].indexOf(rawFormat) !== -1 ? rawFormat : 'progressive',
+variant: ['auto', 'mobilite', 'force', 'cardio'].indexOf(rawVariant) !== -1 ? rawVariant : 'auto',
+challenge: SPORT_CHALLENGES.indexOf(rawChallenge) !== -1 ? rawChallenge : 30,
+day: Number.isFinite(rawDay) && rawDay >= 1 ? Math.min(365, Math.floor(rawDay)) : 1,
+completed: rawDone && typeof rawDone === 'object' && !Array.isArray(rawDone) ? rawDone : {},
+totalMinutes: Number.isFinite(rawMins) && rawMins >= 0 ? rawMins : 0,
+rpeHistory: Array.isArray(rawRpe) ? rawRpe : [],
+intensityOffset: Number.isFinite(rawOffset) ? Math.max(-2, Math.min(3, rawOffset)) : 0,
 shuffleSeed: 0,
 pace: 1,
 exIdx: 0,
@@ -2802,7 +2813,7 @@ safeSet('hv_sport_rpe', sportState.rpeHistory);
 safeSet('hv_sport_offset', sportState.intensityOffset);
 }
 ​function getActiveExercises() {
-const prog = SPORT_PROGRAMS[sportState.handicap];
+const prog = SPORT_PROGRAMS[sportState.handicap] || SPORT_PROGRAMS.fauteuil;
 let list = prog.exercises.slice();
 ​if (sportState.format === 'zen_mobilite') {
 const zen = list.filter(function (e) { return e.type === 'mobilite'; });
@@ -2819,7 +2830,7 @@ list = list.slice(shift).concat(list.slice(0, shift));
 const count = sportState.day <= 5 ? Math.min(4, list.length) : (sportState.day <= 15 ? Math.min(5, list.length) : Math.min(6, list.length));
 list = list.slice(0, count);
 }
-return list;
+return list.length ? list : prog.exercises;
 }
 ​function getCurrentPhaseInfo() {
 let baseRest = sportState.day <= 7 ? 12 : (sportState.day <= 15 ? 10 : 8);
@@ -2831,9 +2842,9 @@ return { num: 4, name: 'Phase 4 : Maîtrise & Vitalité', restSec: baseRest };
 }
 ​function getProgressiveDuration(baseSec) {
 if (sportState.specialMode) return 30;
-let sec = baseSec;
+let sec = baseSec || 25;
 if (sportState.format === 'hiit_doux') sec = 20;
-if (sportState.format === 'zen_mobilite') sec = Math.max(25, baseSec);
+if (sportState.format === 'zen_mobilite') sec = Math.max(25, sec);
 const dayBonus = Math.min(25, Math.floor((sportState.day - 1) * 0.45));
 const rpeBonus = sportState.intensityOffset * 5;
 const paceFactor = sportState.pace === 0.7 ? 1.15 : (sportState.pace === 1.35 ? 0.9 : 1);
@@ -2841,7 +2852,7 @@ return Math.max(15, Math.round((sec + dayBonus + rpeBonus) * paceFactor));
 }
 ​function getProgressiveSets(baseSets) {
 if (sportState.specialMode) return 1;
-let sets = sportState.format === 'endurance_series' ? Math.max(4, baseSets + 1) : baseSets;
+let sets = sportState.format === 'endurance_series' ? Math.max(4, (baseSets || 3) + 1) : (baseSets || 3);
 if (sportState.day >= 16) sets += 1;
 if (sportState.day >= 60) sets += 1;
 if (sportState.intensityOffset < 0 && sets > 2) sets -= 1;
@@ -2869,10 +2880,10 @@ playTone(sign > 0 ? 392 : 330, 0.12);
 if (breathEl) {
 breathEl.textContent = swing >= 0 ? 'Inspirez ↑' : 'Expirez ↓';
 }
-​legL.setAttribute('d', 'M108 140 L102 178 L98 212');
-legR.setAttribute('d', 'M132 140 L138 178 L142 212');
+​if (legL) legL.setAttribute('d', 'M108 140 L102 178 L98 212');
+if (legR) legR.setAttribute('d', 'M132 140 L138 178 L142 212');
 upper.setAttribute('transform', 'translate(0, 0) rotate(0 120 138)');
-head.setAttribute('transform', 'rotate(0 120 62)');
+if (head) head.setAttribute('transform', 'rotate(0 120 62)');
 ​if (poseName === 'rest') {
 const breathe = Math.round(wave * 4);
 upper.setAttribute('transform', 'translate(0, ' + (-breathe) + ')');
@@ -2882,7 +2893,7 @@ armR.setAttribute('transform', 'rotate(' + Math.round(-10 - wave * 12) + ' 142 9
 const deg = Math.round(wave * 145);
 armL.setAttribute('transform', 'rotate(' + deg + ' 98 92)');
 armR.setAttribute('transform', 'rotate(' + (-deg) + ' 142 92)');
-head.setAttribute('transform', 'rotate(' + Math.round(swing * 4) + ' 120 62)');
+if (head) head.setAttribute('transform', 'rotate(' + Math.round(swing * 4) + ' 120 62)');
 } else if (poseName === 'arms_open') {
 const deg = Math.round(wave * 95);
 armL.setAttribute('transform', 'rotate(' + deg + ' 98 92)');
@@ -2895,15 +2906,15 @@ armR.setAttribute('transform', 'rotate(' + (-deg * 0.85) + ' 142 92)');
 } else if (poseName === 'squat') {
 const drop = Math.round(wave * 20);
 upper.setAttribute('transform', 'translate(0, ' + drop + ')');
-legL.setAttribute('d', 'M108 ' + (140 + drop) + ' L88 ' + (178 + Math.round(drop * 0.4)) + ' L98 212');
-legR.setAttribute('d', 'M132 ' + (140 + drop) + ' L152 ' + (178 + Math.round(drop * 0.4)) + ' L142 212');
+if (legL) legL.setAttribute('d', 'M108 ' + (140 + drop) + ' L88 ' + (178 + Math.round(drop * 0.4)) + ' L98 212');
+if (legR) legR.setAttribute('d', 'M132 ' + (140 + drop) + ' L152 ' + (178 + Math.round(drop * 0.4)) + ' L142 212');
 const armDeg = Math.round(wave * 75);
 armL.setAttribute('transform', 'rotate(' + armDeg + ' 98 92)');
 armR.setAttribute('transform', 'rotate(' + (-armDeg) + ' 142 92)');
 } else if (poseName === 'twist') {
 const rot = Math.round(swing * 12);
 upper.setAttribute('transform', 'rotate(' + rot + ' 120 138)');
-head.setAttribute('transform', 'rotate(' + Math.round(swing * 8) + ' 120 62)');
+if (head) head.setAttribute('transform', 'rotate(' + Math.round(swing * 8) + ' 120 62)');
 armL.setAttribute('transform', 'rotate(' + Math.round(35 + swing * 25) + ' 98 92)');
 armR.setAttribute('transform', 'rotate(' + Math.round(-35 + swing * 25) + ' 142 92)');
 }
@@ -2953,7 +2964,7 @@ circle.classList.remove('countdown-5');
 }
 }
 ​function renderSportUI() {
-const prog = SPORT_PROGRAMS[sportState.handicap];
+const prog = SPORT_PROGRAMS[sportState.handicap] || SPORT_PROGRAMS.fauteuil;
 const phaseInfo = getCurrentPhaseInfo();
 const activeExList = getActiveExercises();
 if (sportState.exIdx >= activeExList.length) sportState.exIdx = 0;
